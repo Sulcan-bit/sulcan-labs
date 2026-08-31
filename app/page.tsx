@@ -1,4 +1,7 @@
+// app/page.tsx
+
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -6,9 +9,22 @@ export default function Home() {
       {/* Navbar */}
       <nav className="w-full p-4 flex justify-between items-center bg-white shadow">
         <div className="text-2xl font-bold tracking-wide">Sulcan Labs</div>
-        <button className="px-4 py-2 bg-black text-white rounded">
-          Login
-        </button>
+
+        <div className="flex gap-4">
+          <Link
+            href="/login"
+            className="px-4 py-2 bg-black text-white rounded"
+          >
+            Login
+          </Link>
+
+          <Link
+            href="/register"
+            className="px-4 py-2 bg-gray-800 text-white rounded"
+          >
+            Register
+          </Link>
+        </div>
       </nav>
 
       {/* Pipeline Section */}
@@ -86,8 +102,4 @@ export default function Home() {
     </main>
   );
 }
-
-
-
-
 

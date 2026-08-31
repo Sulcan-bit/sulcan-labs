@@ -1,0 +1,3 @@
+ALTER TABLE "Scenario"
+ALTER COLUMN "inputsId" SET NOT NULL;
+

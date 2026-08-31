@@ -1,0 +1,422 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model StreamInfo {
+  id          String   @id @default(uuid())
+  acronym     String   @unique
+  full_name   String
+  description String
+  category    String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  MonthlyData_MSW   MonthlyData[] @relation("MSWStream")
+  MonthlyData_C5    MonthlyData[] @relation("C5Stream")
+  MonthlyData_FTSK  MonthlyData[] @relation("FTSKStream")
+  MonthlyData_PEACE MonthlyData[] @relation("PEACEStream")
+  MonthlyData_KAPS  MonthlyData[] @relation("KAPSStream")
+  MonthlyData_WCS   MonthlyData[] @relation("WCSStream")
+  MonthlyData_C4    MonthlyData[] @relation("C4Stream")
+}
+
+model MonthlyData {
+  id    Int    @id @default(autoincrement())
+  year  Int
+  month String // "Jan", "Feb", ...
+
+  days_in_month Int
+
+  // --- Foreign Keys to StreamInfo ---
+  msw_stream_id   String?
+  c5_stream_id    String?
+  ftsk_stream_id  String?
+  peace_stream_id String?
+  kaps_stream_id  String?
+  wcs_stream_id   String?
+  c4_stream_id    String?
+
+  MSWStream   StreamInfo? @relation("MSWStream", fields: [msw_stream_id], references: [id])
+  C5Stream    StreamInfo? @relation("C5Stream", fields: [c5_stream_id], references: [id])
+  FTSKStream  StreamInfo? @relation("FTSKStream", fields: [ftsk_stream_id], references: [id])
+  PEACEStream StreamInfo? @relation("PEACEStream", fields: [peace_stream_id], references: [id])
+  KAPSStream  StreamInfo? @relation("KAPSStream", fields: [kaps_stream_id], references: [id])
+  WCSStream   StreamInfo? @relation("WCSStream", fields: [wcs_stream_id], references: [id])
+  C4Stream    StreamInfo? @relation("C4Stream", fields: [c4_stream_id], references: [id])
+
+  // ⭐ NEW BACK‑RELATIONS ⭐
+  scenarios      Scenario[]
+  heavyOilInputs HeavyOilInputs[]
+
+  // --- WTI & FX ---
+  wti_cma_usd_bbl Float?
+  fx_cad_usd      Float?
+
+  // --- MSW ---
+  msw_diff_usd_bbl           Float?
+  msw_wadf_cad_m3            Float?
+  msw_par_base_price_usd_bbl Float?
+  msw_par_base_price_cad_m3  Float?
+  msw_stream_price_cad_m3    Float?
+  msw_to_wti_pct             Float?
+
+  // --- C5+ vs MSW ---
+  c5_vs_msw_diff_usd_bbl Float?
+
+  // --- FTSK ---
+  ftsk_c5_diff_usd_bbl           Float?
+  ftsk_c5_par_base_price_usd_bbl Float?
+  ftsk_c5_par_base_price_cad_m3  Float?
+  ftsk_c5_stream_price_cad_m3    Float?
+  ftsk_c5_to_wti_pct             Float?
+
+  // --- PEACE ---
+  peace_c5_diff_usd_bbl           Float?
+  peace_c5_par_base_price_usd_bbl Float?
+  peace_c5_par_base_price_cad_m3  Float?
+  peace_c5_stream_price_cad_m3    Float?
+  peace_c5_to_wti_pct             Float?
+
+  // --- KAPS ---
+  kaps_c5_diff_usd_bbl Float?
+
+  // --- CRW ---
+  crw_c5_enb_wadf_cad_m3 Float?
+
+  // --- C5+ Density & Allowance ---
+  c5_density_slope_cad_m3_per_kg_m3 Float?
+  c5_allow_price_cad_m3             Float?
+
+  // --- WCS ---
+  wcs_diff_usd_bbl               Float?
+  wcs_price_cad_m3               Float?
+  wcs_price_usd_bbl              Float?
+  msw_vs_wcs_diff_usd_bbl        Float?
+  wcs_vs_wti_usd_bbl             Float?
+  hvy_all_price_cad_m3           Float?
+  wcs_vs_c5_diluent_cost_usd_bbl Float?
+
+  // --- ENB Reference Temperature ---
+  enb_ref_temp Float?
+
+  // --- C4 ---
+  c4_to_wti_usd_bbl              Float?
+  c4_price_usd_bbl               Float?
+  c4_price_cad_m3                Float?
+  c4_landed_marten_hills_pct_wti Float?
+
+  // --- MSY ---
+  msy_diff_index_usd_bbl  Float?
+  msy_to_msw_diff_usd_bbl Float?
+
+  // --- MSE ---
+  mse_diff_index_usd_bbl  Float?
+  mse_vs_msw_diff_usd_bbl Float?
+
+  // --- CAL ---
+  cal_diff_usd_bbl           Float?
+  cal_wadf_cad_m3            Float?
+  cal_par_base_price_usd_bbl Float?
+  cal_par_base_price_cad_m3  Float?
+  cal_stream_price_cad_m3    Float?
+  cal_to_wti_pct             Float?
+
+  // --- LSB ---
+  lsb_diff_usd_bbl           Float?
+  lsb_wadf_cad_m3            Float?
+  lsb_par_base_price_usd_bbl Float?
+  lsb_par_base_price_cad_m3  Float?
+  lsb_stream_price_cad_m3    Float?
+  lsb_to_wti_pct             Float?
+
+  // --- BRN ---
+  brn_diff_usd_bbl           Float?
+  brn_wadf_cad_m3            Float?
+  brn_par_base_price_usd_bbl Float?
+  brn_par_base_price_cad_m3  Float?
+  brn_stream_price_cad_m3    Float?
+  brn_to_wti_pct             Float?
+
+  // --- BRS ---
+  brs_diff_usd_bbl           Float?
+  brs_wadf_cad_m3            Float?
+  brs_par_base_price_usd_bbl Float?
+  brs_par_base_price_cad_m3  Float?
+  brs_stream_price_cad_m3    Float?
+  brs_to_wti_pct             Float?
+
+  // --- CHV ---
+  chv_diff_usd_bbl  Float?
+  chv_price_usd_bbl Float?
+  chv_price_cad_m3  Float?
+
+  // --- CWH ---
+  cwh_diff_usd_bbl  Float?
+  cwh_price_usd_bbl Float?
+  cwh_price_cad_m3  Float?
+
+  // --- LLB ---
+  llb_diff_usd_bbl  Float?
+  llb_price_usd_bbl Float?
+  llb_price_cad_m3  Float?
+
+  // --- WCB ---
+  wcb_diff_usd_bbl  Float?
+  wcb_price_usd_bbl Float?
+  wcb_price_cad_m3  Float?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([year, month], name: "year_month")
+}
+
+model Scenario {
+  id        Int    @id @default(autoincrement())
+
+  userId    Int?
+  user      User?       @relation(fields: [userId], references: [id])
+
+  // ⭐ Scenario metadata
+  scenario_name      String?
+terminal_operator  String?
+terminal_location  String?
+shrinkage_model    String?
+
+  notes              String?
+
+  // ⭐ NEW — human-readable timestamp from UI
+  created_at_text    String?
+
+  // Existing fields
+  model     String
+  monthId   Int
+  month     MonthlyData @relation(fields: [monthId], references: [id])
+
+  inputsId  Int @unique
+  inputs    HeavyOilInputs @relation(fields: [inputsId], references: [id])
+
+  inputsJson Json?
+
+  results ScenarioResults?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+
+model ScenarioResults {
+  id            Int      @id @default(autoincrement())
+  scenarioId    Int      @unique
+  scenario      Scenario @relation(fields: [scenarioId], references: [id])
+
+
+// PART A — Monthly Pricing
+partA_wti_usd_bbl                Float?
+partA_fx_cad_usd                 Float?
+partA_heavy_stream_index_usd_bbl Float?
+partA_premium_heavy_usd_bbl      Float?
+partA_heavy_stream_price_cad_m3  Float?
+partA_condensate_index_usd_bbl   Float?
+partA_condensate_par_price_cad_m3 Float?
+partA_condensate_stream_price_cad_m3 Float?
+partA_condensate_eq_credit_cad_m3 Float?
+partA_condensate_price_after_eq_cad_m3 Float?
+partA_c4_price_pct_wti           Float?
+partA_c4_purchase_price_usd_bbl  Float?
+partA_c4_diff_to_wti_usd_bbl     Float?
+partA_c4_price_cad_m3            Float?
+
+// PART B — API 12.3 Shrinkage (Condensate Only)
+partB_condensate_est_volume_m3       Float?
+partB_total_receipts_m3              Float?
+partB_weighted_avg_density_kg_m3     Float?
+partB_shrink_pct_cond                Float?
+partB_shrink_pct_oil                 Float?
+partB_shrink_pct_butane              Float?
+partB_shrink_vol_cond_m3             Float?
+partB_shrink_vol_oil_m3              Float?
+partB_shrink_vol_butane_m3           Float?
+partB_total_shrinkage_m3             Float?
+partB_net_volume_m3                  Float?
+partB_total_shrinkage_pct            Float?
+partB_final_shrink_pct               Float?
+
+
+  // PART C — Condensate Only Net Sales
+  partC_net_sales                Float?
+  partC_net_blend_volume_m3      Float?
+  partC_total_shrinkage_m3       Float?
+  partC_raw_crude_volume_m3      Float?
+  partC_condensate_volume_m3     Float?
+  partC_net_price_per_m3_raw     Float?
+  partC_net_price_per_bbl_cad    Float?
+  partC_net_price_per_bbl_usd    Float?
+  partC_diff_to_wti_usd_bbl      Float?
+  partC_diff_to_wcs_usd_bbl      Float?
+  partC_diluent_fee_m3_raw       Float?
+  partC_diluent_cost_m3_blend    Float?
+
+  // PART D — Physical Blend (Butane + Condensate)
+  partD_butane_volume_m3         Float?
+  partD_condensate_volume_m3     Float?
+  partD_raw_crude_volume_m3      Float?
+  partD_total_receipts_m3        Float?
+  partD_total_shrinkage_m3       Float?
+  partD_net_blend_volume_m3      Float?
+  partD_weighted_density_kg_m3   Float?
+
+  // PART E — Butane + Condensate Net Sales
+  partE_net_sales                Float?
+  partE_net_price_per_m3_raw     Float?
+  partE_net_price_per_bbl_cad    Float?
+  partE_net_price_per_bbl_usd    Float?
+  partE_diff_to_wti_usd_bbl      Float?
+  partE_diff_to_wcs_usd_bbl      Float?
+  partE_diluent_fee_m3_raw       Float?
+  partE_diluent_cost_m3_blend    Float?
+  partE_c5_diluent_cost_m3_blend Float?
+  partE_c4_diluent_cost_m3_blend Float?
+
+  // PART F — Net Financial Benefit
+  partF_financial_benefit_cad    Float?
+  partF_blend_revenue_change     Float?
+  partF_diluent_cost_savings     Float?
+  partF_transport_savings        Float?
+  partF_loss_allowance_savings   Float?
+  partF_netBenefit_per_m3_raw    Float?
+  partF_netBenefit_per_m3_blend  Float?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model HeavyOilInputs {
+  id Int @id @default(autoincrement())
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
+
+  monthId Int
+  month   MonthlyData @relation(fields: [monthId], references: [id])
+
+  // Section 2 – Producer Raw Crude Properties
+  producer_name          String
+  producer_volume_m3     Float
+  producer_density_kg_m3 Float
+  producer_TAN           Float
+
+  // Section 3 – Condensate Source 1
+  cond1_density_kg_m3         Float
+  cond1_sulphur_pct           Float
+  cond1_load_fee_cad_m3       Float
+  cond1_transport_tt1_cad_m3  Float
+  cond1_transport_tt2_cad_m3  Float?
+  cond1_transport_comp_cad_m3 Float?
+  condensate_index_choice     String?
+
+  // Section 4 – Condensate Source 2
+  cond2_density_kg_m3 Float
+  cond2_sulphur_pct   Float
+
+  cond2_load_fee_cad_m3       Float?
+  cond2_transport_tt1_cad_m3  Float?
+  cond2_transport_tt2_cad_m3  Float?
+  cond2_transport_comp_cad_m3 Float?
+
+  // Section 5 – Butane Inputs
+  c4_landed_tt1_pct_wti        Float?
+  c4_landed_tt2_pct_wti        Float?
+  c4_trucking_adder_tt2_cad_m3 Float?
+  butane_injection_rate_pct    Float
+
+  // Section 6 – Historical Blend Density
+  actual_blend_density_kg_m3 Float?
+  paper_blend_density_kg_m3  Float?
+
+  target_blend_density Float?
+  cond1_est_volume_m3 Float?
+
+  // Section 7 – Truck Terminal Fees
+  tt1_fee_cad_m3 Float
+  tt2_fee_cad_m3 Float?
+  tt_competitor_fee_cad_m3 Float?
+
+  // Section 8 – Pipeline Operator Fees
+  pipeline_power_surcharge_cad_m3 Float
+  pipeline_loss_allowance_pct     Float
+  pipeline_toll_tt1_cad_m3        Float
+  pipeline_toll_tt2_cad_m3        Float?
+  pipeline_toll_existcompetitor_cad_m3 Float?
+
+  // Section 9 – Profit Sharing
+  tt1_diluent_sharing_pct           Float
+  tt2_diluent_sharing_pct           Float?
+  comp_pipeline_diluent_sharing_pct Float?
+
+  // Section 10 – Competing Pipeline Fees
+  comp_tt1_toll_cad_m3             Float?
+  comp_pipeline_fee_cad_m3         Float?
+  comp_tt_fee_cad_m3               Float?
+  comp_pipeline_loss_allowance_pct Float?
+
+  // Section 11 – Trucking Rates
+  raw_crude_trucking_rate_cad_m3 Float
+  raw_crude_truck_volume_m3      Float
+
+  raw_crude_hours_tt1 Float?
+  raw_crude_hours_tt2 Float?
+  raw_crude_hours_comp Float?
+
+  cond_trucking_rate_cad_m3 Float
+  cond_truck_volume_m3      Float
+
+  cond1_hours_tt1 Float?
+  cond1_hours_tt2 Float?
+  cond1_hours_comp Float?
+
+  cond2_hours_tt1 Float?
+  cond2_hours_tt2 Float?
+  cond2_hours_comp Float?
+
+  c4_trucking_rate_cad_m3 Float
+  c4_truck_volume_m3      Float
+
+  c4_hours_tt1 Float?
+  c4_hours_tt2 Float?
+  c4_hours_comp Float?
+
+  // Section 12 – Premium Crude Values
+  premium_crude_value_usd_bbl          Float
+  hardisty_premium_crude_value_usd_bbl Float
+
+  heavy_oil_stream String
+  scenario Scenario?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  password_hash String?
+  phone         String?   @unique
+  sms_code      String?
+  sms_code_expires DateTime?
+
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  last_login    DateTime?
+
+  heavyOilInputs HeavyOilInputs[]
+  scenarios      Scenario[]
+}
+
+
+

@@ -1,0 +1,110 @@
+[
+  {
+    "acronym": "WTI",
+    "full_name": "West Texas Intermediate",
+    "category": "benchmark",
+    "description": "West Texas Intermediate (WTI) is the primary light crude benchmark priced at Cushing, Oklahoma. Used globally as a reference for light sweet crude pricing."
+  },
+  {
+    "acronym": "MSW",
+    "full_name": "Mixed Sweet Blend",
+    "category": "light_sweet",
+    "description": "Mixed Sweet Blend (MSW) is the benchmark conventionally produced light sweet crude for Western Canada. Often referenced as Edmonton Par Crude. It is a fully blended aggregate of many feeder streams and only begins its existence in blend tanks in Edmonton, Alberta."
+  },
+  {
+    "acronym": "C5",
+    "full_name": "Edmonton Condensate (CRW)",
+    "category": "condensate",
+    "description": "CRW is a fully blended aggregate of many light sweet feeder streams and only begins its existence in blend tanks in Edmonton, Alberta. CRW is a fully equalized crude stream, wherein above-standard feeders are compensated by substandard feeders on a net-zero basis. CRW is nearly completely consumed within Alberta as a diluent in heavy crude blending."
+  },
+  {
+    "acronym": "FTSK",
+    "full_name": "Fort Saskatchewan Condensate",
+    "category": "condensate",
+    "description": "Fort Saskatchewan condensate is a fractionated stream produced by Keyera at their Fort Saskatchewan operations. Delivered into CRW at the Enbridge Edmonton Terminal on a continuous, rateable basis."
+  },
+  {
+    "acronym": "PEACE",
+    "full_name": "Peace Condensate",
+    "category": "condensate",
+    "description": "Peace condensate is gathered from gas plant operations in the foothills northwest of Edmonton, and batch delivered to Edmonton on the Pembina Peace pipeline. Blended into CRW at the Enbridge Edmonton Terminal on an intermittent basis depending on batch arrivals."
+  },
+  {
+    "acronym": "KAPS",
+    "full_name": "Keyera Access Pipeline System Condensate",
+    "category": "condensate",
+    "description": "KAPS condensate is produced and transported via the Keyera Corp. Key Access Pipeline System. Used as a diluent and blended into Edmonton-area condensate pools."
+  },
+  {
+    "acronym": "WCS",
+    "full_name": "Western Canadian Select",
+    "category": "heavy",
+    "description": "Western Canadian Select (WCS) is a Hardisty-based blend of conventional and oilsands production managed by Canadian Natural Resources, Cenovus Energy, and Suncor Energy. It is a major heavy crude benchmark for North America."
+  },
+  {
+    "acronym": "C4",
+    "full_name": "Specification Butane",
+    "category": "butane",
+    "description": "C4 is specification-grade butane used in blending, diluent substitution, and seasonal vapor pressure control. Priced relative to WTI and used in heavy oil blending economics."
+  },
+  {
+    "acronym": "MSY",
+    "full_name": "Light Smiley (Inter Pipeline Mid-Sask System)",
+    "category": "light_sweet",
+    "description": "Light Smiley is an MSW feeder produced from conventional fields in Southwest Saskatchewan. Gathered on Inter Pipeline's Mid-Saskatchewan system and delivered to Kerrobert, then shipped to Superior and blended with MSW."
+  },
+  {
+    "acronym": "MSE",
+    "full_name": "Secure Sask Light (Kerrobert Light Pipeline System)",
+    "category": "light_sweet",
+    "description": "The Kerrobert Light Pipeline System gathers Viking light sweet oil in the Kindersley area with delivery into the Enbridge Kerrobert Hub for transportation on Line 2A."
+  },
+  {
+    "acronym": "CAL",
+    "full_name": "Koch Alberta (Central Alberta Light Sour)",
+    "category": "light_sour",
+    "description": "Central Alberta (Koch Alberta) is a light sour conventional crude gathered on the Central Alberta Pipeline system between Drumheller and Edmonton. Delivered to Enbridge, Kinder Morgan North 40, and Trans Mountain pipelines."
+  },
+  {
+    "acronym": "LSB",
+    "full_name": "Light Sour Blend",
+    "category": "light_sour",
+    "description": "Light Sour Blend (LSB) is a conventionally produced light sour crude gathered from batteries in southeastern Saskatchewan and southwestern Manitoba. Considered a benchmark light sour crude with daily postings available online."
+  },
+  {
+    "acronym": "BRN",
+    "full_name": "Bow River North",
+    "category": "heavy",
+    "description": "Bow River North is a conventional heavy crude (20–24 API, 3.0–2.75 wt% sulphur) gathered south of Hardisty and delivered to the Inter Pipeline Bow River system. Combined with other heavy streams at Superior, WI to create Conventional Heavy (CHV)."
+  },
+  {
+    "acronym": "BRS",
+    "full_name": "Bow River South",
+    "category": "heavy",
+    "description": "Bow River South is a conventional heavy crude (23–24 API, 2.75 wt% sulphur) gathered south of Duchess, Alberta and delivered to the Bow River pipeline system in Milk River."
+  },
+  {
+    "acronym": "CHV",
+    "full_name": "Conventional Heavy",
+    "category": "heavy",
+    "description": "Conventional Heavy is a blend of heavy crudes including Wabasca Heavy, Lloyd Blend, Lloyd Kerrobert, and Smiley-Coleville. Delivered to Edmonton via multiple pipeline systems."
+  },
+  {
+    "acronym": "CWH",
+    "full_name": "Clearwater Heavy",
+    "category": "heavy",
+    "description": "Clearwater Heavy is a premium conventional heavy blend from the emerging Clearwater oil play. Delivered to Edmonton via the Pembina pipeline."
+  },
+  {
+    "acronym": "LLB",
+    "full_name": "Lloyd Blend",
+    "category": "heavy",
+    "description": "Lloyd Blend is a conventional heavy stream (21 API, 3.4 wt% sulphur) gathered principally by Husky Midstream from fields north of Hardisty in the Lloydminster area."
+  },
+  {
+    "acronym": "WCB",
+    "full_name": "Western Canadian Blend",
+    "category": "heavy",
+    "description": "Western Canadian Blend (WCB) is an aggregate of heavy sour crude production (21 API, 3.0 wt% sulphur) in the Wainwright and Hardisty regions. Unique for its agreement to avoid field butanes as diluent."
+  }
+]
