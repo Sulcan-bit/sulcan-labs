@@ -1,11 +1,45 @@
 // app/heavy-oil/inputs/InputsForm.tsx
 
+// app/heavy-oil/inputs/InputsForm.tsx
+
 "use client";
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function InputsForm({ months }) {
+// Allow dynamic indexing for all form fields
+type InputsFormType = {
+  [key: string]: string | number | null;
+};
+
+// Basic typing for months and previousSets
+type MonthType = {
+  id: number;
+  year: number;
+  month: string;
+};
+
+type PreviousSetType = {
+  id: number;
+  created_at: string;
+  producer_name: string;
+  [key: string]: any;
+};
+
+type SectionProps = {
+  title: string;
+  children: React.ReactNode;
+};
+
+type InputProps = {
+  label: string;
+  field: string;
+  update: (field: string, value: string) => void;
+  placeholder?: string;
+  value: any;
+};
+
+export default function InputsForm({ months }: { months: MonthType[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -26,7 +60,7 @@ export default function InputsForm({ months }) {
   // ------------------------------------------------------------
   // TT1‑ONLY FORM FIELDS
   // ------------------------------------------------------------
-  const EMPTY_FORM = {
+  const EMPTY_FORM: InputsFormType = {
     monthId: "",
     heavy_oil_stream: "",
     condensate_index_choice: "",
@@ -87,11 +121,11 @@ export default function InputsForm({ months }) {
     (f) => f !== "scenarioId"
   );
 
-  const [form, setForm] = useState(EMPTY_FORM);
+  const [form, setForm] = useState<InputsFormType>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
 
-  const [previousSets, setPreviousSets] = useState([]);
+  const [previousSets, setPreviousSets] = useState<PreviousSetType[]>([]);
   const [selectedPreviousId, setSelectedPreviousId] = useState("");
 
   const STREAM_OPTIONS = [
@@ -116,9 +150,29 @@ export default function InputsForm({ months }) {
     loadPrevious();
   }, []);
 
-  function updateField(field, value) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
+function normalizeLsdNumber(value: string): string {
+  // Remove leading zeros, but keep "0" if the user actually typed 0
+  const cleaned = value.replace(/^0+/, "");
+  return cleaned === "" ? "0" : cleaned;
+}
+
+
+  function updateField(field: string, value: string) {
+  const lsdFields = [
+    "lsd",
+    "section",
+    "township",
+    "range"
+  ];
+
+  const cleaned =
+    lsdFields.includes(field)
+      ? normalizeLsdNumber(value)
+      : value;
+
+  setForm((prev) => ({ ...prev, [field]: cleaned }));
+}
+
 
   // ------------------------------------------------------------
   // Validation
@@ -170,7 +224,7 @@ export default function InputsForm({ months }) {
     setMessage("Inputs saved successfully.");
 
     if (data.scenarioId) {
-      updateField("scenarioId", data.scenarioId);
+      updateField("scenarioId", data.scenarioId.toString());
     }
 
     setSaving(false);
@@ -190,7 +244,7 @@ export default function InputsForm({ months }) {
   // ------------------------------------------------------------
   // Load previous dataset
   // ------------------------------------------------------------
-  async function loadDataset(id) {
+  async function loadDataset(id: string) {
     const res = await fetch(`/api/heavy-oil/inputs/${id}`);
     if (!res.ok) {
       setMessage("Failed to load dataset.");
@@ -203,14 +257,12 @@ export default function InputsForm({ months }) {
     delete data.created_at;
     delete data.updated_at;
 
-    const formatted = Object.fromEntries(
-      Object.entries(data).map(([key, value]) => {
-        if (typeof value === "number") {
-          return [key, value.toFixed(2)];
-        }
-        return [key, value];
-      })
-    );
+    const formatted: InputsFormType = {};
+
+    for (const [key, value] of Object.entries(data)) {
+      formatted[key] =
+        typeof value === "number" ? value.toFixed(2) : value;
+    }
 
     setForm({ ...formatted, scenarioId: null });
     setMessage(`Loaded dataset #${id}`);
@@ -232,7 +284,7 @@ export default function InputsForm({ months }) {
         {notes && <p><strong>Notes:</strong> {notes}</p>}
       </div>
 
-      {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}
+     
 
       {/* Load Previous Inputs */}
       <Section title="Load Previous Inputs">
@@ -247,7 +299,7 @@ export default function InputsForm({ months }) {
         >
           <option value="">Select a previous dataset</option>
           {previousSets.map((p) => (
-            <option key={p.id} value={p.id}>
+            <option key={p.id} value={p.id.toString()}>
               #{p.id} — {p.created_at.slice(0, 10)} — {p.producer_name}
             </option>
           ))}
@@ -258,12 +310,12 @@ export default function InputsForm({ months }) {
       <Section title="1. Pricing Month">
         <select
           className="border p-2 rounded w-full"
-          value={form.monthId}
+          value={form.monthId ?? ""}
           onChange={(e) => updateField("monthId", e.target.value)}
         >
           <option value="">Select Month</option>
           {months.map((m) => (
-            <option key={m.id} value={m.id}>
+            <option key={m.id} value={m.id.toString()}>
               {m.year} — {m.month}
             </option>
           ))}
@@ -274,7 +326,7 @@ export default function InputsForm({ months }) {
       <Section title="2. Heavy Oil Stream">
         <select
           className="border p-2 rounded w-full"
-          value={form.heavy_oil_stream}
+          value={form.heavy_oil_stream ?? ""}
           onChange={(e) => updateField("heavy_oil_stream", e.target.value)}
         >
           <option value="">Select Stream</option>
@@ -288,7 +340,7 @@ export default function InputsForm({ months }) {
       <Section title="3. Condensate Index">
         <select
           className="border p-2 rounded w-full"
-          value={form.condensate_index_choice}
+          value={form.condensate_index_choice ?? ""}
           onChange={(e) => updateField("condensate_index_choice", e.target.value)}
         >
           <option value="">Select Condensate Index</option>
@@ -310,12 +362,12 @@ export default function InputsForm({ months }) {
         <Input label="Raw Crude Truck Haul Rate (CAD/m³)" field="raw_crude_trucking_rate_cad_m3" update={updateField} placeholder="195.00" value={form.raw_crude_trucking_rate_cad_m3} />
         <Input label="Raw Crude Truck Haul Volume (m³)" field="raw_crude_truck_volume_m3" update={updateField} placeholder="42.0" value={form.raw_crude_truck_volume_m3} />
         <Input
-  label={`Raw Crude Trucking Hours to ${terminalLocation}`}
-  field="raw_crude_hours_tt1"
-  update={updateField}
-  placeholder="1.0"
-  value={form.raw_crude_hours_tt1}
-/>
+          label={`Raw Crude Trucking Hours to ${terminalLocation}`}
+          field="raw_crude_hours_tt1"
+          update={updateField}
+          placeholder="1.0"
+          value={form.raw_crude_hours_tt1}
+        />
       </Section>
 
       {/* 5. Condensate Source 1 */}
@@ -323,23 +375,22 @@ export default function InputsForm({ months }) {
         <Input label="Density (kg/m³)" field="cond1_density_kg_m3" update={updateField} placeholder="660.0" value={form.cond1_density_kg_m3} />
         <Input label="Sulphur (%)" field="cond1_sulphur_pct" update={updateField} placeholder="0.015" value={form.cond1_sulphur_pct} />
         <Input label="Truck Load Fee (CAD/m³)" field="cond1_load_fee_cad_m3" update={updateField} placeholder="8.50" value={form.cond1_load_fee_cad_m3} />
-       <Input
-  label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
-  field="cond1_transport_tt1_cad_m3"
-  update={updateField}
-  placeholder="30.00"
-  value={form.cond1_transport_tt1_cad_m3}
-/>
+        <Input
+          label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
+          field="cond1_transport_tt1_cad_m3"
+          update={updateField}
+          placeholder="30.00"
+          value={form.cond1_transport_tt1_cad_m3}
+        />
 
-<Input
-  label={`Condensate 1 Trucking Hours: Source to ${terminalLocation}`}
-  field="cond1_hours_tt1"
-  update={updateField}
-  placeholder="1.0"
-  value={form.cond1_hours_tt1}
-/>
+        <Input
+          label={`Condensate 1 Trucking Hours: Source to ${terminalLocation}`}
+          field="cond1_hours_tt1"
+          update={updateField}
+          placeholder="1.0"
+          value={form.cond1_hours_tt1}
+        />
 
-        
         <Input label="Condensate Truck Haul Rate (CAD/m³)" field="cond_trucking_rate_cad_m3" update={updateField} placeholder="195.00" value={form.cond_trucking_rate_cad_m3} />
         <Input label="Condensate Truck Haul Volume (m³)" field="cond_truck_volume_m3" update={updateField} placeholder="58.0" value={form.cond_truck_volume_m3} />
       </Section>
@@ -350,21 +401,20 @@ export default function InputsForm({ months }) {
         <Input label="Sulphur (%)" field="cond2_sulphur_pct" update={updateField} placeholder="0.09" value={form.cond2_sulphur_pct} />
         <Input label="Truck Load Fee (CAD/m³)" field="cond2_load_fee_cad_m3" update={updateField} placeholder="8.50" value={form.cond2_load_fee_cad_m3} />
         <Input
-  label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
-  field="cond2_transport_tt1_cad_m3"
-  update={updateField}
-  placeholder="30.00"
-  value={form.cond2_transport_tt1_cad_m3}
-/>
+          label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
+          field="cond2_transport_tt1_cad_m3"
+          update={updateField}
+          placeholder="30.00"
+          value={form.cond2_transport_tt1_cad_m3}
+        />
 
-<Input
-  label={`Condensate 2 Trucking Hours: Source to ${terminalLocation}`}
-  field="cond2_hours_tt1"
-  update={updateField}
-  placeholder="1.0"
-  value={form.cond2_hours_tt1}
-/>
-
+        <Input
+          label={`Condensate 2 Trucking Hours: Source to ${terminalLocation}`}
+          field="cond2_hours_tt1"
+          update={updateField}
+          placeholder="1.0"
+          value={form.cond2_hours_tt1}
+        />
       </Section>
 
       {/* 7. Butane */}
@@ -373,37 +423,35 @@ export default function InputsForm({ months }) {
         <Input label="Butane Truck Haul Rate (CAD/m³)" field="c4_trucking_rate_cad_m3" update={updateField} placeholder="195.00" value={form.c4_trucking_rate_cad_m3} />
         <Input label="Butane Truck Haul Volume (m³)" field="c4_truck_volume_m3" update={updateField} placeholder="50.0" value={form.c4_truck_volume_m3} />
         <Input
-  label={`Butane Trucking Hours: Source to ${terminalLocation}`}
-  field="c4_hours_tt1"
-  update={updateField}
-  placeholder="1.0"
-  value={form.c4_hours_tt1}
-/>
-
+          label={`Butane Trucking Hours: Source to ${terminalLocation}`}
+          field="c4_hours_tt1"
+          update={updateField}
+          placeholder="1.0"
+          value={form.c4_hours_tt1}
+        />
       </Section>
 
       {/* 8. Truck Terminal Fees */}
       <Section title="8. Truck Terminal Fees">
         <Input
-  label={`Truck Terminal Fee: ${terminalLocation} (CAD/m³)`}
-  field="tt1_fee_cad_m3"
-  update={updateField}
-  placeholder="6.00"
-  value={form.tt1_fee_cad_m3}
-/>
-
+          label={`Truck Terminal Fee: ${terminalLocation} (CAD/m³)`}
+          field="tt1_fee_cad_m3"
+          update={updateField}
+          placeholder="6.00"
+          value={form.tt1_fee_cad_m3}
+        />
       </Section>
 
       {/* 9. Pipeline Operator Fees */}
       <Section title="9. Pipeline Operator Fees">
         <Input label="Power Surcharge (CAD/m³)" field="pipeline_power_surcharge_cad_m3" update={updateField} placeholder="0.10" value={form.pipeline_power_surcharge_cad_m3} />
         <Input
-  label={`Pipeline Toll: ${terminalLocation} (CAD/m³)`}
-  field="pipeline_toll_tt1_cad_m3"
-  update={updateField}
-  placeholder="18.50"
-  value={form.pipeline_toll_tt1_cad_m3}
-/>
+          label={`Pipeline Toll: ${terminalLocation} (CAD/m³)`}
+          field="pipeline_toll_tt1_cad_m3"
+          update={updateField}
+          placeholder="18.50"
+          value={form.pipeline_toll_tt1_cad_m3}
+        />
 
         <Input label="Pipeline Loss Allowance (%)" field="pipeline_loss_allowance_pct" update={updateField} placeholder="0.20" value={form.pipeline_loss_allowance_pct} />
       </Section>
@@ -418,6 +466,8 @@ export default function InputsForm({ months }) {
         <Input label="Premium Crude Value (USD/bbl)" field="premium_crude_value_usd_bbl" update={updateField} placeholder="0.15" value={form.premium_crude_value_usd_bbl} />
         <Input label="Terminal Premium (USD/bbl)" field="hardisty_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.hardisty_premium_crude_value_usd_bbl} />
       </Section>
+
+ {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}
 
       {/* Save Inputs */}
       <button

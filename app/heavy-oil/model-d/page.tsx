@@ -177,7 +177,7 @@ await prisma.scenarioResults.upsert({
 
         <div className="mb-4 text-sm text-gray-600">
           <div>
-            <span className="font-semibold">Scenario:</span> {scenario.name}
+            <span className="font-semibold">Scenario:</span> {scenario.scenario_name}
           </div>
           <div>
             <span className="font-semibold">Month:</span>{" "}

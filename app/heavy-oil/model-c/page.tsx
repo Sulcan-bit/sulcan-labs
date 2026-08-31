@@ -124,7 +124,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     inputs.condensate_index_choice ?? undefined
   );
 
-  const premiumHeavyPriceUsdBbl = monthly.premium_heavy_price_usd_bbl ?? 0;
+  const premiumHeavyPriceUsdBbl = monthly.premium_crude_value_usd_bbl ?? 0;
 
   // Heavy oil stream price (Blend Sales Price)
   const heavyStreamPriceCadM3 =
@@ -289,7 +289,7 @@ const netPrice_per_bbl_CAD =
 // Correct USD conversion (CAD ÷ FX)
 const netPrice_per_bbl_USD = netPrice_per_bbl_CAD / fx;
 
-const wcsPriceUsdBbl = monthly.wcs_cma_usd_bbl ?? 0;
+const wcsPriceUsdBbl = monthly.wcs_price_usd_bbl ?? 0;
 
 // Correct diffs (now that USD is correct)
 const diffToWTI = netPrice_per_bbl_USD - wti;

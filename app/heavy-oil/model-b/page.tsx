@@ -10,6 +10,8 @@ export default async function ApiShrinkagePage(props: PageProps) {
   const searchParams = await props.searchParams;
   const scenarioId = searchParams?.scenarioId;
 
+
+
   if (!scenarioId) {
     return (
       <main className="min-h-screen bg-gray-50 p-8">

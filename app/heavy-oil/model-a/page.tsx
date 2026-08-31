@@ -115,7 +115,7 @@ const cleanedInputs = inputs; // TT1‑only architecture — no cleaning require
   const c4PurchasePriceUsdBbl = wti * c4PricePctWti;
   const c4DiffToWtiUsdBbl = c4PurchasePriceUsdBbl - wti;
 
-  const premiumHeavyPriceUsdBbl = monthly.premium_heavy_price_usd_bbl ?? 0;
+  const premiumHeavyPriceUsdBbl = monthly.premium_crude_value_usd_bbl ?? 0;
 
   const heavyStreamPriceCadM3 =
     (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
