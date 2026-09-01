@@ -6,10 +6,23 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+type ScenarioItem = {
+  id: number;
+  scenario_name: string;
+  terminal_operator: string;
+  terminal_location: string;
+  inputs?: {
+    producer_name?: string;
+    producer_density_kg_m3?: number;
+  };
+  created_at?: string | Date;
+  created_at_text?: string;
+};
+
 export default function ComparisonSelectPage() {
   const router = useRouter();
-  const [scenarios, setScenarios] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const [scenarios, setScenarios] = useState<ScenarioItem[]>([]);
+  const [selected, setSelected] = useState<number[]>([]);
 
   useEffect(() => {
     async function load() {

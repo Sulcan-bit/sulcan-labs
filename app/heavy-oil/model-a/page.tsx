@@ -115,7 +115,7 @@ const cleanedInputs = inputs; // TT1‑only architecture — no cleaning require
   const c4PurchasePriceUsdBbl = wti * c4PricePctWti;
   const c4DiffToWtiUsdBbl = c4PurchasePriceUsdBbl - wti;
 
-  const premiumHeavyPriceUsdBbl = monthly.premium_crude_value_usd_bbl ?? 0;
+  const premiumHeavyPriceUsdBbl = 0;
 
   const heavyStreamPriceCadM3 =
     (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
@@ -210,7 +210,7 @@ await prisma.scenarioResults.upsert({
 
         <div className="mb-4 text-sm text-gray-600">
           <div>
-            <span className="font-semibold">Scenario:</span> {scenario.name}
+            <span className="font-semibold">Scenario:</span> {scenarioId}
           </div>
           <div>
             <span className="font-semibold">Month:</span>{" "}

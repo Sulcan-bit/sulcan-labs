@@ -1,7 +1,5 @@
 // app/heavy-oil/inputs/InputsForm.tsx
 
-// app/heavy-oil/inputs/InputsForm.tsx
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -31,13 +29,40 @@ type SectionProps = {
   children: React.ReactNode;
 };
 
+function Section({ title, children }: SectionProps) {
+  return (
+    <div className="mb-8">
+      <h2 className="text-xl font-semibold mb-4">{title}</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+
 type InputProps = {
   label: string;
   field: string;
-  update: (field: string, value: string) => void;
+  update: (field: string, value: string | number | null) => void;
   placeholder?: string;
-  value: any;
+  value: string | number | null;
 };
+
+function Input({ label, field, update, placeholder, value }: InputProps) {
+  return (
+    <div>
+      <label className="block mb-1 font-medium">{label}</label>
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="border p-2 rounded w-full"
+        value={value ?? ""}
+        onChange={(e) => update(field, e.target.value as string)}
+      />
+    </div>
+  );
+}
 
 export default function InputsForm({ months }: { months: MonthType[] }) {
   const router = useRouter();
@@ -157,13 +182,8 @@ function normalizeLsdNumber(value: string): string {
 }
 
 
-  function updateField(field: string, value: string) {
-  const lsdFields = [
-    "lsd",
-    "section",
-    "township",
-    "range"
-  ];
+ function updateField(field: string, value: string) {
+  const lsdFields = ["lsd", "section", "township", "range"];
 
   const cleaned =
     lsdFields.includes(field)
@@ -172,6 +192,7 @@ function normalizeLsdNumber(value: string): string {
 
   setForm((prev) => ({ ...prev, [field]: cleaned }));
 }
+
 
 
   // ------------------------------------------------------------
@@ -311,7 +332,8 @@ function normalizeLsdNumber(value: string): string {
         <select
           className="border p-2 rounded w-full"
           value={form.monthId ?? ""}
-          onChange={(e) => updateField("monthId", e.target.value)}
+          onChange={(e) => updateField("monthId", e.target.value as string)}
+
         >
           <option value="">Select Month</option>
           {months.map((m) => (
@@ -498,28 +520,4 @@ function normalizeLsdNumber(value: string): string {
   );
 }
 
-function Section({ title, children }) {
-  return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {children}
-      </div>
-    </div>
-  );
-}
 
-function Input({ label, field, update, placeholder, value }) {
-  return (
-    <div>
-      <label className="block mb-1 font-medium">{label}</label>
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="border p-2 rounded w-full"
-        value={value ?? ""}
-        onChange={(e) => update(field, e.target.value)}
-      />
-    </div>
-  );
-}
