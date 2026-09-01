@@ -13,7 +13,7 @@ import {
 function getCondensateIndexUsdBbl(monthly: any, choice?: string | null) {
   switch (choice) {
     case "CRW":
-      return monthly.crw_c5_diff_usd_bbl ?? 0;
+      return 0;
     case "FTSK":
       return monthly.ftsk_c5_diff_usd_bbl ?? 0;
     case "PEACE_C5":
@@ -124,7 +124,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     inputs.condensate_index_choice ?? undefined
   );
 
-  const premiumHeavyPriceUsdBbl = monthly.premium_crude_value_usd_bbl ?? 0;
+  const premiumHeavyPriceUsdBbl = 0;
 
   // Heavy oil stream price (Blend Sales Price)
   const heavyStreamPriceCadM3 =

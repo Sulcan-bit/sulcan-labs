@@ -171,7 +171,7 @@ export default async function HeavyOilModelEPage(props: PageProps) {
     }
   })();
 
-  const premiumHeavyPriceUsdBbl = monthly.premium_crude_value_usd_bbl ?? 0;
+  const premiumHeavyPriceUsdBbl = 0;
 
   const heavyStreamPriceCadM3 =
     (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
@@ -181,7 +181,7 @@ export default async function HeavyOilModelEPage(props: PageProps) {
   // Condensate pricing
   const condensateIndexUsdBbl = (() => {
     switch (inputs.condensate_index_choice ?? "CRW") {
-      case "CRW": return monthly.crw_c5_diff_usd_bbl ?? 0;
+      case "CRW": return 0;
       case "FTSK": return monthly.ftsk_c5_diff_usd_bbl ?? 0;
       case "PEACE_C5": return monthly.peace_c5_diff_usd_bbl ?? 0;
       default: return 0;

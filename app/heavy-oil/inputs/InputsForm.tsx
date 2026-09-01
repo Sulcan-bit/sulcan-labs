@@ -182,16 +182,17 @@ function normalizeLsdNumber(value: string): string {
 }
 
 
- function updateField(field: string, value: string) {
+ function updateField(field: string, value: string | number | null) {
   const lsdFields = ["lsd", "section", "township", "range"];
 
   const cleaned =
-    lsdFields.includes(field)
+    typeof value === "string" && lsdFields.includes(field)
       ? normalizeLsdNumber(value)
       : value;
 
   setForm((prev) => ({ ...prev, [field]: cleaned }));
 }
+
 
 
 

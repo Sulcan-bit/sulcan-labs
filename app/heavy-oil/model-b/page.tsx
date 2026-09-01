@@ -250,7 +250,7 @@ const finalShrinkPct =
 
         <div className="mb-4 text-sm text-gray-600">
           <div>
-            <span className="font-semibold">Scenario:</span> {scenario.name}
+            <span className="font-semibold">Scenario:</span> {scenarioId}
           </div>
           <div>
             <span className="font-semibold">Month:</span>{" "}

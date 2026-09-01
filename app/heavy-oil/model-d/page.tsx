@@ -72,7 +72,7 @@ export default async function HeavyOilModelDPage(props: PageProps) {
   const target_blend_density = inputs?.target_blend_density ?? 0;
 
   // HISTORICAL ACTUAL BLEND DENSITY (User Input)
-  const historicalActualBlendDensity = inputs?.historical_actual_blend_density ?? 0;
+  const historicalActualBlendDensity = inputs?.actual_blend_density_kg_m3 ?? 0;
 
   // Excel: Condensate Volume Formula (API 12.3 Physical Blend)
   const condVol_m3 = Math.max(
