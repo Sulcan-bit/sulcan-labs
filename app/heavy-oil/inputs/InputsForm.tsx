@@ -40,7 +40,6 @@ function Section({ title, children }: SectionProps) {
   );
 }
 
-
 type InputProps = {
   label: string;
   field: string;
@@ -181,7 +180,6 @@ function normalizeLsdNumber(value: string): string {
   return cleaned === "" ? "0" : cleaned;
 }
 
-
  function updateField(field: string, value: string | number | null) {
   const lsdFields = ["lsd", "section", "township", "range"];
 
@@ -192,9 +190,6 @@ function normalizeLsdNumber(value: string): string {
 
   setForm((prev) => ({ ...prev, [field]: cleaned }));
 }
-
-
-
 
   // ------------------------------------------------------------
   // Validation
@@ -305,8 +300,6 @@ function normalizeLsdNumber(value: string): string {
         <p><strong>Shrinkage Model:</strong> {shrinkageModel}</p>
         {notes && <p><strong>Notes:</strong> {notes}</p>}
       </div>
-
-     
 
       {/* Load Previous Inputs */}
       <Section title="Load Previous Inputs">
@@ -489,7 +482,7 @@ function normalizeLsdNumber(value: string): string {
         <Input label="Terminal Premium (USD/bbl)" field="hardisty_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.hardisty_premium_crude_value_usd_bbl} />
       </Section>
 
- {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}
+      {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}
 
       {/* Save Inputs */}
       <button
@@ -519,6 +512,9 @@ function normalizeLsdNumber(value: string): string {
     </div>
   );
 }
+
+
+
 
 
 
