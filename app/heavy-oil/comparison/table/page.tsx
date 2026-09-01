@@ -1,6 +1,7 @@
 // app/heavy-oil/comparison/table/page.tsx
 
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -351,8 +352,7 @@ return (
   ))}
 </tr>
 
-
-              {/* Terminal Fee */}
+{/* Terminal Fee */}
 <tr>
   <td className="border p-2 font-medium">Terminal Fee (CAD/M3 Blended Vol)</td>
   {scenarios.map((s) => (
@@ -361,8 +361,6 @@ return (
     </td>
   ))}
 </tr>
-
-
 
 {/* C5 Diluent Cost */}
 <tr>
