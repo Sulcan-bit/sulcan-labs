@@ -19,7 +19,7 @@ type ScenarioItem = {
   created_at_text?: string;
 };
 
-export default function ComparisonSelectPage() {
+export default function ComparisonSelectPage() { 
   const router = useRouter();
   const [scenarios, setScenarios] = useState<ScenarioItem[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
