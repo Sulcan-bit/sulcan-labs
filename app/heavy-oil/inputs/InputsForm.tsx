@@ -246,7 +246,7 @@ function normalizeLsdNumber(value: string): string {
     setMessage("Inputs saved successfully.");
 
     if (data.scenarioId) {
-      updateField("scenarioId", String(data.scenarioId));
+      updateField("scenarioId", String(data.scenarioId)); 
     }
 
     setSaving(false);
