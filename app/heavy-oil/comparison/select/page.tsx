@@ -33,7 +33,7 @@ export default function ComparisonSelectPage() {
     load();
   }, []);
 
-  function toggle(id) {
+  function toggle(id: number) {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
@@ -106,7 +106,7 @@ export default function ComparisonSelectPage() {
                 <p className="text-xs text-gray-500 mt-2">
                   Created:{" "}
                   {s.created_at_text ||
-                    new Date(s.created_at).toLocaleString("en-CA")}
+                    new Date(String(s.created_at)).toLocaleString("en-CA")}
                 </p>
               </div>
 

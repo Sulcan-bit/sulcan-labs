@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await req.json();
+    const body: any = await req.json();
 
     // ------------------------------------------------------------
     // Normalize empty strings → null
