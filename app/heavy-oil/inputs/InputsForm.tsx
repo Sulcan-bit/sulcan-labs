@@ -58,7 +58,7 @@ function Input({ label, field, update, placeholder, value }: InputProps) {
         placeholder={placeholder}
         className="border p-2 rounded w-full"
         value={value ?? ""}
-        onChange={(e) => update(field, e.target.value as string)}
+        onChange={(e) => update(field, e.target.value)}
       />
     </div>
   );
