@@ -333,8 +333,7 @@ function normalizeLsdNumber(value: string): string {
         <select
           className="border p-2 rounded w-full"
           value={form.monthId ?? ""}
-          onChange={(e) => updateField("monthId", e.target.value as string)}
-
+          onChange={(e) => updateField("monthId", e.target.value)}
         >
           <option value="">Select Month</option>
           {months.map((m) => (
