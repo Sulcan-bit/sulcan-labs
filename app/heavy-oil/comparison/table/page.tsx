@@ -3,19 +3,30 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { edi_fee_cad_m3, colc_fee_cad_m3 } from "@/app/heavy-oil/constants";
 
 export default function ComparisonTablePage() {
-  const params = useSearchParams();
-  const idsParam = params.get("ids");
-  const scenarioIds = idsParam ? idsParam.split(",").map(Number) : [];
+  // 🔥 FIX: stabilize search params
+  const searchParams = useSearchParams();
+  const idsParam = searchParams.get("ids") ?? "";
+
+  // 🔥 FIX: memoize parsed scenario IDs
+  const scenarioIds = useMemo(
+    () =>
+      idsParam
+        .split(",")
+        .map((n) => Number(n))
+        .filter((n) => !Number.isNaN(n)),
+    [idsParam]
+  );
 
   const [scenarios, setScenarios] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // 🔥 FIX: effect now depends on stable scenarioIds
   useEffect(() => {
     async function load() {
       const res = await fetch("/api/heavy-oil/scenarios");
@@ -30,7 +41,7 @@ export default function ComparisonTablePage() {
     }
 
     load();
-  }, [idsParam]);
+  }, [scenarioIds]);
 
   if (loading) {
     return (
@@ -330,7 +341,6 @@ return (
     );
   })}
 </tr>
-
 
               {/* FX */}
               <tr>
