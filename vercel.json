@@ -1,7 +1,7 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs18.x"
+  "build": {
+    "env": {
+      "VERCEL_FORCE_NODE_RUNTIME": "1"
     }
   }
 }
