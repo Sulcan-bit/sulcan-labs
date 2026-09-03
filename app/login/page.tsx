@@ -133,13 +133,11 @@ function SmsLogin() {
       return;
     }
 
-    const normalizedPhone = `+1${digits}`;
-
     try {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: normalizedPhone }),
+        body: JSON.stringify({ phone: digits }),   // ✔ send raw digits
       });
 
       const data = await res.json();
@@ -164,11 +162,13 @@ function SmsLogin() {
     setError("");
     setLoading(true);
 
+    const digits = phone.replace(/\D/g, "");
+
     try {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone, code }),
+        body: JSON.stringify({ phone: digits, code }),   // ✔ send raw digits
       });
 
       const data = await res.json();
