@@ -403,20 +403,21 @@ model HeavyOilInputs {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  email         String    @unique
-  password_hash String?
-  phone         String?   @unique
-  sms_code      String?
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  password_hash    String?
+  phone            String?   // ← REMOVED @unique
+  sms_code         String?
   sms_code_expires DateTime?
 
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
-  last_login    DateTime?
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+  last_login       DateTime?
 
-  heavyOilInputs HeavyOilInputs[]
-  scenarios      Scenario[]
+  heavyOilInputs   HeavyOilInputs[]
+  scenarios        Scenario[]
 }
+
 
 
 
