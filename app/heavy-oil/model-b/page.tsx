@@ -1,6 +1,14 @@
 // app/heavy-oil/model-b/page.tsx
 
 import { prisma } from "@/lib/prisma";
+const fmt = (n: number | null | undefined, decimals = 2) => {
+  if (typeof n !== "number") return "-";
+  return n.toLocaleString("en-CA", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+};
+
 
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;
@@ -311,7 +319,6 @@ const finalShrinkPct =
               <td className="p-2">Target Density</td>
               <td className="p-2"></td>
               <td className="p-2">{targetBlendDensityKgM3.toFixed(1)}</td>
-              <td className="p-2">From HeavyOilInputs.target_blend_density</td>
             </tr>
           </tbody>
         </table>
@@ -333,12 +340,12 @@ const finalShrinkPct =
             <tr>
               <td className="p-2">dL (Density of Light – Condensate)</td>
               <td className="p-2">{dL.toFixed(2)}</td>
-              <td className="p-2">kg/m³ (HeavyOilInputs.cond1_density_kg_m3)</td>
+              <td className="p-2">kg/m³</td>
             </tr>
             <tr>
               <td className="p-2">dH (Density of Heavy – Raw Crude)</td>
               <td className="p-2">{dH.toFixed(2)}</td>
-              <td className="p-2">kg/m³ (HeavyOilInputs.producer_density_kg_m3)</td>
+              <td className="p-2">kg/m³</td>
             </tr>
             <tr>
               <td className="p-2">X (Diluent % of Blend)</td>

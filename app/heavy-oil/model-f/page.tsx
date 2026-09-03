@@ -138,7 +138,7 @@ export default async function HeavyOilModelFPage(props: PageProps) {
             {/* E132 */}
             <tr>
               <td className="p-2">m³ Raw Crude Production</td>
-              <td className="p-2">{rawCrudeVol.toFixed(1)} m³</td>
+              <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
             </tr>
 
             {/* E133 */}

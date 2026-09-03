@@ -414,10 +414,10 @@ await prisma.scenarioResults.upsert({
           <tbody>
             <tr>
               <td className="p-2">Raw Crude</td>
-              <td className="p-2">{rawCrudeVol.toFixed(1)}</td>
-              <td className="p-2">{rawCrudeDensity.toFixed(1)}</td>
+              <td className="p-2">{fmt(rawCrudeVol, 1)}</td>
+              <td className="p-2">{fmt(rawCrudeDensity, 1)}</td>
               <td className="p-2">
-                {((rawCrudeVol / blendPreShrinkVol) * 100).toFixed(2)}%
+                {fmt((rawCrudeVol / blendPreShrinkVol) * 100, 2)}%
               </td>
             </tr>
 
@@ -483,8 +483,8 @@ await prisma.scenarioResults.upsert({
           <tbody>
             <tr>
               <td className="p-2">SALE OF NET BLEND</td>
-              <td className="p-2">{netBlendVol.toFixed(2)}</td>
-              <td className="p-2">{heavyStreamPriceCadM3.toFixed(2)}</td>
+              <td className="p-2">{fmt(netBlendVol)}</td>
+              <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
 <td className="p-2">
   {(netBlendVol * heavyStreamPriceCadM3).toFixed(2)}
 </td>
@@ -552,7 +552,7 @@ await prisma.scenarioResults.upsert({
   {/* Raw Crude Volume */}
   <tr>
     <td className="p-2">m³ Raw Crude Production</td>
-    <td className="p-2">{rawCrudeVol.toFixed(1)} m³</td>
+    <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
     <td className="p-2">
       <details>
         <summary className="cursor-pointer text-blue-600">Explain</summary>

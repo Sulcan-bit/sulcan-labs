@@ -10,6 +10,14 @@ import {
   condensate_sulphur_slope,
 } from "@/app/heavy-oil/constants";
 
+const fmt = (n: number | null | undefined, decimals = 2) => {
+  if (typeof n !== "number") return "-";
+  return n.toLocaleString("en-CA", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+};
+
 function getCondensateIndexUsdBbl(monthly: any, choice?: string | null) {
   switch (choice) {
     case "CRW":
@@ -380,8 +388,8 @@ await prisma.scenarioResults.upsert({
           <tbody>
             <tr>
               <td className="p-2">Raw Crude</td>
-              <td className="p-2">{rawCrudeVol.toFixed(1)}</td>
-              <td className="p-2">{rawCrudeDensity.toFixed(1)}</td>
+              <td className="p-2">{fmt(rawCrudeVol, 1)}</td>
+              <td className="p-2">{fmt(rawCrudeDensity, 1)}</td>
               <td className="p-2">
                 {blendPreShrinkVol > 0
                   ? ((rawCrudeVol / blendPreShrinkVol) * 100).toFixed(2)
@@ -447,9 +455,9 @@ await prisma.scenarioResults.upsert({
 <tbody>
   <tr>
     <td className="p-2">SALE OF NET BLEND</td>
-    <td className="p-2">{netBlendVol.toFixed(2)}</td>
-    <td className="p-2">{heavyStreamPriceCadM3.toFixed(2)}</td>
-    <td className="p-2">{saleOfNetBlend_CAD.toFixed(2)}</td>
+    <td className="p-2">{fmt(netBlendVol)}</td>
+    <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
+    <td className="p-2">{fmt(saleOfNetBlend_CAD)}</td>
   </tr>
 
   <tr>
@@ -506,7 +514,7 @@ await prisma.scenarioResults.upsert({
   <tbody>
     <tr>
       <td className="p-2">m³ Raw Crude Production</td>
-      <td className="p-2">{rawCrudeVol.toFixed(1)} m³</td>
+      <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
     </tr>
     <tr>
       <td className="p-2">Net Price Received per m³ Raw Crude</td>

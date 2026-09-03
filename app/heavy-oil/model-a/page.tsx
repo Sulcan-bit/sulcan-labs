@@ -297,7 +297,7 @@ await prisma.scenarioResults.upsert({
             {/* Heavy Stream Price */}
             <tr>
               <td className="p-2">Heavy Stream Price</td>
-              <td className="p-2">{heavyStreamPriceCadM3.toFixed(2)}</td>
+              <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
               <td className="p-2">CAD/m³</td>
             </tr>
 
