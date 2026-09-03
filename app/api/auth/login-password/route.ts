@@ -52,8 +52,8 @@ export async function POST(req: Request) {
     const cookieStore = await cookies();
     cookieStore.set("sulcan_session", token, {
       httpOnly: true,
-      secure: false,     // required for localhost
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       path: "/",
       maxAge: 60 * 60 * 24 * 7, // 7 days
     });
@@ -71,6 +71,7 @@ export async function POST(req: Request) {
         user: {
           id: user.id,
           email: user.email,
+          phone: user.phone,
         },
       },
       { status: 200 }
@@ -83,3 +84,4 @@ export async function POST(req: Request) {
     );
   }
 }
+

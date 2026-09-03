@@ -37,7 +37,7 @@ export default function LoginPage() {
             }`}
             onClick={() => setMode("sms")}
           >
-            Email + SMS Code
+            Phone + SMS Code
           </button>
         </div>
 
@@ -74,7 +74,6 @@ function PasswordLogin() {
       }
 
       window.location.href = "/models";
-
     } catch (err) {
       console.error(err);
       setError("Unexpected error occurred.");
@@ -115,8 +114,7 @@ function PasswordLogin() {
 }
 
 function SmsLogin() {
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");   // ⭐ NEW FIELD
+  const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
   const [error, setError] = useState("");
@@ -127,11 +125,21 @@ function SmsLogin() {
     setError("");
     setLoading(true);
 
+    // Normalize phone to digits only
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      setError("Phone number must be 10 digits.");
+      setLoading(false);
+      return;
+    }
+
+    const normalizedPhone = `+1${digits}`;
+
     try {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone }),   // ⭐ SEND PHONE
+        body: JSON.stringify({ phone: normalizedPhone }),
       });
 
       const data = await res.json();
@@ -160,7 +168,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code }),   // ⭐ PHONE NOT NEEDED HERE
+        body: JSON.stringify({ phone, code }),
       });
 
       const data = await res.json();
@@ -183,14 +191,6 @@ function SmsLogin() {
   return (
     <form className="flex flex-col gap-4" onSubmit={step === "send" ? sendCode : verifyCode}>
       {error && <div className="text-red-600 font-medium">{error}</div>}
-
-      <input
-        type="email"
-        placeholder="Email"
-        className="border p-2 rounded"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
 
       {step === "send" && (
         <>

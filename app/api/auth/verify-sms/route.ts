@@ -6,28 +6,68 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
-    const { email, code } = await req.json();
+    const { email, phone, code } = await req.json();
 
-    if (!email || !code) {
+    // ------------------------------------------------------------
+    // REQUIRED FIELDS
+    // ------------------------------------------------------------
+    if (!email || !phone || !code) {
       return NextResponse.json(
-        { error: "Email and code are required." },
+        { error: "Email, phone, and code are required." },
         { status: 400 }
       );
     }
 
-    // 1. Find user
+    // ------------------------------------------------------------
+    // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
+    // ------------------------------------------------------------
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      return NextResponse.json(
+        { error: "Phone number must be 10 digits." },
+        { status: 400 }
+      );
+    }
+
+    const normalizedPhone = `+1${digits}`;
+
+    // ------------------------------------------------------------
+    // LOOK UP USER BY EMAIL
+    // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (!user || !user.sms_code || !user.sms_code_expires) {
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found." },
+        { status: 404 }
+      );
+    }
+
+    // ------------------------------------------------------------
+    // PHONE MUST MATCH STORED PHONE
+    // ------------------------------------------------------------
+    if (!user.phone || user.phone !== normalizedPhone) {
+      return NextResponse.json(
+        { error: "Email and phone number do not match any account." },
+        { status: 403 }
+      );
+    }
+
+    // ------------------------------------------------------------
+    // CODE MUST EXIST
+    // ------------------------------------------------------------
+    if (!user.sms_code || !user.sms_code_expires) {
       return NextResponse.json(
         { error: "Invalid or expired code." },
         { status: 401 }
       );
     }
 
-    // 2. Check expiry
+    // ------------------------------------------------------------
+    // CHECK EXPIRY
+    // ------------------------------------------------------------
     const now = new Date();
     if (user.sms_code_expires < now) {
       return NextResponse.json(
@@ -36,7 +76,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. Check code match
+    // ------------------------------------------------------------
+    // CHECK CODE MATCH
+    // ------------------------------------------------------------
     if (user.sms_code !== code) {
       return NextResponse.json(
         { error: "Invalid SMS code." },
@@ -44,7 +86,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // 4. Clear SMS code fields
+    // ------------------------------------------------------------
+    // CLEAR CODE + UPDATE LAST LOGIN
+    // ------------------------------------------------------------
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -54,7 +98,9 @@ export async function POST(req: Request) {
       },
     });
 
-    // 5. Create JWT session
+    // ------------------------------------------------------------
+    // CREATE JWT SESSION
+    // ------------------------------------------------------------
     const token = jwt.sign(
       {
         userId: user.id,
@@ -64,7 +110,9 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    // 6. Set cookie
+    // ------------------------------------------------------------
+    // SET COOKIE
+    // ------------------------------------------------------------
     const response = NextResponse.json(
       {
         message: "SMS login successful",
@@ -84,7 +132,7 @@ export async function POST(req: Request) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     return response;
@@ -96,4 +144,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

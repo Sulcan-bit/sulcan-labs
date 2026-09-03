@@ -9,13 +9,23 @@ export default function RegisterPage() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [accessCode, setAccessCode] = useState("");   // NEW
+  const [accessCode, setAccessCode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleRegister(e?: React.FormEvent) {
-    if (e) e.preventDefault(); // ✔ allow Enter key
+    if (e) e.preventDefault();
     setError("");
+
+    if (!email) {
+      setError("Email is required.");
+      return;
+    }
+
+    if (!phone) {
+      setError("Cellphone number is required.");
+      return;
+    }
 
     if (password !== confirm) {
       setError("Passwords do not match.");
@@ -27,6 +37,15 @@ export default function RegisterPage() {
       return;
     }
 
+    // Normalize phone to digits only
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      setError("Phone number must be 10 digits.");
+      return;
+    }
+
+    const normalizedPhone = `+1${digits}`;
+
     setLoading(true);
 
     try {
@@ -35,9 +54,9 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          phone: phone || null,
+          phone: normalizedPhone,
           password,
-          accessCode,   // NEW
+          accessCode,
         }),
       });
 
@@ -85,14 +104,13 @@ export default function RegisterPage() {
           />
 
           <input
-            type="text"
-            placeholder="Phone (optional)"
+            type="tel"
+            placeholder="Cellphone Number"
             className="border p-2 rounded"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
 
-          {/* NEW — Access Code */}
           <input
             type="text"
             placeholder="Access Code"
@@ -118,7 +136,7 @@ export default function RegisterPage() {
           />
 
           <button
-            type="submit"   // ✔ Enter key now submits
+            type="submit"
             disabled={loading}
             className="bg-black text-white p-2 rounded"
           >
@@ -129,3 +147,4 @@ export default function RegisterPage() {
     </main>
   );
 }
+

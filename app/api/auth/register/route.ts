@@ -10,14 +10,32 @@ export async function POST(req: Request) {
   try {
     const { email, phone, password, accessCode } = await req.json();
 
-    if (!email || !password) {
+    // ------------------------------------------------------------
+    // REQUIRED FIELDS
+    // ------------------------------------------------------------
+    if (!email || !password || !phone) {
       return NextResponse.json(
-        { error: "Email and password are required." },
+        { error: "Email, phone, and password are required." },
         { status: 400 }
       );
     }
 
-    // Secret access code check (invite-only)
+    // ------------------------------------------------------------
+    // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
+    // ------------------------------------------------------------
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      return NextResponse.json(
+        { error: "Phone number must be 10 digits." },
+        { status: 400 }
+      );
+    }
+
+    const normalizedPhone = `+1${digits}`;
+
+    // ------------------------------------------------------------
+    // ACCESS CODE CHECK
+    // ------------------------------------------------------------
     const SECRET_ACCESS_CODE = "676767";
     if (accessCode !== SECRET_ACCESS_CODE) {
       return NextResponse.json(
@@ -26,7 +44,9 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if email already exists
+    // ------------------------------------------------------------
+    // CHECK EMAIL UNIQUENESS
+    // ------------------------------------------------------------
     const existingEmail = await prisma.user.findUnique({
       where: { email },
     });
@@ -38,34 +58,39 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check if phone already exists (if provided)
-    if (phone) {
-  const existingPhone = await prisma.user.findFirst({
-    where: { phone },
-  });
+    // ------------------------------------------------------------
+    // CHECK PHONE UNIQUENESS
+    // ------------------------------------------------------------
+    const existingPhone = await prisma.user.findFirst({
+      where: { phone: normalizedPhone },
+    });
 
-  if (existingPhone) {
-    return NextResponse.json(
-      { error: "Phone number is already registered." },
-      { status: 409 }
-    );
-  }
-}
+    if (existingPhone) {
+      return NextResponse.json(
+        { error: "Phone number is already registered." },
+        { status: 409 }
+      );
+    }
 
-
-    // Hash password
+    // ------------------------------------------------------------
+    // HASH PASSWORD
+    // ------------------------------------------------------------
     const password_hash = await bcrypt.hash(password, 10);
 
-    // Create user
+    // ------------------------------------------------------------
+    // CREATE USER
+    // ------------------------------------------------------------
     const user = await prisma.user.create({
-  data: {
-    email,
-    phone: phone || undefined,   // ✔ FIXED
-    password_hash,
-  },
-});
+      data: {
+        email,
+        phone: normalizedPhone,
+        password_hash,
+      },
+    });
 
-
+    // ------------------------------------------------------------
+    // SUCCESS RESPONSE
+    // ------------------------------------------------------------
     return NextResponse.json(
       {
         message: "Account created successfully.",

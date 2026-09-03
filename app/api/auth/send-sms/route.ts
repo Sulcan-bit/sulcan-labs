@@ -7,6 +7,9 @@ export async function POST(req: Request) {
   try {
     const { email, phone } = await req.json();
 
+    // ------------------------------------------------------------
+    // REQUIRED FIELDS
+    // ------------------------------------------------------------
     if (!email || !phone) {
       return NextResponse.json(
         { error: "Email and phone number are required." },
@@ -14,11 +17,22 @@ export async function POST(req: Request) {
       );
     }
 
-    // ⭐ Normalize phone to E.164 (+1XXXXXXXXXX)
-    const digits = phone.replace(/\D/g, ""); // remove non-digits
+    // ------------------------------------------------------------
+    // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
+    // ------------------------------------------------------------
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length !== 10) {
+      return NextResponse.json(
+        { error: "Phone number must be 10 digits." },
+        { status: 400 }
+      );
+    }
+
     const normalizedPhone = `+1${digits}`;
 
-    // 1. Find user by email
+    // ------------------------------------------------------------
+    // LOOK UP USER BY EMAIL
+    // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -30,18 +44,31 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Save phone number if user does not have one
+    // ------------------------------------------------------------
+    // PHONE MUST MATCH STORED PHONE
+    // ------------------------------------------------------------
     if (!user.phone) {
-      await prisma.user.update({
-        where: { id: user.id },
-        data: { phone: normalizedPhone },
-      });
+      return NextResponse.json(
+        { error: "This account does not have a phone number." },
+        { status: 403 }
+      );
     }
 
-    // 3. Generate 6‑digit OTP
+    if (user.phone !== normalizedPhone) {
+      return NextResponse.json(
+        { error: "Email and phone number do not match any account." },
+        { status: 403 }
+      );
+    }
+
+    // ------------------------------------------------------------
+    // GENERATE OTP
+    // ------------------------------------------------------------
     const code = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // 4. Store OTP + expiry (5 minutes)
+    // ------------------------------------------------------------
+    // STORE OTP + EXPIRY (5 MINUTES)
+    // ------------------------------------------------------------
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -50,7 +77,9 @@ export async function POST(req: Request) {
       },
     });
 
-    // 5. Prepare Telnyx SMS payload
+    // ------------------------------------------------------------
+    // SEND SMS TO STORED PHONE
+    // ------------------------------------------------------------
     const payload = {
       from: process.env.TELNYX_FROM_NUMBER, // +18339992783
       to: normalizedPhone,
@@ -58,7 +87,6 @@ export async function POST(req: Request) {
       messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID,
     };
 
-    // 6. Send SMS via Telnyx API v2
     const telnyxRes = await fetch("https://api.telnyx.com/v2/messages", {
       method: "POST",
       headers: {
