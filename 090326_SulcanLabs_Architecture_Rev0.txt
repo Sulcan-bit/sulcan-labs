@@ -1,0 +1,69 @@
+Date: 090326
+
+correct architecture for BOTH apps
+🟦 Backend (Node.js / Express)
+Runs on:
+
+Azure App Service (Basic B1 or Standard S1)
+
+Your backend connects to Azure PostgreSQL using DATABASE_URL
+
+🟦 Database
+Runs on:
+
+Azure PostgreSQL Flexible Server
+
+Single source of truth for:
+
+Heavy Oil Scenarios
+
+Monthly Pricing
+
+Condensate Net Sales
+
+Physical Blend
+
+Net Sales
+
+Financial Benefit
+
+Waste Driver Users
+
+Drivers
+
+Trips
+
+Landfill Database (Phase 1–3)
+
+Stripe Connect Accounts
+
+SMS verification logs
+
+🟦 Frontend
+Sulcan Labs Heavy Oil → Vercel
+
+Waste Driver Web → Vercel
+
+Waste Driver Mobile → Expo + Apple App Store
+
+🟦 AI / Automation
+Azure OpenAI
+
+Azure Functions (nightly scraping, PDF ingestion, fee extraction)
+
+🟦 Storage
+Azure Blob Storage
+
+Landfill PDFs
+
+Driver photos
+
+Waste photos
+
+Heavy Oil model exports (optional)
+
+🟦 Messaging
+Telnyx → Webhooks to Azure App Service
+
+🟦 Payments
+Stripe Connect Express → Azure backend

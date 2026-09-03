@@ -37,7 +37,7 @@ async function seedMonthlyData() {
 
   const streams = {
     msw: await prisma.streamInfo.findUnique({ where: { acronym: 'MSW' } }),
-    c5: await prisma.streamInfo.findUnique({ where: { acronym: 'C5+' } }),
+    c5: await prisma.streamInfo.findUnique({ where: { acronym: 'C5' } }),
     ftsk: await prisma.streamInfo.findUnique({ where: { acronym: 'FTSK' } }),
     peace: await prisma.streamInfo.findUnique({ where: { acronym: 'PEACE' } }),
     kaps: await prisma.streamInfo.findUnique({ where: { acronym: 'KAPS' } }),
