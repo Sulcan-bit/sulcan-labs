@@ -10,6 +10,14 @@ import {
   condensate_sulphur_slope,
 } from "@/app/heavy-oil/constants";
 
+const fmt = (n: number | null | undefined, decimals = 2) => {
+  if (typeof n !== "number") return "-";
+  return n.toLocaleString("en-CA", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+};
+
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;
 };
