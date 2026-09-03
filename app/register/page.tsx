@@ -44,8 +44,6 @@ export default function RegisterPage() {
       return;
     }
 
-    const normalizedPhone = `+1${digits}`;
-
     setLoading(true);
 
     try {
@@ -54,7 +52,7 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          phone: normalizedPhone,
+          phone: digits,        // ✔ FIXED — send raw 10 digits only
           password,
           accessCode,
         }),
@@ -147,4 +145,3 @@ export default function RegisterPage() {
     </main>
   );
 }
-
