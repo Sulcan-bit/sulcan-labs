@@ -1,4 +1,5 @@
 // app/heavy-oil/page.tsx
+export const dynamic = "force-dynamic";
 
 import { requireAuth } from "@/lib/auth";
 import Link from "next/link";
