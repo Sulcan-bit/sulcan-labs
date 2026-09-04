@@ -10,9 +10,9 @@ export async function POST(req: Request) {
     // ------------------------------------------------------------
     // REQUIRED FIELDS
     // ------------------------------------------------------------
-    if (!email || !phone) {
+    if (!phone) {
       return NextResponse.json(
-        { error: "Email and phone number are required." },
+        { error: "Phone number is required." },
         { status: 400 }
       );
     }
@@ -31,33 +31,16 @@ export async function POST(req: Request) {
     const normalizedPhone = `+1${digits}`;
 
     // ------------------------------------------------------------
-    // LOOK UP USER BY EMAIL
+    // LOOK UP USER BY PHONE (RESTORED WORKING LOGIC)
     // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { phone: normalizedPhone },
     });
 
     if (!user) {
       return NextResponse.json(
-        { error: "User not found." },
+        { error: "No account found with this phone number." },
         { status: 404 }
-      );
-    }
-
-    // ------------------------------------------------------------
-    // PHONE MUST MATCH STORED PHONE
-    // ------------------------------------------------------------
-    if (!user.phone) {
-      return NextResponse.json(
-        { error: "This account does not have a phone number." },
-        { status: 403 }
-      );
-    }
-
-    if (user.phone !== normalizedPhone) {
-      return NextResponse.json(
-        { error: "Email and phone number do not match any account." },
-        { status: 403 }
       );
     }
 
@@ -81,7 +64,7 @@ export async function POST(req: Request) {
     // SEND SMS TO STORED PHONE
     // ------------------------------------------------------------
     const payload = {
-      from: process.env.TELNYX_FROM_NUMBER, // +18339992783
+      from: process.env.TELNYX_FROM_NUMBER,
       to: normalizedPhone,
       text: `Sulcan Labs Login Code: ${code}`,
       messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID,

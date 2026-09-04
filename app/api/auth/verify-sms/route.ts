@@ -6,18 +6,17 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
-    const { email, phone, code } = await req.json();
+    const { phone, code } = await req.json();
 
     // ------------------------------------------------------------
     // REQUIRED FIELDS
     // ------------------------------------------------------------
-    if (!email || !phone || !code) {
+    if (!phone || !code) {
       return NextResponse.json(
-        { error: "Email, phone, and code are required." },
+        { error: "Phone number and code are required." },
         { status: 400 }
       );
     }
-    
 
     // ------------------------------------------------------------
     // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
@@ -33,30 +32,18 @@ export async function POST(req: Request) {
     const normalizedPhone = `+1${digits}`;
 
     // ------------------------------------------------------------
-    // LOOK UP USER BY EMAIL
+    // LOOK UP USER BY PHONE (RESTORED WORKING LOGIC)
     // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
-      where: { email },
+      where: { phone: normalizedPhone },
     });
 
     if (!user) {
       return NextResponse.json(
-        { error: "User not found." },
+        { error: "No account found with this phone number." },
         { status: 404 }
       );
     }
-
-
-    // ------------------------------------------------------------
-    // PHONE MUST MATCH STORED PHONE
-    // ------------------------------------------------------------
-    if (!user.phone || user.phone !== normalizedPhone) {
-      return NextResponse.json(
-        { error: "Email and phone number do not match any account." },
-        { status: 403 }
-      );
-    }
-
 
     // ------------------------------------------------------------
     // CODE MUST EXIST
@@ -67,7 +54,6 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
-
 
     // ------------------------------------------------------------
     // CHECK EXPIRY
@@ -80,7 +66,6 @@ export async function POST(req: Request) {
       );
     }
 
-
     // ------------------------------------------------------------
     // CHECK CODE MATCH
     // ------------------------------------------------------------
@@ -90,7 +75,6 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
-
 
     // ------------------------------------------------------------
     // CLEAR CODE + UPDATE LAST LOGIN
@@ -104,7 +88,6 @@ export async function POST(req: Request) {
       },
     });
 
-
     // ------------------------------------------------------------
     // CREATE JWT SESSION
     // ------------------------------------------------------------
@@ -117,9 +100,8 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-
     // ------------------------------------------------------------
-    // SET COOKIE
+    // SET COOKIE (RESTORED WORKING STYLE)
     // ------------------------------------------------------------
     const response = NextResponse.json(
       {
@@ -134,15 +116,14 @@ export async function POST(req: Request) {
     );
 
     response.cookies.set({
-       name: "sulcan_session",
-       value: token,
-       httpOnly: true,
-       secure: true,
-       sameSite: "lax",
-       domain: "sulcan.com",
-       path: "/",
-       maxAge: 60 * 60 * 24 * 7,
-     });
+      name: "sulcan_session",
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
 
     return response;
   } catch (err) {
@@ -153,11 +134,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
-
-
-
-
-
-
-

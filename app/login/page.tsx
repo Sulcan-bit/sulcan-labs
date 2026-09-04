@@ -11,7 +11,6 @@ export default function LoginPage() {
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded shadow max-w-md w-full">
 
-        {/* Back to Home */}
         <div className="mb-6">
           <a href="/" className="text-blue-600 underline">
             ← Back to Home
@@ -20,7 +19,6 @@ export default function LoginPage() {
 
         <h1 className="text-2xl font-bold mb-6">Login</h1>
 
-        {/* Mode Switch */}
         <div className="flex gap-4 mb-6">
           <button
             className={`px-4 py-2 rounded ${
@@ -114,7 +112,6 @@ function PasswordLogin() {
 }
 
 function SmsLogin() {
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
@@ -125,12 +122,6 @@ function SmsLogin() {
     if (e) e.preventDefault();
     setError("");
     setLoading(true);
-
-    if (!email) {
-      setError("Email is required.");
-      setLoading(false);
-      return;
-    }
 
     const digits = phone.replace(/\D/g, "");
     if (digits.length !== 10) {
@@ -143,7 +134,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: digits }),
+        body: JSON.stringify({ phone: digits }),
       });
 
       const data = await res.json();
@@ -174,7 +165,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: digits, code }),
+        body: JSON.stringify({ phone: digits, code }),
       });
 
       const data = await res.json();
@@ -200,14 +191,6 @@ function SmsLogin() {
 
       {step === "send" && (
         <>
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-2 rounded"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
           <input
             type="tel"
             placeholder="Cellphone Number"
@@ -248,4 +231,3 @@ function SmsLogin() {
     </form>
   );
 }
-
