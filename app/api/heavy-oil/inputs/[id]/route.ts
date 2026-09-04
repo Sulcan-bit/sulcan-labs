@@ -23,7 +23,6 @@ export async function GET(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  // ⭐ TT1‑only architecture — no legacy cleanup required
   return NextResponse.json(record);
 }
 

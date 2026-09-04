@@ -96,8 +96,8 @@ export default function ModelSetupScreen() {
       createdAt: timestamp,
     };
 
-    window.location.href =
-  `/heavy-oil/inputs?setup=${encodeURIComponent(JSON.stringify(setup))}`;
+   router.push(`/heavy-oil/inputs?setup=${encodeURIComponent(JSON.stringify(setup))}`);
+
   }
 
   // -----------------------------------------
