@@ -115,7 +115,7 @@ export async function POST(req: Request) {
     // SET COOKIE USING NEXT.JS COOKIES() API
     // (MATCH login-password EXACTLY)
     // ------------------------------------------------------------
-    const cookieStore = cookies();   // ✔ synchronous
+const cookieStore = await cookies();   // ASYNC in route handlers
 cookieStore.set("sulcan_session", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
@@ -123,6 +123,7 @@ cookieStore.set("sulcan_session", token, {
   path: "/",
   maxAge: 60 * 60 * 24 * 7,
 });
+
 
 
     // ------------------------------------------------------------
