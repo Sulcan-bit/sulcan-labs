@@ -11,7 +11,8 @@ import { redirect } from "next/navigation";
  */
 export async function getUserFromSession() {
   try {
-    const cookieStore = cookies(); // NO await
+    // IMPORTANT: cookies() is synchronous in Next.js 16
+    const cookieStore = cookies(); 
     const token = cookieStore.get("sulcan_session")?.value;
 
     if (!token) return null;
