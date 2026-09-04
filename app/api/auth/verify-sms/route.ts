@@ -1,8 +1,11 @@
 // app/api/auth/verify-sms/route.ts
 
+// app/api/auth/verify-sms/route.ts
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
@@ -111,9 +114,22 @@ export async function POST(req: Request) {
     );
 
     // ------------------------------------------------------------
-    // SET COOKIE (MATCH PASSWORD LOGIN)
+    // SET COOKIE USING NEXT.JS COOKIES() API
+    // (MATCH login-password EXACTLY)
     // ------------------------------------------------------------
-    const response = NextResponse.json(
+    const cookieStore = await cookies();
+    cookieStore.set("sulcan_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    // ------------------------------------------------------------
+    // RETURN RESPONSE
+    // ------------------------------------------------------------
+    return NextResponse.json(
       {
         message: "SMS login successful",
         user: {
@@ -124,18 +140,6 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
-
-    response.cookies.set({
-      name: "sulcan_session",
-      value: token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    return response;
   } catch (err) {
     console.error("Verify SMS error:", err);
     return NextResponse.json(
@@ -144,4 +148,3 @@ export async function POST(req: Request) {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 // lib/auth.ts
 
-import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
@@ -11,9 +11,15 @@ import { redirect } from "next/navigation";
  */
 export async function getUserFromSession() {
   try {
-    const cookieStore = await cookies();
-const token = cookieStore.get("sulcan_session")?.value;
+    // Read raw Cookie header
+    const headerStore = headers();
+    const cookieHeader = headerStore.get("cookie") || "";
 
+    // Extract sulcan_session manually
+    const match = cookieHeader.match(/(?:^|;\s*)sulcan_session=([^;]+)/);
+    if (!match) return null;
+
+    const token = decodeURIComponent(match[1]);
 
     if (!token) return null;
 
@@ -42,3 +48,4 @@ export async function requireAuth() {
   if (!user) redirect("/login");
   return user;
 }
+
