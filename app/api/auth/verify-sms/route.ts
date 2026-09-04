@@ -1,7 +1,5 @@
 // app/api/auth/verify-sms/route.ts
 
-// app/api/auth/verify-sms/route.ts
-
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
@@ -117,14 +115,15 @@ export async function POST(req: Request) {
     // SET COOKIE USING NEXT.JS COOKIES() API
     // (MATCH login-password EXACTLY)
     // ------------------------------------------------------------
-    const cookieStore = await cookies();
-    cookieStore.set("sulcan_session", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
-    });
+    const cookieStore = cookies();   // ✔ synchronous
+cookieStore.set("sulcan_session", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
+  path: "/",
+  maxAge: 60 * 60 * 24 * 7,
+});
+
 
     // ------------------------------------------------------------
     // RETURN RESPONSE
