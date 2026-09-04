@@ -35,7 +35,7 @@ export default function LoginPage() {
             }`}
             onClick={() => setMode("sms")}
           >
-            Phone + SMS Code
+            Email + Phone + SMS Code
           </button>
         </div>
 
@@ -112,6 +112,7 @@ function PasswordLogin() {
 }
 
 function SmsLogin() {
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
@@ -122,6 +123,12 @@ function SmsLogin() {
     if (e) e.preventDefault();
     setError("");
     setLoading(true);
+
+    if (!email) {
+      setError("Email is required.");
+      setLoading(false);
+      return;
+    }
 
     const digits = phone.replace(/\D/g, "");
     if (digits.length !== 10) {
@@ -134,7 +141,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: digits }),
+        body: JSON.stringify({ email, phone: digits }),
       });
 
       const data = await res.json();
@@ -165,7 +172,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: digits, code }),
+        body: JSON.stringify({ email, phone: digits, code }),
       });
 
       const data = await res.json();
@@ -187,10 +194,18 @@ function SmsLogin() {
 
   return (
     <form className="flex flex-col gap-4" onSubmit={step === "send" ? sendCode : verifyCode}>
-      {error && <div className="text-red-600 font-medium">{error}</div>}
+      {error && <div className="text-red-600 text-sm">{error}</div>}
 
       {step === "send" && (
         <>
+          <input
+            type="email"
+            placeholder="Email"
+            className="border p-2 rounded"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
           <input
             type="tel"
             placeholder="Cellphone Number"

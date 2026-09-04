@@ -6,14 +6,14 @@ import jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
   try {
-    const { phone, code } = await req.json();
+    const { email, phone, code } = await req.json();
 
     // ------------------------------------------------------------
     // REQUIRED FIELDS
     // ------------------------------------------------------------
-    if (!phone || !code) {
+    if (!email || !phone || !code) {
       return NextResponse.json(
-        { error: "Phone number and code are required." },
+        { error: "Email, phone, and code are required." },
         { status: 400 }
       );
     }
@@ -32,16 +32,26 @@ export async function POST(req: Request) {
     const normalizedPhone = `+1${digits}`;
 
     // ------------------------------------------------------------
-    // LOOK UP USER BY PHONE (RESTORED WORKING LOGIC)
+    // LOOK UP USER BY EMAIL
     // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
-      where: { phone: normalizedPhone },
+      where: { email },
     });
 
     if (!user) {
       return NextResponse.json(
-        { error: "No account found with this phone number." },
+        { error: "No account found with this email." },
         { status: 404 }
+      );
+    }
+
+    // ------------------------------------------------------------
+    // PHONE MUST MATCH STORED PHONE
+    // ------------------------------------------------------------
+    if (!user.phone || user.phone !== normalizedPhone) {
+      return NextResponse.json(
+        { error: "Email and phone number do not match any account." },
+        { status: 403 }
       );
     }
 
@@ -101,7 +111,7 @@ export async function POST(req: Request) {
     );
 
     // ------------------------------------------------------------
-    // SET COOKIE (RESTORED WORKING STYLE)
+    // SET COOKIE (MATCH PASSWORD LOGIN)
     // ------------------------------------------------------------
     const response = NextResponse.json(
       {
@@ -120,9 +130,9 @@ export async function POST(req: Request) {
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      sameSite: "strict",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     return response;
@@ -134,3 +144,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
