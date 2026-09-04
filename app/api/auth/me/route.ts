@@ -1,23 +1,28 @@
 // app/api/auth/me/route.ts
 
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
-import { getAuthFromRequest } from "@/lib/auth";
+import { getUserFromSession } from "@/lib/auth";
 
-export async function GET(req: Request) {
-  const auth = getAuthFromRequest(req);
+export async function GET() {
+  const user = await getUserFromSession();
 
-  if (!auth) {
+  if (!user) {
     return NextResponse.json(
       { error: "Not authenticated." },
       { status: 401 }
     );
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: auth.userId },
-  });
-
-  return NextResponse.json({ user });
+  return NextResponse.json(
+    {
+      id: user.id,
+      email: user.email,
+      phone: user.phone,
+      first_name: user.first_name,
+      last_name: user.last_name,
+    },
+    { status: 200 }
+  );
 }
+
 
