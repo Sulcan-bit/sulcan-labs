@@ -11,7 +11,10 @@ export default function ProfilePage() {
   useEffect(() => {
     async function loadProfile() {
       try {
-        const res = await fetch("/api/profile");
+        const res = await fetch("/api/profile", {
+  credentials: "include",
+});
+
         const data = await res.json();
 
         if (!res.ok) {
