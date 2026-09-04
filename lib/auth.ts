@@ -12,7 +12,8 @@ const SECRET = process.env.JWT_SECRET!;
  */
 export async function getUserFromSession() {
   try {
-    const cookieStore = cookies();
+    // ⭐ FIX FOR NEXT.JS 16 — cookies() MUST BE AWAITED
+    const cookieStore = await cookies();
     const token = cookieStore.get("sulcan_session")?.value;
 
     if (!token) return null;
@@ -42,5 +43,6 @@ export async function requireAuth() {
   if (!user) throw new Error("Unauthorized");
   return user;
 }
+
 
 
