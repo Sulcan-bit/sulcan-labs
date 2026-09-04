@@ -17,6 +17,7 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    
 
     // ------------------------------------------------------------
     // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
       );
     }
 
+
     // ------------------------------------------------------------
     // PHONE MUST MATCH STORED PHONE
     // ------------------------------------------------------------
@@ -55,6 +57,7 @@ export async function POST(req: Request) {
       );
     }
 
+
     // ------------------------------------------------------------
     // CODE MUST EXIST
     // ------------------------------------------------------------
@@ -64,6 +67,7 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+
 
     // ------------------------------------------------------------
     // CHECK EXPIRY
@@ -76,6 +80,7 @@ export async function POST(req: Request) {
       );
     }
 
+
     // ------------------------------------------------------------
     // CHECK CODE MATCH
     // ------------------------------------------------------------
@@ -85,6 +90,7 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+
 
     // ------------------------------------------------------------
     // CLEAR CODE + UPDATE LAST LOGIN
@@ -98,6 +104,7 @@ export async function POST(req: Request) {
       },
     });
 
+
     // ------------------------------------------------------------
     // CREATE JWT SESSION
     // ------------------------------------------------------------
@@ -109,6 +116,7 @@ export async function POST(req: Request) {
       process.env.JWT_SECRET!,
       { expiresIn: "7d" }
     );
+
 
     // ------------------------------------------------------------
     // SET COOKIE
@@ -126,14 +134,15 @@ export async function POST(req: Request) {
     );
 
     response.cookies.set({
-      name: "sulcan_session",
-      value: token,
-      httpOnly: true,
-      secure: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
+       name: "sulcan_session",
+       value: token,
+       httpOnly: true,
+       secure: true,
+       sameSite: "lax",
+       domain: "sulcan.com",
+       path: "/",
+       maxAge: 60 * 60 * 24 * 7,
+     });
 
     return response;
   } catch (err) {
@@ -144,5 +153,11 @@ export async function POST(req: Request) {
     );
   }
 }
+
+
+
+
+
+
 
 

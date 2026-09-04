@@ -156,7 +156,7 @@ export default function ModelSetupScreen() {
           <input
             type="text"
             className="border p-3 rounded w-full"
-            placeholder="Heavy Feeder Pipeline Operator Inc."
+            placeholder="Heavy Oil Terminal Inc."
             value={terminalOperator}
             onChange={(e) => setTerminalOperator(e.target.value)}
           />
