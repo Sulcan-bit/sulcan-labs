@@ -3,15 +3,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
     const { email, phone, code } = await req.json();
 
-    // ------------------------------------------------------------
-    // REQUIRED FIELDS
-    // ------------------------------------------------------------
     if (!email || !phone || !code) {
       return NextResponse.json(
         { error: "Email, phone, and code are required." },
@@ -19,9 +15,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
-    // ------------------------------------------------------------
     const digits = phone.replace(/\D/g, "");
     if (digits.length !== 10) {
       return NextResponse.json(
@@ -32,9 +25,6 @@ export async function POST(req: Request) {
 
     const normalizedPhone = `+1${digits}`;
 
-    // ------------------------------------------------------------
-    // LOOK UP USER BY EMAIL
-    // ------------------------------------------------------------
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -46,9 +36,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // PHONE MUST MATCH STORED PHONE
-    // ------------------------------------------------------------
     if (!user.phone || user.phone !== normalizedPhone) {
       return NextResponse.json(
         { error: "Email and phone number do not match any account." },
@@ -56,9 +43,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CODE MUST EXIST
-    // ------------------------------------------------------------
     if (!user.sms_code || !user.sms_code_expires) {
       return NextResponse.json(
         { error: "Invalid or expired code." },
@@ -66,9 +50,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CHECK EXPIRY
-    // ------------------------------------------------------------
     const now = new Date();
     if (user.sms_code_expires < now) {
       return NextResponse.json(
@@ -77,9 +58,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CHECK CODE MATCH
-    // ------------------------------------------------------------
     if (user.sms_code !== code) {
       return NextResponse.json(
         { error: "Invalid SMS code." },
@@ -87,9 +65,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CLEAR CODE + UPDATE LAST LOGIN
-    // ------------------------------------------------------------
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -99,9 +74,6 @@ export async function POST(req: Request) {
       },
     });
 
-    // ------------------------------------------------------------
-    // CREATE JWT SESSION
-    // ------------------------------------------------------------
     const token = jwt.sign(
       {
         userId: user.id,
@@ -111,25 +83,7 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    // ------------------------------------------------------------
-    // SET COOKIE USING NEXT.JS COOKIES() API
-    // (MATCH login-password EXACTLY)
-    // ------------------------------------------------------------
-const cookieStore = await cookies();   // ASYNC in route handlers
-cookieStore.set("sulcan_session", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
-  path: "/",
-  maxAge: 60 * 60 * 24 * 7,
-});
-
-
-
-    // ------------------------------------------------------------
-    // RETURN RESPONSE
-    // ------------------------------------------------------------
-    return NextResponse.json(
+    const res = NextResponse.json(
       {
         message: "SMS login successful",
         user: {
@@ -140,6 +94,16 @@ cookieStore.set("sulcan_session", token, {
       },
       { status: 200 }
     );
+
+    res.cookies.set("sulcan_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+
+    return res;
   } catch (err) {
     console.error("Verify SMS error:", err);
     return NextResponse.json(
