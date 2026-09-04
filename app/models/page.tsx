@@ -11,11 +11,11 @@ export default function ModelsPage() {
 
         {/* Navigation */}
         <div className="flex justify-between mb-6">
-          <Link href="/" className="text-blue-600 underline">
-            ← Home
+          <Link href="/profile" className="text-blue-600 underline">
+            Profile
           </Link>
 
-          <Link href="/logout" className="text-red-600 underline">
+          <Link href="/api/auth/logout" className="text-red-600 underline">
             Logout
           </Link>
         </div>
@@ -46,5 +46,6 @@ export default function ModelsPage() {
     </main>
   );
 }
+
 
 
