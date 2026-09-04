@@ -114,6 +114,7 @@ function PasswordLogin() {
 }
 
 function SmsLogin() {
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"send" | "verify">("send");
@@ -125,7 +126,12 @@ function SmsLogin() {
     setError("");
     setLoading(true);
 
-    // Normalize phone to digits only
+    if (!email) {
+      setError("Email is required.");
+      setLoading(false);
+      return;
+    }
+
     const digits = phone.replace(/\D/g, "");
     if (digits.length !== 10) {
       setError("Phone number must be 10 digits.");
@@ -137,7 +143,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: digits }),   // ✔ send raw digits
+        body: JSON.stringify({ email, phone: digits }),
       });
 
       const data = await res.json();
@@ -168,7 +174,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: digits, code }),   // ✔ send raw digits
+        body: JSON.stringify({ email, phone: digits, code }),
       });
 
       const data = await res.json();
@@ -194,6 +200,14 @@ function SmsLogin() {
 
       {step === "send" && (
         <>
+          <input
+            type="email"
+            placeholder="Email"
+            className="border p-2 rounded"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
           <input
             type="tel"
             placeholder="Cellphone Number"
@@ -234,3 +248,4 @@ function SmsLogin() {
     </form>
   );
 }
+
