@@ -1,4 +1,5 @@
 // app/heavy-oil/inputs/page.tsx
+export const dynamic = "force-dynamic";
 
 import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/auth";
