@@ -5,10 +5,6 @@ import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
-/**
- * Reads the JWT session cookie and returns the authenticated user.
- * Returns null if no valid session exists.
- */
 export async function getUserFromSession() {
   try {
     // IMPORTANT: cookies() is synchronous in Next.js 16
@@ -33,12 +29,9 @@ export async function getUserFromSession() {
   }
 }
 
-/**
- * Protects server components and pages.
- * If no valid session exists, redirects to /login.
- */
 export async function requireAuth() {
   const user = await getUserFromSession();
   if (!user) redirect("/login");
   return user;
 }
+
