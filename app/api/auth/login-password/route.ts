@@ -35,6 +35,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // ⭐ NO COOKIES — return JWT directly
     const token = jwt.sign(
       {
         userId: user.id,
@@ -44,9 +45,11 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    const res = NextResponse.json(
+    // ⭐ Client stores token in localStorage
+    return NextResponse.json(
       {
         message: "Login successful",
+        token,
         user: {
           id: user.id,
           email: user.email,
@@ -56,20 +59,6 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-    res.cookies.set("sulcan_session", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { last_login: new Date() },
-    });
-
-    return res;
   } catch (err) {
     console.error("Login error:", err);
     return NextResponse.json(

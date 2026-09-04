@@ -74,6 +74,7 @@ export async function POST(req: Request) {
       },
     });
 
+    // ⭐ NO COOKIES — return JWT directly
     const token = jwt.sign(
       {
         userId: user.id,
@@ -83,9 +84,10 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    const res = NextResponse.json(
+    return NextResponse.json(
       {
         message: "SMS login successful",
+        token,
         user: {
           id: user.id,
           email: user.email,
@@ -95,15 +97,6 @@ export async function POST(req: Request) {
       { status: 200 }
     );
 
-    res.cookies.set("sulcan_session", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
-
-    return res;
   } catch (err) {
     console.error("Verify SMS error:", err);
     return NextResponse.json(
@@ -112,3 +105,4 @@ export async function POST(req: Request) {
     );
   }
 }
+

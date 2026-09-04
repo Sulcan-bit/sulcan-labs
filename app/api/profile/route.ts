@@ -2,30 +2,21 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import jwt from "jsonwebtoken";
+import { getAuthFromRequest } from "@/lib/auth";
 
 export async function GET(req: Request) {
   try {
-    const cookie = req.headers.get("cookie") || "";
-    const token = cookie
-      .split(";")
-      .find((c) => c.trim().startsWith("sulcan_session="))
-      ?.split("=")[1];
-
-    if (!token) {
+    // ⭐ Token-based authentication (NO COOKIES)
+    const auth = getAuthFromRequest(req);
+    if (!auth) {
       return NextResponse.json(
         { error: "Not authenticated." },
         { status: 401 }
       );
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-      userId: number;
-      email: string;
-    };
-
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { id: auth.userId },
     });
 
     if (!user) {

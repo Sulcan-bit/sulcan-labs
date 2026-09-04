@@ -3,17 +3,9 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const response = NextResponse.redirect("https://sulcan.com");
+  // No cookies. No clearing. No session invalidation.
+  // Token-based auth means logout is purely client-side.
 
-  response.cookies.set({
-    name: "sulcan_session",
-    value: "",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    path: "/",
-    maxAge: 0, // expire immediately
-  });
-
-  return response;
+  return NextResponse.redirect("https://sulcan.com");
 }
+
