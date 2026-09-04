@@ -1,12 +1,11 @@
 // app/heavy-oil/page.tsx
 
-"use client";
-
-import { useRouter } from "next/navigation";
+import { requireAuth } from "@/lib/auth";
 import Link from "next/link";
 
-export default function HeavyOilHome() {
-  const router = useRouter();
+export default async function HeavyOilHome() {
+  // ⭐ COOKIE-BASED AUTH (RESTORED)
+  await requireAuth();
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -20,19 +19,19 @@ export default function HeavyOilHome() {
         {/* Action Buttons */}
         <div className="flex flex-col gap-4">
 
-          <button
-            onClick={() => router.push("/heavy-oil/model-setup")}
+          <Link
+            href="/heavy-oil/model-setup"
             className="w-full p-4 rounded-lg bg-black text-white text-center font-medium hover:bg-gray-900 transition"
           >
             New Heavy Oil Model Setup
-          </button>
+          </Link>
 
-          <button
-            onClick={() => router.push("/heavy-oil/comparison/select")}
+          <Link
+            href="/heavy-oil/comparison/select"
             className="w-full p-4 rounded-lg bg-gray-800 text-white text-center font-medium hover:bg-gray-700 transition"
           >
             Blended Heavy Oil Netback Comparison
-          </button>
+          </Link>
         </div>
 
         {/* Navigation Footer */}
@@ -49,6 +48,7 @@ export default function HeavyOilHome() {
     </main>
   );
 }
+
 
 
 

@@ -10,9 +10,7 @@ export async function POST(req: Request) {
   try {
     const { email, phone, password, accessCode } = await req.json();
 
-    // ------------------------------------------------------------
-    // REQUIRED FIELDS
-    // ------------------------------------------------------------
+    // Required fields
     if (!email || !password || !phone) {
       return NextResponse.json(
         { error: "Email, phone, and password are required." },
@@ -20,9 +18,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // NORMALIZE PHONE → E.164 (+1XXXXXXXXXX)
-    // ------------------------------------------------------------
+    // Normalize phone → +1XXXXXXXXXX
     const digits = phone.replace(/\D/g, "");
     if (digits.length !== 10) {
       return NextResponse.json(
@@ -33,9 +29,7 @@ export async function POST(req: Request) {
 
     const normalizedPhone = `+1${digits}`;
 
-    // ------------------------------------------------------------
-    // ACCESS CODE CHECK
-    // ------------------------------------------------------------
+    // Access code check
     const SECRET_ACCESS_CODE = "676767";
     if (accessCode !== SECRET_ACCESS_CODE) {
       return NextResponse.json(
@@ -44,9 +38,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CHECK EMAIL UNIQUENESS
-    // ------------------------------------------------------------
+    // Check email uniqueness
     const existingEmail = await prisma.user.findUnique({
       where: { email },
     });
@@ -58,9 +50,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // CHECK PHONE UNIQUENESS
-    // ------------------------------------------------------------
+    // Check phone uniqueness
     const existingPhone = await prisma.user.findFirst({
       where: { phone: normalizedPhone },
     });
@@ -72,14 +62,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // HASH PASSWORD
-    // ------------------------------------------------------------
+    // Hash password
     const password_hash = await bcrypt.hash(password, 10);
 
-    // ------------------------------------------------------------
-    // CREATE USER
-    // ------------------------------------------------------------
+    // Create user
     const user = await prisma.user.create({
       data: {
         email,
@@ -88,9 +74,7 @@ export async function POST(req: Request) {
       },
     });
 
-    // ------------------------------------------------------------
-    // SUCCESS RESPONSE
-    // ------------------------------------------------------------
+    // Success response (NO COOKIE HERE)
     return NextResponse.json(
       {
         message: "Account created successfully.",
@@ -102,6 +86,7 @@ export async function POST(req: Request) {
       },
       { status: 201 }
     );
+
   } catch (err) {
     console.error("Register error:", err);
     return NextResponse.json(
@@ -110,4 +95,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
 

@@ -141,7 +141,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/send-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: digits }),
+        body: JSON.stringify({ email, phone: `+1${digits}` }),
       });
 
       const data = await res.json();
@@ -172,7 +172,7 @@ function SmsLogin() {
       const res = await fetch("/api/auth/verify-sms", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: digits, code }),
+        body: JSON.stringify({ email, phone: `+1${digits}`, code }),
       });
 
       const data = await res.json();

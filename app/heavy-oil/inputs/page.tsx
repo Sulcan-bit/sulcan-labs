@@ -1,13 +1,12 @@
 // app/heavy-oil/inputs/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { requireAuth } from "@/lib/auth";
 import InputsForm from "./InputsForm";
 
 export default async function HeavyOilInputsPage() {
-  // ❗ IMPORTANT:
-  // Server Components cannot authenticate users.
-  // Auth is now enforced ONLY in API routes.
-  // So we remove requireAuth entirely.
+  // ⭐ COOKIE-BASED AUTH (RESTORED)
+  const user = await requireAuth();
 
   // Load months from MonthlyData
   const months = await prisma.monthlyData.findMany({
@@ -16,11 +15,17 @@ export default async function HeavyOilInputsPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-3xl font-bold mb-6">Heavy Oil Diluent Optimization Inputs</h1>
+      <h1 className="text-3xl font-bold mb-6">
+        Heavy Oil Diluent Optimization Inputs
+      </h1>
 
-      {/* ❗ We cannot show user.email here anymore because RSC cannot read auth */}
+      <p className="mb-6 text-lg text-gray-700">
+        Welcome, {user.email}
+      </p>
+
       <InputsForm months={months} />
     </main>
   );
 }
+
 

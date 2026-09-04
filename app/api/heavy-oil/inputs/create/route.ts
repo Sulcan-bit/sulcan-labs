@@ -2,23 +2,21 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuthFromRequest } from "@/lib/auth";
+import { getUserFromSession } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
-    // ⭐ Token-based authentication (NO COOKIES)
-    const auth = getAuthFromRequest(req);
-    if (!auth) {
+    // ⭐ COOKIE-BASED AUTH (RESTORED)
+    const user = await getUserFromSession();
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userId = auth.userId;
+    const userId = user.id;
 
     const body = await req.json() as Record<string, any>;
 
-    // ------------------------------------------------------------
     // Normalize empty strings → null
-    // ------------------------------------------------------------
     const normalized = Object.fromEntries(
       Object.entries(body).map(([key, value]) => [
         key,
@@ -26,9 +24,7 @@ export async function POST(req: Request) {
       ])
     );
 
-    // ------------------------------------------------------------
     // Extract scenario metadata
-    // ------------------------------------------------------------
     const {
       scenarioName,
       terminalOperator,
@@ -37,9 +33,7 @@ export async function POST(req: Request) {
       notes,
     } = normalized;
 
-    // ------------------------------------------------------------
-    // Extract TT1‑only HeavyOilInputs fields
-    // ------------------------------------------------------------
+    // Extract TT1-only HeavyOilInputs fields
     const {
       monthId,
       heavy_oil_stream,
@@ -78,15 +72,15 @@ export async function POST(req: Request) {
       raw_crude_truck_volume_m3,
       raw_crude_hours_tt1,
 
-      // Terminal fee (TT1 only)
+      // Terminal fee
       tt1_fee_cad_m3,
 
-      // Pipeline fees (TT1 only)
+      // Pipeline fees
       pipeline_power_surcharge_cad_m3,
       pipeline_loss_allowance_pct,
       pipeline_toll_tt1_cad_m3,
 
-      // Profit sharing (TT1 only)
+      // Profit sharing
       tt1_diluent_sharing_pct,
 
       // Premium crude values
@@ -94,9 +88,7 @@ export async function POST(req: Request) {
       hardisty_premium_crude_value_usd_bbl,
     } = normalized;
 
-    // ------------------------------------------------------------
     // Validate month exists
-    // ------------------------------------------------------------
     const month = await prisma.monthlyData.findUnique({
       where: { id: Number(monthId) },
     });
@@ -108,9 +100,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ------------------------------------------------------------
-    // Create HeavyOilInputs (TT1‑only)
-    // ------------------------------------------------------------
+    // Create HeavyOilInputs (TT1-only)
     const record = await prisma.heavyOilInputs.create({
       data: {
         userId,
@@ -169,9 +159,7 @@ export async function POST(req: Request) {
       },
     });
 
-    // ------------------------------------------------------------
     // Create Scenario (with metadata)
-    // ------------------------------------------------------------
     const scenario = await prisma.scenario.create({
       data: {
         userId,
@@ -211,6 +199,7 @@ export async function POST(req: Request) {
     );
   }
 }
+
 
 
 

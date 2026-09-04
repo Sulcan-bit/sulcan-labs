@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
@@ -65,6 +66,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // Clear OTP + update last_login
     await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -74,7 +76,7 @@ export async function POST(req: Request) {
       },
     });
 
-    // ⭐ NO COOKIES — return JWT directly
+    // ⭐ COOKIE-BASED SESSION (RESTORED)
     const token = jwt.sign(
       {
         userId: user.id,
@@ -84,10 +86,18 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
+    const cookieStore = await cookies();
+    cookieStore.set("sulcan_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
     return NextResponse.json(
       {
         message: "SMS login successful",
-        token,
         user: {
           id: user.id,
           email: user.email,
@@ -105,4 +115,5 @@ export async function POST(req: Request) {
     );
   }
 }
+
 

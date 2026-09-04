@@ -2,15 +2,15 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuthFromRequest } from "@/lib/auth";
+import { getUserFromSession } from "@/lib/auth";
 
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  // ⭐ Token-based authentication (NO COOKIES)
-  const auth = getAuthFromRequest(req);
-  if (!auth) {
+  // ⭐ COOKIE-BASED AUTH (RESTORED)
+  const user = await getUserFromSession();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -20,13 +20,14 @@ export async function GET(
     where: { id: Number(id) },
   });
 
-  // ⭐ Compare record.userId with auth.userId
-  if (!record || record.userId !== auth.userId) {
+  // ⭐ Compare record.userId with user.id
+  if (!record || record.userId !== user.id) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   return NextResponse.json(record);
 }
+
 
 
 

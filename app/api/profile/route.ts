@@ -2,13 +2,13 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuthFromRequest } from "@/lib/auth";
+import { getUserFromSession } from "@/lib/auth";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    // ⭐ Token-based authentication (NO COOKIES)
-    const auth = getAuthFromRequest(req);
-    if (!auth) {
+    // ⭐ COOKIE-BASED AUTH (RESTORED)
+    const userSession = await getUserFromSession();
+    if (!userSession) {
       return NextResponse.json(
         { error: "Not authenticated." },
         { status: 401 }
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: auth.userId },
+      where: { id: userSession.id },
     });
 
     if (!user) {
@@ -49,3 +49,4 @@ export async function GET(req: Request) {
     );
   }
 }
+

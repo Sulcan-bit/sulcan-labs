@@ -2,22 +2,23 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuthFromRequest } from "@/lib/auth";
+import { getUserFromSession } from "@/lib/auth";
 
-export async function GET(req: Request) {
-  // ⭐ Token-based authentication (NO COOKIES)
-  const auth = getAuthFromRequest(req);
-  if (!auth) {
+export async function GET() {
+  // ⭐ COOKIE-BASED AUTH (RESTORED)
+  const user = await getUserFromSession();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const records = await prisma.heavyOilInputs.findMany({
-    where: { userId: auth.userId },
+    where: { userId: user.id },
     orderBy: { created_at: "desc" },
   });
 
   return NextResponse.json(records);
 }
+
 
 
 

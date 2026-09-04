@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +17,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // 1. Find user
     const user = await prisma.user.findUnique({
       where: { email },
     });
@@ -27,6 +29,7 @@ export async function POST(req: Request) {
       );
     }
 
+    // 2. Verify password
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) {
       return NextResponse.json(
@@ -35,7 +38,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ⭐ NO COOKIES — return JWT directly
+    // 3. Create JWT session payload
     const token = jwt.sign(
       {
         userId: user.id,
@@ -45,11 +48,26 @@ export async function POST(req: Request) {
       { expiresIn: "7d" }
     );
 
-    // ⭐ Client stores token in localStorage
+    // 4. Set cookie (Next.js 16 async cookies API)
+    const cookieStore = await cookies();
+    cookieStore.set("sulcan_session", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    // 5. Update last_login
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { last_login: new Date() },
+    });
+
+    // 6. Return response
     return NextResponse.json(
       {
         message: "Login successful",
-        token,
         user: {
           id: user.id,
           email: user.email,
@@ -67,3 +85,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
