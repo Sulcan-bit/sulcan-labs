@@ -7,7 +7,8 @@ import { redirect } from "next/navigation";
 
 export async function getUserFromSession() {
   try {
-    const cookieStore = cookies();   // SYNC in server components
+    // In this project, cookies() returns a Promise<ReadonlyRequestCookies>
+    const cookieStore = await cookies();
     const token = cookieStore.get("sulcan_session")?.value;
 
     if (!token) return null;
@@ -33,3 +34,4 @@ export async function requireAuth() {
   if (!user) redirect("/login");
   return user;
 }
+
