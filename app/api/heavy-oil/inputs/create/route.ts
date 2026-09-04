@@ -2,14 +2,17 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getUserFromSession } from "@/lib/auth";
+import { getAuthFromRequest } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
-    const user = await getUserFromSession();
-    if (!user) {
+    // ⭐ Token-based authentication (NO COOKIES)
+    const auth = getAuthFromRequest(req);
+    if (!auth) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+
+    const userId = auth.userId;
 
     const body = await req.json() as Record<string, any>;
 
@@ -110,7 +113,7 @@ export async function POST(req: Request) {
     // ------------------------------------------------------------
     const record = await prisma.heavyOilInputs.create({
       data: {
-        userId: user.id,
+        userId,
         monthId: Number(monthId),
 
         heavy_oil_stream,
@@ -171,7 +174,7 @@ export async function POST(req: Request) {
     // ------------------------------------------------------------
     const scenario = await prisma.scenario.create({
       data: {
-        userId: user.id,
+        userId,
 
         scenario_name: scenarioName,
         terminal_operator: terminalOperator,
@@ -208,5 +211,6 @@ export async function POST(req: Request) {
     );
   }
 }
+
 
 
