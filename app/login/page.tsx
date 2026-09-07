@@ -58,10 +58,12 @@ function PasswordLogin() {
 
     try {
       const res = await fetch("/api/auth/login-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  method: "POST",
+  credentials: "include",   // ⭐ REQUIRED
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password }),
+});
+
 
       const data = await res.json();
 
@@ -139,10 +141,12 @@ function SmsLogin() {
 
     try {
       const res = await fetch("/api/auth/send-sms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: `+1${digits}` }),
-      });
+  method: "POST",
+  credentials: "include",   // ⭐ REQUIRED
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, phone: `+1${digits}` }),
+});
+
 
       const data = await res.json();
 
@@ -170,10 +174,12 @@ function SmsLogin() {
 
     try {
       const res = await fetch("/api/auth/verify-sms", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone: `+1${digits}`, code }),
-      });
+  method: "POST",
+  credentials: "include",   // ⭐ REQUIRED
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, phone: `+1${digits}`, code }),
+});
+
 
       const data = await res.json();
 
