@@ -8,7 +8,7 @@ export default function ModelsPage() {
       <div className="bg-white p-8 rounded shadow max-w-md w-full">
 
         <div className="flex justify-between mb-6">
-          <Link href="/profile" className="text-blue-600 underline">
+          <Link href="/profile" prefetch={false} className="text-blue-600 underline">
             Profile
           </Link>
 
@@ -21,13 +21,12 @@ export default function ModelsPage() {
 
         <div className="flex flex-col gap-4">
           <Link
-  href="/heavy-oil"
-  prefetch={false}
-  className="block p-4 rounded bg-black text-white text-center"
->
-  Heavy Oil Diluent Optimization
-</Link>
-
+            href="/heavy-oil"
+            prefetch={false}
+            className="block p-4 rounded bg-black text-white text-center"
+          >
+            Heavy Oil Diluent Optimization
+          </Link>
 
           <Link
             href="/wti-futures"
@@ -41,6 +40,7 @@ export default function ModelsPage() {
     </main>
   );
 }
+
 
 
 
