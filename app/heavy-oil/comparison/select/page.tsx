@@ -89,40 +89,41 @@ export default function ComparisonSelectPage() {
                   {s.scenario_name}
                 </p>
 
-                <p className="text-sm text-gray-600 mt-1">
-                  <span className="font-medium">Terminal Operator:</span>{" "}
-                  {s.terminal_operator} — {s.terminal_location}
-                </p>
+ <p className="text-sm text-gray-600 mt-1">
+  <span className="font-medium">Terminal Operator:</span>{" "}
+  {s.terminal_operator} — {s.terminal_location}
+</p>
 
-                {/* Producer Name */}
+{/* Producer Name */}
 <p className="text-sm text-gray-700 mt-2">
   <span className="font-medium">Producer:</span>{" "}
   {s.inputs?.producer_name}
 </p>
 
 {/* Producer Raw Crude Density */}
-<p className="text-sm text-gray-700">
+<p className="text-sm text-gray-700 mt-2">
   <span className="font-medium">Raw Crude Density:</span>{" "}
   {s.inputs?.producer_density_kg_m3} kg/m³
 </p>
 
 {/* Condensate Source 1 Density */}
-<p className="text-sm text-gray-700">
-  <span className="font-medium">Condensate Source 1 Density:</span>{" "}
+<p className="text-sm text-gray-700 mt-2">
+  <span className="font-medium">Condensate Density:</span>{" "}
   {s.inputs?.cond1_density_kg_m3} kg/m³
 </p>
 
 {/* Heavy Oil Stream */}
-<p className="text-sm text-gray-700">
+<p className="text-sm text-gray-700 mt-2">
   <span className="font-medium">Heavy Oil Stream:</span>{" "}
   {s.inputs?.heavy_oil_stream}
 </p>
 
-<p className="text-xs text-gray-500 mt-2">
+<p className="text-xs text-gray-500 mt-3">
   Created:{" "}
   {s.created_at_text ||
     new Date(String(s.created_at)).toLocaleString("en-CA")}
 </p>
+
 
               </div>
 
