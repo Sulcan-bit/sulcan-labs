@@ -13,19 +13,19 @@ export async function GET() {
   const records = await prisma.heavyOilInputs.findMany({
     where: { userId: user.id },
     orderBy: { created_at: "desc" },
-    select: {
-      id: true,
-      created_at: true,
-      terminal_operator: true,
-      producer_name: true,
-      producer_density_kg_m3: true,
-      cond1_density_kg_m3: true,
-      heavy_oil_stream: true,
-    },
+    include: {
+      scenario: {
+        select: {
+          terminal_operator: true,
+          terminal_location: true,
+        }
+      }
+    }
   });
 
   return NextResponse.json(records);
 }
+
 
 
 

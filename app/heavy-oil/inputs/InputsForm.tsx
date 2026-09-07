@@ -310,8 +310,11 @@ function normalizeLsdNumber(value: string): string {
 
     {previousSets.map((p) => (
       <option key={p.id} value={p.id.toString()}>
-        #{p.id} — {p.created_at.slice(0, 10)} — {p.terminal_operator} — {p.producer_name} — {p.producer_density_kg_m3}kg/m³ — {p.cond1_density_kg_m3}kg/m³ — {p.heavy_oil_stream}
-      </option>
+  #{p.id} — {p.created_at.slice(0, 10)} — {p.scenario?.terminal_operator} — {p.producer_name} — {p.producer_density_kg_m3}kg/m³ — {p.cond1_density_kg_m3}kg/m³ — {p.heavy_oil_stream}
+</option>
+
+
+
     ))}
   </select>
 </Section>
