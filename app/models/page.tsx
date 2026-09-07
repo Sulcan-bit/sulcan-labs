@@ -21,11 +21,13 @@ export default function ModelsPage() {
 
         <div className="flex flex-col gap-4">
           <Link
-            href="/heavy-oil"
-            className="block p-4 rounded bg-black text-white text-center"
-          >
-            Heavy Oil Diluent Optimization
-          </Link>
+  href="/heavy-oil"
+  prefetch={false}
+  className="block p-4 rounded bg-black text-white text-center"
+>
+  Heavy Oil Diluent Optimization
+</Link>
+
 
           <Link
             href="/wti-futures"
