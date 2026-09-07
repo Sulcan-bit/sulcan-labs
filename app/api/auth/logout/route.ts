@@ -10,7 +10,8 @@ export async function GET() {
   cookieStore.set("sulcan_session", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax"
+",
     path: "/",
     maxAge: 0, // expire immediately
   });
