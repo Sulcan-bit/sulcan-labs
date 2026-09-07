@@ -105,13 +105,6 @@ export default function InputsForm({ months }: { months: MonthType[] }) {
     cond_trucking_rate_cad_m3: "",
     cond_truck_volume_m3: "",
 
-    // Condensate Source 2
-    cond2_density_kg_m3: "",
-    cond2_sulphur_pct: "",
-    cond2_load_fee_cad_m3: "",
-    cond2_transport_tt1_cad_m3: "",
-    cond2_hours_tt1: "",
-
     // Butane
     butane_injection_rate_pct: "",
     c4_trucking_rate_cad_m3: "",
@@ -136,7 +129,7 @@ export default function InputsForm({ months }: { months: MonthType[] }) {
 
     // Premium Crude Values
     premium_crude_value_usd_bbl: "",
-    hardisty_premium_crude_value_usd_bbl: "",
+    terminalhub_premium_crude_value_usd_bbl: "",
 
     scenarioId: null,
   };
@@ -412,26 +405,6 @@ function normalizeLsdNumber(value: string): string {
       </Section>
 
       {/* 6. Condensate Source 2 */}
-      <Section title="6. Condensate Source 2">
-        <Input label="Density (kg/m³)" field="cond2_density_kg_m3" update={updateField} placeholder="748.7" value={form.cond2_density_kg_m3} />
-        <Input label="Sulphur (%)" field="cond2_sulphur_pct" update={updateField} placeholder="0.09" value={form.cond2_sulphur_pct} />
-        <Input label="Truck Load Fee (CAD/m³)" field="cond2_load_fee_cad_m3" update={updateField} placeholder="8.50" value={form.cond2_load_fee_cad_m3} />
-        <Input
-          label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
-          field="cond2_transport_tt1_cad_m3"
-          update={updateField}
-          placeholder="30.00"
-          value={form.cond2_transport_tt1_cad_m3}
-        />
-
-        <Input
-          label={`Condensate 2 Trucking Hours: Source to ${terminalLocation}`}
-          field="cond2_hours_tt1"
-          update={updateField}
-          placeholder="1.0"
-          value={form.cond2_hours_tt1}
-        />
-      </Section>
 
       {/* 7. Butane */}
       <Section title="7. Butane (C4) Inputs">
@@ -480,7 +453,7 @@ function normalizeLsdNumber(value: string): string {
       {/* 11. Premium Crude Values */}
       <Section title="11. Premium Crude Values">
         <Input label="Premium Crude Value (USD/bbl)" field="premium_crude_value_usd_bbl" update={updateField} placeholder="0.15" value={form.premium_crude_value_usd_bbl} />
-        <Input label="Terminal Premium (USD/bbl)" field="hardisty_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.hardisty_premium_crude_value_usd_bbl} />
+        <Input label="Terminal Premium (USD/bbl)" field="terminalhub_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.terminalhub_premium_crude_value_usd_bbl} />
       </Section>
 
       {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}

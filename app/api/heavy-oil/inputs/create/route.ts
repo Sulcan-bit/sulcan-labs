@@ -54,13 +54,6 @@ export async function POST(req: Request) {
       cond_trucking_rate_cad_m3,
       cond_truck_volume_m3,
 
-      // Condensate 2
-      cond2_density_kg_m3,
-      cond2_sulphur_pct,
-      cond2_load_fee_cad_m3,
-      cond2_transport_tt1_cad_m3,
-      cond2_hours_tt1,
-
       // Butane
       butane_injection_rate_pct,
       c4_trucking_rate_cad_m3,
@@ -85,7 +78,7 @@ export async function POST(req: Request) {
 
       // Premium crude values
       premium_crude_value_usd_bbl,
-      hardisty_premium_crude_value_usd_bbl,
+      terminalhub_premium_crude_value_usd_bbl,
     } = normalized;
 
     // Validate month exists
@@ -124,13 +117,6 @@ export async function POST(req: Request) {
         cond_trucking_rate_cad_m3: Number(cond_trucking_rate_cad_m3),
         cond_truck_volume_m3: Number(cond_truck_volume_m3),
 
-        // Condensate 2
-        cond2_density_kg_m3: Number(cond2_density_kg_m3),
-        cond2_sulphur_pct: Number(cond2_sulphur_pct),
-        cond2_load_fee_cad_m3: Number(cond2_load_fee_cad_m3),
-        cond2_transport_tt1_cad_m3: Number(cond2_transport_tt1_cad_m3),
-        cond2_hours_tt1: Number(cond2_hours_tt1),
-
         // Butane
         butane_injection_rate_pct: Number(butane_injection_rate_pct),
         c4_trucking_rate_cad_m3: Number(c4_trucking_rate_cad_m3),
@@ -155,7 +141,7 @@ export async function POST(req: Request) {
 
         // Premium crude values
         premium_crude_value_usd_bbl: Number(premium_crude_value_usd_bbl),
-        hardisty_premium_crude_value_usd_bbl: Number(hardisty_premium_crude_value_usd_bbl),
+        terminalhub_premium_crude_value_usd_bbl: Number(terminalhub_premium_crude_value_usd_bbl),
       },
     });
 

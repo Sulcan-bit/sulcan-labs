@@ -226,63 +226,74 @@ model HeavyOilInputs {
   producer_volume_m3                   Float
   producer_density_kg_m3               Float
   producer_TAN                         Float
-  cond1_density_kg_m3                  Float
-  cond1_sulphur_pct                    Float
-  cond1_load_fee_cad_m3                Float
-  cond1_transport_tt1_cad_m3           Float
-  cond1_transport_tt2_cad_m3           Float?
-  cond1_transport_comp_cad_m3          Float?
-  condensate_index_choice              String?
-  cond2_density_kg_m3                  Float
-  cond2_sulphur_pct                    Float
-  cond2_load_fee_cad_m3                Float?
-  cond2_transport_tt1_cad_m3           Float?
-  cond2_transport_tt2_cad_m3           Float?
-  cond2_transport_comp_cad_m3          Float?
-  c4_landed_tt1_pct_wti                Float?
-  c4_landed_tt2_pct_wti                Float?
-  c4_trucking_adder_tt2_cad_m3         Float?
-  butane_injection_rate_pct            Float
-  actual_blend_density_kg_m3           Float?
-  paper_blend_density_kg_m3            Float?
-  target_blend_density                 Float?
-  cond1_est_volume_m3                  Float?
-  tt1_fee_cad_m3                       Float
-  tt2_fee_cad_m3                       Float?
-  tt_competitor_fee_cad_m3             Float?
-  pipeline_power_surcharge_cad_m3      Float
-  pipeline_loss_allowance_pct          Float
-  pipeline_toll_tt1_cad_m3             Float
-  pipeline_toll_tt2_cad_m3             Float?
-  pipeline_toll_existcompetitor_cad_m3 Float?
-  tt1_diluent_sharing_pct              Float
-  tt2_diluent_sharing_pct              Float?
-  comp_pipeline_diluent_sharing_pct    Float?
-  comp_tt1_toll_cad_m3                 Float?
-  comp_pipeline_fee_cad_m3             Float?
-  comp_tt_fee_cad_m3                   Float?
-  comp_pipeline_loss_allowance_pct     Float?
+
   raw_crude_trucking_rate_cad_m3       Float
   raw_crude_truck_volume_m3            Float
   raw_crude_hours_tt1                  Float?
   raw_crude_hours_tt2                  Float?
   raw_crude_hours_comp                 Float?
+
+  cond1_density_kg_m3                  Float
+  cond1_sulphur_pct                    Float
+  cond1_est_volume_m3                  Float?
+  cond1_load_fee_cad_m3                Float
+  cond1_transport_tt1_cad_m3           Float
+  cond1_transport_tt2_cad_m3           Float?
+  cond1_transport_comp_cad_m3          Float?
+  condensate_index_choice              String?
   cond_trucking_rate_cad_m3            Float
   cond_truck_volume_m3                 Float
   cond1_hours_tt1                      Float?
   cond1_hours_tt2                      Float?
   cond1_hours_comp                     Float?
-  cond2_hours_tt1                      Float?
-  cond2_hours_tt2                      Float?
-  cond2_hours_comp                     Float?
+
+cond2_density_kg_m3        Float?
+cond2_sulphur_pct          Float?
+cond2_load_fee_cad_m3      Float?
+cond2_transport_tt1_cad_m3 Float?
+cond2_transport_tt2_cad_m3 Float?
+cond2_transport_comp_cad_m3 Float?
+cond2_hours_tt1            Float?
+cond2_hours_tt2            Float?
+cond2_hours_comp           Float?
+
+  c4_landed_tt1_pct_wti                Float?
+  c4_landed_tt2_pct_wti                Float?
+  c4_trucking_adder_tt2_cad_m3         Float?
   c4_trucking_rate_cad_m3              Float
   c4_truck_volume_m3                   Float
   c4_hours_tt1                         Float?
   c4_hours_tt2                         Float?
   c4_hours_comp                        Float?
-  premium_crude_value_usd_bbl          Float
-  hardisty_premium_crude_value_usd_bbl Float
+
+  butane_injection_rate_pct            Float
+
+  actual_blend_density_kg_m3           Float?
+  paper_blend_density_kg_m3            Float?
+  target_blend_density                 Float?
   heavy_oil_stream                     String
+
+  tt1_fee_cad_m3                       Float
+  tt2_fee_cad_m3                       Float?
+  tt1_diluent_sharing_pct              Float
+  tt2_diluent_sharing_pct              Float?
+  tt_competitor_fee_cad_m3             Float?
+
+  pipeline_power_surcharge_cad_m3      Float
+  pipeline_loss_allowance_pct          Float
+  pipeline_toll_tt1_cad_m3             Float
+  pipeline_toll_tt2_cad_m3             Float?
+  pipeline_toll_existcompetitor_cad_m3 Float?
+
+  comp_pipeline_diluent_sharing_pct    Float?
+  comp_tt1_toll_cad_m3                 Float?
+  comp_pipeline_fee_cad_m3             Float?
+  comp_tt_fee_cad_m3                   Float?
+  comp_pipeline_loss_allowance_pct     Float?
+
+  premium_crude_value_usd_bbl          Float
+  terminalhub_premium_crude_value_usd_bbl Float
+
   created_at                           DateTime    @default(now())
   updated_at                           DateTime    @updatedAt
   month                                MonthlyData @relation(fields: [monthId], references: [id])

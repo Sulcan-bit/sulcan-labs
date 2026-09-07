@@ -85,7 +85,7 @@ export interface HeavyOilInputs {
 
   // Section 12 – Premium Crude Values
   premium_crude_value_usd_bbl: number;
-  hardisty_premium_crude_value_usd_bbl: number;
+  terminalhub_premium_crude_value_usd_bbl: number;
 
   // Section 13 – Blend Density Target
   target_blend_density: number;
