@@ -296,24 +296,26 @@ function normalizeLsdNumber(value: string): string {
       </div>
 
       {/* Load Previous Inputs */}
-      <Section title="Load Previous Inputs">
-        <select
-          className="border p-2 rounded w-full"
-          value={selectedPreviousId}
-          onChange={async (e) => {
-            const id = e.target.value;
-            setSelectedPreviousId(id);
-            if (id) await loadDataset(id);
-          }}
-        >
-          <option value="">Select a previous dataset</option>
-          {previousSets.map((p) => (
-            <option key={p.id} value={p.id.toString()}>
-              #{p.id} — {p.created_at.slice(0, 10)} — {p.producer_name}
-            </option>
-          ))}
-        </select>
-      </Section>
+<Section title="Load Previous Inputs">
+  <select
+    className="border p-2 rounded w-full"
+    value={selectedPreviousId}
+    onChange={async (e) => {
+      const id = e.target.value;
+      setSelectedPreviousId(id);
+      if (id) await loadDataset(id);
+    }}
+  >
+    <option value="">Select a previous dataset</option>
+
+    {previousSets.map((p) => (
+      <option key={p.id} value={p.id.toString()}>
+        #{p.id} — {p.created_at.slice(0, 10)} — {p.terminal_operator} — {p.producer_name} — {p.producer_density_kg_m3}kg/m³ — {p.cond1_density_kg_m3}kg/m³ — {p.heavy_oil_stream}
+      </option>
+    ))}
+  </select>
+</Section>
+
 
       {/* 1. Pricing Month */}
       <Section title="1. Pricing Month">
@@ -404,10 +406,10 @@ function normalizeLsdNumber(value: string): string {
         <Input label="Condensate Truck Haul Volume (m³)" field="cond_truck_volume_m3" update={updateField} placeholder="58.0" value={form.cond_truck_volume_m3} />
       </Section>
 
-      {/* 6. Condensate Source 2 */}
+      {/* 6a. Condensate Source 2 */}
 
-      {/* 7. Butane */}
-      <Section title="7. Butane (C4) Inputs">
+      {/* 6b. Butane */}
+      <Section title="6. Butane (C4) Inputs">
         <Input label="Butane Injection Rate (%)" field="butane_injection_rate_pct" update={updateField} placeholder="3.20" value={form.butane_injection_rate_pct} />
         <Input label="Butane Truck Haul Rate (CAD/m³)" field="c4_trucking_rate_cad_m3" update={updateField} placeholder="195.00" value={form.c4_trucking_rate_cad_m3} />
         <Input label="Butane Truck Haul Volume (m³)" field="c4_truck_volume_m3" update={updateField} placeholder="50.0" value={form.c4_truck_volume_m3} />
@@ -420,8 +422,8 @@ function normalizeLsdNumber(value: string): string {
         />
       </Section>
 
-      {/* 8. Truck Terminal Fees */}
-      <Section title="8. Truck Terminal Fees">
+      {/* 7. Truck Terminal Fees */}
+      <Section title="7. Truck Terminal Fees">
         <Input
           label={`Truck Terminal Fee: ${terminalLocation} (CAD/m³)`}
           field="tt1_fee_cad_m3"
@@ -431,8 +433,8 @@ function normalizeLsdNumber(value: string): string {
         />
       </Section>
 
-      {/* 9. Pipeline Operator Fees */}
-      <Section title="9. Pipeline Operator Fees">
+      {/* 8. Pipeline Operator Fees */}
+      <Section title="8. Pipeline Operator Fees">
         <Input label="Power Surcharge (CAD/m³)" field="pipeline_power_surcharge_cad_m3" update={updateField} placeholder="0.10" value={form.pipeline_power_surcharge_cad_m3} />
         <Input
           label={`Pipeline Toll: ${terminalLocation} (CAD/m³)`}
@@ -445,13 +447,13 @@ function normalizeLsdNumber(value: string): string {
         <Input label="Pipeline Loss Allowance (%)" field="pipeline_loss_allowance_pct" update={updateField} placeholder="0.20" value={form.pipeline_loss_allowance_pct} />
       </Section>
 
-      {/* 10. Profit Sharing */}
-      <Section title="10. Profit Sharing">
+      {/* 9. Profit Sharing */}
+      <Section title="9. Profit Sharing">
         <Input label="Diluent Benefit Sharing (%)" field="tt1_diluent_sharing_pct" update={updateField} placeholder="50" value={form.tt1_diluent_sharing_pct} />
       </Section>
 
-      {/* 11. Premium Crude Values */}
-      <Section title="11. Premium Crude Values">
+      {/* 10. Premium Crude Values */}
+      <Section title="10. Premium Crude Values">
         <Input label="Premium Crude Value (USD/bbl)" field="premium_crude_value_usd_bbl" update={updateField} placeholder="0.15" value={form.premium_crude_value_usd_bbl} />
         <Input label="Terminal Premium (USD/bbl)" field="terminalhub_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.terminalhub_premium_crude_value_usd_bbl} />
       </Section>

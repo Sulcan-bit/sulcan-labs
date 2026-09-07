@@ -39,7 +39,7 @@ export default async function HeavyOilHome() {
 
         <div className="mt-8 pt-6 border-t border-gray-200 text-center">
           <Link
-            href="/"
+            href="/models"
             className="text-blue-600 hover:text-blue-800 font-medium underline"
           >
             ← Back to Home
