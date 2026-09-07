@@ -10,21 +10,29 @@ export async function GET() {
   if (!user) return NextResponse.json({ scenarios: [] });
 
   const scenarios = await prisma.scenario.findMany({
-    where: {
-      userId: user.id,
+  where: {
+    userId: user.id,
 
-      scenario_name: { not: null },
-      terminal_operator: { not: null },
-      terminal_location: { not: null },
-      shrinkage_model: { not: null },
+    scenario_name: { not: null },
+    terminal_operator: { not: null },
+    terminal_location: { not: null },
+    shrinkage_model: { not: null },
+  },
+  include: {
+    inputs: {
+      select: {
+        producer_name: true,
+        producer_density_kg_m3: true,
+        cond1_density_kg_m3: true,     // NEW
+        heavy_oil_stream: true,        // NEW
+      },
     },
-    include: {
-      inputs: true,
-      month: true,
-      results: true,
-    },
-    orderBy: { created_at: "desc" },
-  });
+    month: true,
+    results: true,
+  },
+  orderBy: { created_at: "desc" },
+});
+
 
   return NextResponse.json({ scenarios });
 }

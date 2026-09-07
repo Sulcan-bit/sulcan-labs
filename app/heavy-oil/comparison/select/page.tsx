@@ -14,10 +14,13 @@ type ScenarioItem = {
   inputs?: {
     producer_name?: string;
     producer_density_kg_m3?: number;
+    cond1_density_kg_m3?: number;     // NEW
+    heavy_oil_stream?: string;        // NEW
   };
   created_at?: string | Date;
   created_at_text?: string;
 };
+
 
 export default function ComparisonSelectPage() { 
   const router = useRouter();
@@ -92,22 +95,35 @@ export default function ComparisonSelectPage() {
                 </p>
 
                 {/* Producer Name */}
-                <p className="text-sm text-gray-700 mt-2">
-                  <span className="font-medium">Producer:</span>{" "}
-                  {s.inputs?.producer_name}
-                </p>
+<p className="text-sm text-gray-700 mt-2">
+  <span className="font-medium">Producer:</span>{" "}
+  {s.inputs?.producer_name}
+</p>
 
-                {/* Producer Raw Crude Density */}
-                <p className="text-sm text-gray-700">
-                  <span className="font-medium">Raw Crude Density:</span>{" "}
-                  {s.inputs?.producer_density_kg_m3} kg/m³
-                </p>
+{/* Producer Raw Crude Density */}
+<p className="text-sm text-gray-700">
+  <span className="font-medium">Raw Crude Density:</span>{" "}
+  {s.inputs?.producer_density_kg_m3} kg/m³
+</p>
 
-                <p className="text-xs text-gray-500 mt-2">
-                  Created:{" "}
-                  {s.created_at_text ||
-                    new Date(String(s.created_at)).toLocaleString("en-CA")}
-                </p>
+{/* Condensate Source 1 Density */}
+<p className="text-sm text-gray-700">
+  <span className="font-medium">Condensate Source 1 Density:</span>{" "}
+  {s.inputs?.cond1_density_kg_m3} kg/m³
+</p>
+
+{/* Heavy Oil Stream */}
+<p className="text-sm text-gray-700">
+  <span className="font-medium">Heavy Oil Stream:</span>{" "}
+  {s.inputs?.heavy_oil_stream}
+</p>
+
+<p className="text-xs text-gray-500 mt-2">
+  Created:{" "}
+  {s.created_at_text ||
+    new Date(String(s.created_at)).toLocaleString("en-CA")}
+</p>
+
               </div>
 
               <div className="pl-4">
