@@ -12,9 +12,10 @@ export default function ModelsPage() {
             Profile
           </Link>
 
-          <Link href="/api/auth/logout" className="text-red-600 underline">
-            Logout
-          </Link>
+          <a href="/api/auth/logout" className="text-red-600 underline">
+  Logout
+</a>
+
         </div>
 
         <h1 className="text-2xl font-bold mb-6">Select a Model</h1>
