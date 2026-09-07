@@ -146,36 +146,45 @@ export async function POST(req: Request) {
     });
 
     // Create Scenario (with metadata)
-    const scenario = await prisma.scenario.create({
-      data: {
-        userId,
+const scenario = await prisma.scenario.create({
+  data: {
+    userId,
 
-        scenario_name: scenarioName,
-        terminal_operator: terminalOperator,
-        terminal_location: terminalLocation,
-        shrinkage_model: shrinkageModel,
-        notes,
+    scenario_name: scenarioName,
+    terminal_operator: terminalOperator,
+    terminal_location: terminalLocation,
+    shrinkage_model: shrinkageModel,
+    notes,
 
-        created_at_text: normalized.createdAt,
+    created_at_text: normalized.createdAt,
 
-        model: "heavy-oil",
-        monthId: Number(monthId),
+    model: "heavy-oil",
+    monthId: Number(monthId),
 
-        inputsId: record.id,
+    inputsId: record.id,
 
-        // Store full JSON snapshot (metadata + inputs)
-        inputsJson: body,
-      },
-    });
+    // Store full JSON snapshot (metadata + inputs)
+    inputsJson: body,
+  },
+});
 
-    return NextResponse.json(
-      {
-        message: "Heavy Oil Inputs saved successfully.",
-        record,
-        scenarioId: scenario.id,
-      },
-      { status: 201 }
-    );
+// ⭐ NEW — link HeavyOilInputs → Scenario
+await prisma.heavyOilInputs.update({
+  where: { id: record.id },
+  data: {
+    scenario: { connect: { id: scenario.id } }
+  }
+});
+
+return NextResponse.json(
+  {
+    message: "Heavy Oil Inputs saved successfully.",
+    record,
+    scenarioId: scenario.id,
+  },
+  { status: 201 }
+);
+
 
   } catch (err) {
     console.error("Heavy Oil Inputs API error:", err);
