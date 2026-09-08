@@ -552,7 +552,7 @@ return (
 {/* Netback (CAD/M3 Blend) – After Trucking & Optimization */}
 <tr className="bg-gray-200">
   <td className="border p-2 font-bold">
-    Netback (CAD/M3 Blend) – After Trucking & Optimization
+    Netback – After Trucking & Optimization (CAD/M3 Blend)
   </td>
   {scenarios.map((s) => {
     const netSales = s.results?.partE_net_sales ?? 0;
@@ -593,7 +593,7 @@ return (
 {/* Netback (CAD/M3 Raw) – After Trucking & Optimization */}
 <tr className="bg-gray-200">
   <td className="border p-2 font-bold">
-    Netback (CAD/M3 Raw) – After Trucking & Optimization
+    Netback – After Trucking & Optimization (CAD/M3 Raw)
   </td>
   {scenarios.map((s) => {
     const netSales = s.results?.partE_net_sales ?? 0;

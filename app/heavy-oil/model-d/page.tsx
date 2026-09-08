@@ -210,7 +210,7 @@ await prisma.scenarioResults.upsert({
           </thead>
           <tbody>
             <tr>
-              <td className="p-2">RAW CRUDE OIL</td>
+              <td className="p-2">Raw Crude Oil</td>
               <td className="p-2 text-right">{fmt(rawCrudeVol, 1)}</td>
               <td className="p-2 text-right">{producer_density_kg_m3.toFixed(1)}</td>
               <td className="p-2 text-right">{rawPctOfBlend.toFixed(3)}%</td>
@@ -347,7 +347,7 @@ await prisma.scenarioResults.upsert({
               <td className="p-2 text-right">{inv_dH_crude.toFixed(5)}</td>
             </tr>
             <tr>
-              <td className="p-2">OIL</td>
+              <td className="p-2">Raw Crude Oil</td>
               <td className="p-2 text-right">{sumVolOil.toFixed(1)}</td>
               <td className="p-2 text-right">{producer_density_kg_m3.toFixed(2)}</td>
               <td className="p-2 text-right">-</td>

@@ -454,7 +454,7 @@ await prisma.scenarioResults.upsert({
   </thead>
 <tbody>
   <tr>
-    <td className="p-2">SALE OF NET BLEND</td>
+    <td className="p-2">Sale of Net Blend</td>
     <td className="p-2">{fmt(netBlendVol)}</td>
     <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
     <td className="p-2">{fmt(saleOfNetBlend_CAD)}</td>
@@ -513,7 +513,7 @@ await prisma.scenarioResults.upsert({
 <table className="w-full text-sm border border-gray-200 mb-6">
   <tbody>
     <tr>
-      <td className="p-2">m³ Raw Crude Production</td>
+      <td className="p-2">Raw Crude Production (m³)</td>
       <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
     </tr>
     <tr>
