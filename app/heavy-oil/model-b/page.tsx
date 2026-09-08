@@ -528,3 +528,4 @@ const finalShrinkPct =
     </div>
   </main>
 );
+}
