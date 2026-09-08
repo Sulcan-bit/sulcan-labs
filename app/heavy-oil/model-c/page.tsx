@@ -357,14 +357,14 @@ await prisma.scenarioResults.upsert({
 
         <div className="mb-4 text-sm text-gray-600">
           <div>
-  <span className="font-semibold">Scenario:</span> {scenario.scenario_name}
-</div>
-<div>
-  <span className="font-semibold">Operator:</span> {scenario.terminal_operator}
-</div>
-<div>
-  <span className="font-semibold">Location:</span> {scenario.terminal_location}
-</div>
+            <span className="font-semibold">Scenario:</span> {scenario.scenario_name}
+          </div>
+          <div>
+            <span className="font-semibold">Operator:</span> {scenario.terminal_operator}
+          </div>
+          <div>
+            <span className="font-semibold">Location:</span> {scenario.terminal_location}
+          </div>
 
           <div>
             <span className="font-semibold">Month:</span>{" "}
@@ -392,18 +392,18 @@ await prisma.scenarioResults.upsert({
               <td className="p-2">{fmt(rawCrudeDensity, 1)}</td>
               <td className="p-2">
                 {blendPreShrinkVol > 0
-                  ? ((rawCrudeVol / blendPreShrinkVol) * 100).toFixed(2)
+                  ? fmt((rawCrudeVol / blendPreShrinkVol) * 100, 2)
                   : "0.00"}
                 %
               </td>
             </tr>
             <tr>
               <td className="p-2">C5+ (Condensate)</td>
-              <td className="p-2">{condVol.toFixed(1)}</td>
-              <td className="p-2">{condDensity.toFixed(1)}</td>
+              <td className="p-2">{fmt(condVol, 1)}</td>
+              <td className="p-2">{fmt(condDensity, 1)}</td>
               <td className="p-2">
                 {blendPreShrinkVol > 0
-                  ? ((condVol / blendPreShrinkVol) * 100).toFixed(2)
+                  ? fmt((condVol / blendPreShrinkVol) * 100, 2)
                   : "0.00"}
                 %
               </td>
@@ -411,173 +411,144 @@ await prisma.scenarioResults.upsert({
             <tr>
               <td className="p-2">C4 (Butane)</td>
               <td className="p-2">-</td>
-              <td className="p-2">{butane_density_kg_m3.toFixed(1)}</td>
+              <td className="p-2">{fmt(butane_density_kg_m3, 1)}</td>
               <td className="p-2">0.00%</td>
             </tr>
             <tr className="bg-gray-50">
               <td className="p-2 font-semibold">Blend (pre-Shrinkage)</td>
-              <td className="p-2 font-semibold">
-                {blendPreShrinkVol.toFixed(1)}
-              </td>
-              <td className="p-2 font-semibold">
-                {blendPreShrinkDensity.toFixed(1)}
-              </td>
+              <td className="p-2 font-semibold">{fmt(blendPreShrinkVol, 1)}</td>
+              <td className="p-2 font-semibold">{fmt(blendPreShrinkDensity, 1)}</td>
               <td className="p-2 font-semibold">100.00%</td>
             </tr>
             <tr>
               <td className="p-2">Estimated Shrinkage</td>
-              <td className="p-2">{totalShrinkageM3.toFixed(1)}</td>
+              <td className="p-2">{fmt(totalShrinkageM3, 1)}</td>
               <td className="p-2"></td>
               <td className="p-2"></td>
             </tr>
             <tr>
               <td className="p-2 font-semibold">NET BLEND</td>
-              <td className="p-2 font-semibold">{netBlendVol.toFixed(1)}</td>
+              <td className="p-2 font-semibold">{fmt(netBlendVol, 1)}</td>
               <td className="p-2"></td>
               <td className="p-2"></td>
             </tr>
           </tbody>
         </table>
 
-{/* Net Sales Calculation */}
-<h2 className="text-lg font-semibold mb-2">
-  Condensate Only – Net Sales Calculation
-</h2>
-<table className="w-full text-sm border border-gray-200 mb-6">
-  <thead>
-    <tr className="bg-gray-100">
-      <th className="p-2 text-left">Item</th>
-      <th className="p-2 text-left">Volume (m³)</th>
-      <th className="p-2 text-left">Price (CAD/m³)</th>
-      <th className="p-2 text-left">Amount (CAD)</th>
-    </tr>
-  </thead>
-<tbody>
-  <tr>
-    <td className="p-2">Sale of Net Blend</td>
-    <td className="p-2">{fmt(netBlendVol)}</td>
-    <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
-    <td className="p-2">{fmt(saleOfNetBlend_CAD)}</td>
-  </tr>
+        {/* Net Sales Calculation */}
+        <h2 className="text-lg font-semibold mb-2">
+          Condensate Only – Net Sales Calculation
+        </h2>
+        <table className="w-full text-sm border border-gray-200 mb-6">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 text-left">Item</th>
+              <th className="p-2 text-left">Volume (m³)</th>
+              <th className="p-2 text-left">Price (CAD/m³)</th>
+              <th className="p-2 text-left">Amount (CAD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-2">Sale of Net Blend</td>
+              <td className="p-2">{fmt(netBlendVol)}</td>
+              <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
+              <td className="p-2">{fmt(saleOfNetBlend_CAD)}</td>
+            </tr>
 
-  <tr>
-    <td className="p-2">C5+ Cost</td>
-    <td className="p-2">{condVol.toFixed(2)}</td>
-    <td className="p-2">{(-condensatePriceAfterEqCadM3).toFixed(2)}</td>
-    <td className="p-2">{(-c5Cost_CAD).toFixed(2)}</td>
-  </tr>
+            <tr>
+              <td className="p-2">C5+ Cost</td>
+              <td className="p-2">{fmt(condVol, 2)}</td>
+              <td className="p-2">{fmt(-condensatePriceAfterEqCadM3, 2)}</td>
+              <td className="p-2">{fmt(-c5Cost_CAD, 2)}</td>
+            </tr>
 
-  <tr>
-    <td className="p-2">C4 Cost</td>
-    <td className="p-2">-</td>
-    <td className="p-2">-</td>
-    <td className="p-2">{(-c4Cost_CAD).toFixed(2)}</td>
-  </tr>
+            <tr>
+              <td className="p-2">C4 Cost</td>
+              <td className="p-2">-</td>
+              <td className="p-2">-</td>
+              <td className="p-2">{fmt(-c4Cost_CAD, 2)}</td>
+            </tr>
 
-  <tr>
-    <td className="p-2">C5+ Transportation</td>
-    <td className="p-2">{condVol.toFixed(2)}</td>
-    <td className="p-2">{(-c5TransportRate).toFixed(2)}</td>
-    <td className="p-2">{(-c5Transport_CAD).toFixed(2)}</td>
-  </tr>
+            <tr>
+              <td className="p-2">C5+ Transportation</td>
+              <td className="p-2">{fmt(condVol, 2)}</td>
+              <td className="p-2">{fmt(-c5TransportRate, 2)}</td>
+              <td className="p-2">{fmt(-c5Transport_CAD, 2)}</td>
+            </tr>
 
-  <tr>
-    <td className="p-2">Blend Transportation</td>
-    <td className="p-2">{blendPreShrinkVol.toFixed(2)}</td>
-    <td className="p-2">{(-blendTransportRate).toFixed(2)}</td>
-    <td className="p-2">{(-blendTransport_CAD).toFixed(2)}</td>
-  </tr>
+            <tr>
+              <td className="p-2">Blend Transportation</td>
+              <td className="p-2">{fmt(blendPreShrinkVol, 2)}</td>
+              <td className="p-2">{fmt(-blendTransportRate, 2)}</td>
+              <td className="p-2">{fmt(-blendTransport_CAD, 2)}</td>
+            </tr>
 
-  <tr>
-    <td className="p-2">Loss Allowance</td>
-    <td className="p-2">{lossAllowanceVolume.toFixed(2)}</td>
-    <td className="p-2">{(-heavyStreamPriceCadM3).toFixed(2)}</td>
-    <td className="p-2">{(-lossAllowance_CAD).toFixed(2)}</td>
-  </tr>
+            <tr>
+              <td className="p-2">Loss Allowance</td>
+              <td className="p-2">{fmt(lossAllowanceVolume, 2)}</td>
+              <td className="p-2">{fmt(-heavyStreamPriceCadM3, 2)}</td>
+              <td className="p-2">{fmt(-lossAllowance_CAD, 2)}</td>
+            </tr>
 
-  <tr className="bg-gray-50">
-    <td className="p-2 font-semibold">NET</td>
-    <td className="p-2"></td>
-    <td className="p-2"></td>
-    <td className="p-2 font-semibold">{netRevenue_CAD.toFixed(2)}</td>
-  </tr>
-</tbody>
+            <tr className="bg-gray-50">
+              <td className="p-2 font-semibold">NET</td>
+              <td className="p-2"></td>
+              <td className="p-2"></td>
+              <td className="p-2 font-semibold">{fmt(netRevenue_CAD, 2)}</td>
+            </tr>
+          </tbody>
+        </table>
 
-</table>
+        {/* Net Price Metrics */}
+        <h2 className="text-lg font-semibold mb-2">
+          Net Price Metrics – Condensate Only Case
+        </h2>
+        <table className="w-full text-sm border border-gray-200 mb-6">
+          <tbody>
+            <tr>
+              <td className="p-2">Raw Crude Production (m³)</td>
+              <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
+            </tr>
+            <tr>
+              <td className="p-2">Net Price Received per m³ Raw Crude</td>
+              <td className="p-2">{fmt(netPrice_per_m3_raw, 2)} CAD/m³</td>
+            </tr>
+            <tr>
+              <td className="p-2">Net Price per bbl (CAD)</td>
+              <td className="p-2">{fmt(netPrice_per_bbl_CAD, 2)} CAD/bbl</td>
+            </tr>
+            <tr>
+              <td className="p-2">Net Price per bbl (USD)</td>
+              <td className="p-2">{fmt(netPrice_per_bbl_USD, 2)} USD/bbl</td>
+            </tr>
+            <tr>
+              <td className="p-2">Raw Crude Net Price - Diff to WTI</td>
+              <td className="p-2">{fmt(diffToWTI, 2)} USD/bbl</td>
+            </tr>
+            <tr>
+              <td className="p-2">Raw Crude Net Price - Diff to WCS</td>
+              <td className="p-2">{fmt(diffToWCS, 2)} USD/bbl</td>
+            </tr>
+            <tr>
+              <td className="p-2">Diluent Cost (CAD/m³ of Raw Crude)</td>
+              <td className="p-2">{fmt(diluentFee_per_m3_raw, 2)} CAD/m³</td>
+            </tr>
 
+            {/* ⭐ NEW ROW INSERTED HERE (Excel A70) */}
+            <tr>
+              <td className="p-2">
+                Diluent Cost (CAD/m³ of Raw Crude - No C5+ Transport from Hub)
+              </td>
+              <td className="p-2">{fmt(diluentFee_noHub_per_m3_raw, 2)} CAD/m³</td>
+            </tr>
 
-{/* Net Price Metrics */}
-<h2 className="text-lg font-semibold mb-2">
-  Net Price Metrics – Condensate Only Case
-</h2>
-<table className="w-full text-sm border border-gray-200 mb-6">
-  <tbody>
-    <tr>
-      <td className="p-2">Raw Crude Production (m³)</td>
-      <td className="p-2">{fmt(rawCrudeVol, 1)} m³</td>
-    </tr>
-    <tr>
-      <td className="p-2">Net Price Received per m³ Raw Crude</td>
-      <td className="p-2">
-        {netPrice_per_m3_raw.toFixed(2)} CAD/m³
-      </td>
-    </tr>
-    <tr>
-      <td className="p-2">Net Price per bbl (CAD)</td>
-      <td className="p-2">
-        {netPrice_per_bbl_CAD.toFixed(2)} CAD/bbl
-      </td>
-    </tr>
-    <tr>
-      <td className="p-2">Net Price per bbl (USD)</td>
-      <td className="p-2">
-        {netPrice_per_bbl_USD.toFixed(2)} USD/bbl
-      </td>
-    </tr>
-    <tr>
-      <td className="p-2">
-        Raw Crude Net Price - Diff to WTI
-      </td>
-      <td className="p-2">
-        {diffToWTI.toFixed(2)} USD/bbl
-      </td>
-    </tr>
-    <tr>
-      <td className="p-2">
-        Raw Crude Net Price - Diff to WCS
-      </td>
-      <td className="p-2">
-        {diffToWCS.toFixed(2)} USD/bbl
-      </td>
-    </tr>
-    <tr>
-      <td className="p-2">Diluent Cost (CAD/m³ of Raw Crude)</td>
-      <td className="p-2">
-        {diluentFee_per_m3_raw.toFixed(2)} CAD/m³
-      </td>
-    </tr>
-
-    {/* ⭐ NEW ROW INSERTED HERE (Excel A70) */}
-    <tr>
-      <td className="p-2">
-        Diluent Cost (CAD/m³ of Raw Crude - No C5+ Transport from Hub)
-      </td>
-      <td className="p-2">
-        {diluentFee_noHub_per_m3_raw.toFixed(2)} CAD/m³
-      </td>
-    </tr>
-
-    <tr>
-      <td className="p-2">
-        Diluent Cost (CAD/m³ of Blended Crude)
-      </td>
-      <td className="p-2">
-        {diluentCost_per_m3_blend.toFixed(2)} CAD/m³
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+            <tr>
+              <td className="p-2">Diluent Cost (CAD/m³ of Blended Crude)</td>
+              <td className="p-2">{fmt(diluentCost_per_m3_blend, 2)} CAD/m³</td>
+            </tr>
+          </tbody>
+        </table>
 
         <div className="flex justify-between">
           <a href="/models" className="text-blue-600 underline">
