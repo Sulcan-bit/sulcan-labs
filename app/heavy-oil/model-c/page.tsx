@@ -536,7 +536,7 @@ await prisma.scenarioResults.upsert({
     </tr>
     <tr>
       <td className="p-2">
-        Raw Crude Net Price EXPRESSED AS Diff to WTI
+        Raw Crude Net Price - Diff to WTI
       </td>
       <td className="p-2">
         {diffToWTI.toFixed(2)} USD/bbl
@@ -544,14 +544,14 @@ await prisma.scenarioResults.upsert({
     </tr>
     <tr>
       <td className="p-2">
-        Raw Crude Net Price EXPRESSED AS Diff to WCS
+        Raw Crude Net Price - Diff to WCS
       </td>
       <td className="p-2">
         {diffToWCS.toFixed(2)} USD/bbl
       </td>
     </tr>
     <tr>
-      <td className="p-2">Diluent Fee per m³ of Raw Crude</td>
+      <td className="p-2">Diluent Cost (CAD/m³ of Raw Crude)</td>
       <td className="p-2">
         {diluentFee_per_m3_raw.toFixed(2)} CAD/m³
       </td>
@@ -560,7 +560,7 @@ await prisma.scenarioResults.upsert({
     {/* ⭐ NEW ROW INSERTED HERE (Excel A70) */}
     <tr>
       <td className="p-2">
-        Diluent Fee per m³ of Raw Crude (No C5+ Transport from Hub)
+        Diluent Cost (CAD/m³ of Raw Crude - No C5+ Transport from Hub)
       </td>
       <td className="p-2">
         {diluentFee_noHub_per_m3_raw.toFixed(2)} CAD/m³
@@ -569,7 +569,7 @@ await prisma.scenarioResults.upsert({
 
     <tr>
       <td className="p-2">
-        Diluent COST per m³ of Blended Crude
+        Diluent Cost (CAD/m³ of Blended Crude)
       </td>
       <td className="p-2">
         {diluentCost_per_m3_blend.toFixed(2)} CAD/m³

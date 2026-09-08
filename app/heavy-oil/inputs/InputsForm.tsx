@@ -295,38 +295,45 @@ function normalizeLsdNumber(value: string): string {
         {notes && <p><strong>Notes:</strong> {notes}</p>}
       </div>
 
-      {/* Load Previous Inputs */}
+    {/* Load Previous Inputs */}
 <Section title="Load Previous Inputs">
 
-  {/* Legend */}
-  <div className="text-xs text-gray-600 mb-1">
-    Format: DATE — Terminal — Producer — Raw Density — Cond Density — Stream
+  <div className="flex flex-col gap-1 w-full">
+
+    {/* Legend */}
+    <div className="text-xs text-gray-600">
+      Format: DATE — Terminal — Producer — Raw Density — Cond Density — Stream
+    </div>
+
+    {/* Dropdown */}
+    <select
+      className="border p-2 rounded w-full"
+      value={selectedPreviousId}
+      onChange={async (e) => {
+        const id = e.target.value;
+        setSelectedPreviousId(id);
+        if (id) await loadDataset(id);
+      }}
+    >
+      <option value="">Select a previous dataset</option>
+
+      {previousSets.map((p) => (
+        <option key={p.id} value={p.id.toString()}>
+          #{p.id} — 
+          Date: {p.created_at.slice(0, 10)} — 
+          Terminal: {p.scenario?.terminal_operator} — 
+          Producer: {p.producer_name} — 
+          Raw Density: {p.producer_density_kg_m3}kg/m³ — 
+          Cond Density: {p.cond1_density_kg_m3}kg/m³ — 
+          Stream: {p.heavy_oil_stream}
+        </option>
+      ))}
+    </select>
+
   </div>
 
-  <select
-    className="border p-2 rounded w-full"
-    value={selectedPreviousId}
-    onChange={async (e) => {
-      const id = e.target.value;
-      setSelectedPreviousId(id);
-      if (id) await loadDataset(id);
-    }}
-  >
-    <option value="">Select a previous dataset</option>
-
-    {previousSets.map((p) => (
-      <option key={p.id} value={p.id.toString()}>
-        #{p.id} — 
-        Date: {p.created_at.slice(0, 10)} — 
-        Terminal: {p.scenario?.terminal_operator} — 
-        Producer: {p.producer_name} — 
-        Raw Density: {p.producer_density_kg_m3}kg/m³ — 
-        Cond Density: {p.cond1_density_kg_m3}kg/m³ — 
-        Stream: {p.heavy_oil_stream}
-      </option>
-    ))}
-  </select>
 </Section>
+
 
 
 

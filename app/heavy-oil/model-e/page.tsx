@@ -621,7 +621,7 @@ await prisma.scenarioResults.upsert({
 
   {/* Diff to WTI */}
   <tr>
-    <td className="p-2">Net Price EXPRESSED AS Diff to WTI</td>
+    <td className="p-2">Net Price - Diff to WTI</td>
     <td className="p-2">{diffToWTI.toFixed(2)} USD/bbl</td>
     <td className="p-2">
       <details>
@@ -637,7 +637,7 @@ await prisma.scenarioResults.upsert({
 
   {/* Diff to WCS */}
   <tr>
-    <td className="p-2">Net Price EXPRESSED AS Diff to WCS</td>
+    <td className="p-2">Net Price - Diff to WCS</td>
     <td className="p-2">{diffToWCS.toFixed(2)} USD/bbl</td>
     <td className="p-2">
       <details>
@@ -690,7 +690,7 @@ await prisma.scenarioResults.upsert({
 
   {/* C5 Diluent Cost */}
   <tr>
-    <td className="p-2">C5 Diluent COST per m³ of Blended Crude</td>
+    <td className="p-2">C5 Diluent Cost per m³ of Blended Crude</td>
     <td className="p-2">{c5DiluentCost_per_m3_blend.toFixed(2)} CAD/m³</td>
     <td className="p-2">
       <details>
@@ -708,7 +708,7 @@ await prisma.scenarioResults.upsert({
 
   {/* C4 Diluent Cost */}
   <tr>
-    <td className="p-2">C4 Diluent COST per m³ of Blended Crude</td>
+    <td className="p-2">C4 Diluent Cost per m³ of Blended Crude</td>
     <td className="p-2">{c4DiluentCost_per_m3_blend.toFixed(2)} CAD/m³</td>
     <td className="p-2">
       <details>
