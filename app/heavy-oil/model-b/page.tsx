@@ -250,291 +250,281 @@ const finalShrinkPct =
 
 
   return (
-    <main className="min-h-screen bg-gray-50 p-8">
-      <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6">
-          Heavy Oil Diluent Optimization – Part B: API 12.3 Shrinkage (Condensate Only)
-        </h1>
+  <main className="min-h-screen bg-gray-50 p-8">
+    <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">
+        Heavy Oil Diluent Optimization – Part B: API 12.3 Shrinkage (Condensate Only)
+      </h1>
 
-        <div className="mb-4 text-sm text-gray-600">
-          <div>
-            <span className="font-semibold">Scenario:</span> {scenarioId}
-          </div>
-          <div>
-            <span className="font-semibold">Month:</span>{" "}
-            {scenario.month?.year} {scenario.month?.month}
-          </div>
+      <div className="mb-4 text-sm text-gray-600">
+        <div>
+          <span className="font-semibold">Scenario:</span> {scenarioId}
         </div>
-
-        {/* TEMP CORR. VOLUMES & DENSITY INPUTS */}
-        <h2 className="text-lg font-semibold mb-2">
-          Temp Corrected Volumes & Density Inputs (Paper Blend – Condensate Only)
-        </h2>
-
-        <table className="w-full text-sm border border-gray-200 mb-6">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 text-left">Component</th>
-              <th className="p-2 text-left">Volume (m³)</th>
-              <th className="p-2 text-left">Density @ 15°C (kg/m³)</th>
-              <th className="p-2 text-left">% of Blend</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="p-2">Raw Crude Oil</td>
-              <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
-<td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
-<td className="p-2">{fmt(rawCrudePctOfBlend, 3)}%</td>
-
-            </tr>
-            <tr>
-              <td className="p-2">Butane</td>
-              <td className="p-2">-</td>
-              <td className="p-2">{butaneDensityKgM3.toFixed(1)}</td>
-              <td className="p-2">0.000%</td>
-            </tr>
-            <tr>
-              <td className="p-2">Condensate</td>
-              <td className="p-2">{condensateEstVolumeM3.toFixed(1)}</td>
-              <td className="p-2">{condensateDensityKgM3.toFixed(1)}</td>
-              <td className="p-2">{condensatePctOfBlend.toFixed(3)}%</td>
-            </tr>
-            <tr className="bg-gray-50">
-              <td className="p-2 font-semibold">Total Receipts</td>
-              <td className="p-2 font-semibold">
-                {totalEstimatedBlendedVolumeM3.toFixed(1)}
-              </td>
-              <td className="p-2"></td>
-              <td className="p-2 font-semibold">
-                {totalPctOfBlend.toFixed(3)}%
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2">Wt. Avg. Density</td>
-              <td className="p-2"></td>
-              <td className="p-2">{weightedAvgDensityKgM3.toFixed(1)}</td>
-              <td className="p-2"></td>
-            </tr>
-            <tr>
-              <td className="p-2">Target Density</td>
-              <td className="p-2"></td>
-              <td className="p-2">{targetBlendDensityKgM3.toFixed(1)}</td>
-            </tr>
-          </tbody>
-        </table>
-
-        {/* API 12.3 Shrinkage Inputs */}
-        <h2 className="text-lg font-semibold mb-2">
-          API 12.3 Shrinkage Inputs (Condensate Only)
-        </h2>
-
-        <table className="w-full text-sm border border-gray-200 mb-6">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 text-left">Item</th>
-              <th className="p-2 text-left">Value</th>
-              <th className="p-2 text-left">Units / Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="p-2">dL (Density of Light – Condensate)</td>
-              <td className="p-2">{dL.toFixed(2)}</td>
-              <td className="p-2">kg/m³</td>
-            </tr>
-            <tr>
-              <td className="p-2">dH (Density of Heavy – Raw Crude)</td>
-              <td className="p-2">{dH.toFixed(2)}</td>
-              <td className="p-2">kg/m³</td>
-            </tr>
-            <tr>
-              <td className="p-2">X (Diluent % of Blend)</td>
-              <td className="p-2">{X.toFixed(2)}%</td>
-              <td className="p-2">
-                % concentration of Diluent (Condensate Volume / Total Blend Volume × 100)
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2">XX (Crude % of Blend)</td>
-              <td className="p-2">{XX.toFixed(2)}%</td>
-              <td className="p-2">
-                % concentration of Crude (Crude Volume / Total Blend Volume × 100)
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2">1/dL</td>
-              <td className="p-2">{inv_dL.toFixed(5)}</td>
-              <td className="p-2">1 / dL</td>
-            </tr>
-            <tr>
-              <td className="p-2">1/dH</td>
-              <td className="p-2">{inv_dH.toFixed(5)}</td>
-              <td className="p-2">1 / dH</td>
-            </tr>
-          </tbody>
-        </table>
-
-        {/* API 12.3 Sec. 5.3 – Iteration Table */}
-<h2 className="text-lg font-semibold mb-2">
-  API 12.3 Sec. 5.3 – Iteration Table (Condensate Only)
-</h2>
-
-<table className="w-full text-sm border border-gray-200 mb-6">
-  <thead>
-    <tr className="bg-gray-100">
-      <th className="p-2 text-left">Component</th>
-      <th className="p-2 text-left">Diluent Vol (m³)</th>
-      <th className="p-2 text-left">Diluent Density</th>
-      <th className="p-2 text-left">Crude Vol (m³)</th>
-      <th className="p-2 text-left">Crude Density</th>
-      <th className="p-2 text-left">X (%)</th>
-      <th className="p-2 text-left">XX (%)</th>
-      <th className="p-2 text-left">Blend (%)</th>
-      <th className="p-2 text-left">1/dL</th>
-      <th className="p-2 text-left">1/dH</th>
-    </tr>
-  </thead>
-  <tbody>
-
-    {/* BUTANE ROW */}
-    <tr>
-      <td className="p-2">Butane</td>
-      <td className="p-2">0.0</td>
-      <td className="p-2">{butaneDensityKgM3.toFixed(2)}</td>
-      <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
-      <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
-      <td className="p-2">0.00</td>
-      <td className="p-2">100.00</td>
-      <td className="p-2">100.00</td>
-      <td className="p-2">{(1 / butaneDensityKgM3).toFixed(5)}</td>
-      <td className="p-2">{inv_dH.toFixed(5)}</td>
-    </tr>
-
-    {/* CONDENSATE ROW */}
-    <tr>
-      <td className="p-2">Condensate</td>
-      <td className="p-2">{condensateEstVolumeM3.toFixed(1)}</td>
-      <td className="p-2">{condensateDensityKgM3.toFixed(1)}</td>
-      <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
-      <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
-      <td className="p-2">{X.toFixed(2)}</td>
-      <td className="p-2">{XX.toFixed(2)}</td>
-      <td className="p-2">100.00</td>
-      <td className="p-2">{inv_dL.toFixed(5)}</td>
-      <td className="p-2">{inv_dH.toFixed(5)}</td>
-    </tr>
-
-        {/* OIL ROW */}
-    <tr>
-      <td className="p-2">OIL</td>
-      <td className="p-2">{oilDiluentVolumeM3.toFixed(1)}</td>
-      <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
-      <td className="p-2">-</td>
-      <td className="p-2">-</td>
-      <td className="p-2">100.00</td>
-      <td className="p-2">-</td>
-      <td className="p-2">100.00</td>
-      <td className="p-2">{inv_dH.toFixed(5)}</td>
-      <td className="p-2">-</td>
-    </tr>
-
-
-  </tbody>
-</table>
-
-{/* ========================= */}
-{/*   RESULTS SECTION (CARD)  */}
-{/* ========================= */}
-
-<div className="bg-white p-6 rounded shadow mt-10">
-  <h2 className="text-xl font-bold mb-4">RESULTS</h2>
-
-  <table className="w-full text-sm border border-gray-200 mb-6">
-    <thead>
-      <tr className="bg-gray-100">
-        <th className="p-2 text-left">Shrinkage Percent</th>
-        <th className="p-2 text-left">Shrinkage (m³)</th>
-        <th className="p-2 text-left">Sum of Volumes (m³)</th>
-        <th className="p-2 text-left">Resultant Volume (m³)</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      {/* ROW 1 — BUTANE */}
-      <tr>
-        <td className="p-2">{shrinkPctButane.toFixed(5)}%</td>
-        <td className="p-2">{shrinkVolButane.toFixed(3)}</td>
-        <td className="p-2">{fmt(sumVolButane, 3)}</td>
-        <td className="p-2">{resVolButane.toFixed(3)}</td>
-      </tr>
-
-      {/* ROW 2 — CONDENSATE */}
-      <tr>
-        <td className="p-2">{shrinkPctCond.toFixed(5)}%</td>
-        <td className="p-2">{shrinkVolCond.toFixed(3)}</td>
-        <td className="p-2">{sumVolCond.toFixed(3)}</td>
-        <td className="p-2">{resVolCond.toFixed(3)}</td>
-      </tr>
-
-      {/* ROW 3 — OIL */}
-      <tr>
-        <td className="p-2">{shrinkPctOil.toFixed(5)}%</td>
-        <td className="p-2">{shrinkVolOil.toFixed(3)}</td>
-        <td className="p-2">{sumVolOil.toFixed(3)}</td>
-        <td className="p-2">{resVolOil.toFixed(3)}</td>
-      </tr>
-
-      {/* ROW 4 — FINAL SHRINKAGE PERCENT */}
-      <tr>
-        <td className="p-2">{finalShrinkPct.toFixed(5)}%</td>
-        <td className="p-2">{totalShrinkageM3.toFixed(3)}</td>
-        <td className="p-2"></td>
-        <td className="p-2">{resVolOil.toFixed(3)}</td>
-      </tr>
-
-      {/* SUMMARY ROWS */}
-      <tr className="bg-gray-50">
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Receipts:</td>
-        <td className="p-2 font-semibold">{totalReceiptsM3.toFixed(3)}</td>
-      </tr>
-
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Shrinkage:</td>
-        <td className="p-2 font-semibold">{totalShrinkageM3.toFixed(3)}</td>
-      </tr>
-
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Net Volume:</td>
-        <td className="p-2 font-semibold">{netVolumeM3.toFixed(3)}</td>
-      </tr>
-
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Shrinkage as % of Total Receipts:</td>
-        <td className="p-2 font-semibold">{totalShrinkagePct.toFixed(5)}%</td>
-      </tr>
-
-    </tbody>
-  </table>
-</div>
-
-
-        <div className="flex justify-between">
-          <a href="/models" className="text-blue-600 underline">
-            ← Back to Models
-          </a>
-          <a
-            href={`/heavy-oil/model-c?scenarioId=${scenarioId}`}
-            className="text-blue-600 underline"
-          >
-            Continue to Part C (Paper Blend – Condensate Only)
-          </a>
+        <div>
+          <span className="font-semibold">Month:</span>{" "}
+          {scenario.month?.year} {scenario.month?.month}
         </div>
       </div>
-    </main>
-  );
-}
+
+      {/* TEMP CORR. VOLUMES & DENSITY INPUTS */}
+      <h2 className="text-lg font-semibold mb-2">
+        Temp Corrected Volumes & Density Inputs (Paper Blend – Condensate Only)
+      </h2>
+
+      <table className="w-full text-sm border border-gray-200 mb-6">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left">Component</th>
+            <th className="p-2 text-left">Volume (m³)</th>
+            <th className="p-2 text-left">Density @ 15°C (kg/m³)</th>
+            <th className="p-2 text-left">% of Blend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="p-2">Raw Crude Oil</td>
+            <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
+            <td className="p-2">{fmt(rawCrudePctOfBlend, 3)}%</td>
+          </tr>
+
+          <tr>
+            <td className="p-2">Butane</td>
+            <td className="p-2">-</td>
+            <td className="p-2">{fmt(butaneDensityKgM3, 1)}</td>
+            <td className="p-2">0.000%</td>
+          </tr>
+
+          <tr>
+            <td className="p-2">Condensate</td>
+            <td className="p-2">{fmt(condensateEstVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(condensateDensityKgM3, 1)}</td>
+            <td className="p-2">{fmt(condensatePctOfBlend, 3)}%</td>
+          </tr>
+
+          <tr className="bg-gray-50">
+            <td className="p-2 font-semibold">Total Receipts</td>
+            <td className="p-2 font-semibold">{fmt(totalEstimatedBlendedVolumeM3, 1)}</td>
+            <td className="p-2"></td>
+            <td className="p-2 font-semibold">{fmt(totalPctOfBlend, 3)}%</td>
+          </tr>
+
+          <tr>
+            <td className="p-2">Wt. Avg. Density</td>
+            <td className="p-2"></td>
+            <td className="p-2">{fmt(weightedAvgDensityKgM3, 1)}</td>
+            <td className="p-2"></td>
+          </tr>
+
+          <tr>
+            <td className="p-2">Target Density</td>
+            <td className="p-2"></td>
+            <td className="p-2">{fmt(targetBlendDensityKgM3, 1)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* API 12.3 Shrinkage Inputs */}
+      <h2 className="text-lg font-semibold mb-2">
+        API 12.3 Shrinkage Inputs (Condensate Only)
+      </h2>
+
+      <table className="w-full text-sm border border-gray-200 mb-6">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left">Item</th>
+            <th className="p-2 text-left">Value</th>
+            <th className="p-2 text-left">Units / Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="p-2">dL (Density of Light – Condensate)</td>
+            <td className="p-2">{fmt(dL, 2)}</td>
+            <td className="p-2">kg/m³</td>
+          </tr>
+          <tr>
+            <td className="p-2">dH (Density of Heavy – Raw Crude)</td>
+            <td className="p-2">{fmt(dH, 2)}</td>
+            <td className="p-2">kg/m³</td>
+          </tr>
+          <tr>
+            <td className="p-2">X (Diluent % of Blend)</td>
+            <td className="p-2">{fmt(X, 2)}%</td>
+            <td className="p-2">% concentration of Diluent</td>
+          </tr>
+          <tr>
+            <td className="p-2">XX (Crude % of Blend)</td>
+            <td className="p-2">{fmt(XX, 2)}%</td>
+            <td className="p-2">% concentration of Crude</td>
+          </tr>
+          <tr>
+            <td className="p-2">1/dL</td>
+            <td className="p-2">{fmt(inv_dL, 5)}</td>
+            <td className="p-2">1 / dL</td>
+          </tr>
+          <tr>
+            <td className="p-2">1/dH</td>
+            <td className="p-2">{fmt(inv_dH, 5)}</td>
+            <td className="p-2">1 / dH</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {/* Iteration Table */}
+      <h2 className="text-lg font-semibold mb-2">
+        API 12.3 Sec. 5.3 – Iteration Table (Condensate Only)
+      </h2>
+
+      <table className="w-full text-sm border border-gray-200 mb-6">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="p-2 text-left">Component</th>
+            <th className="p-2 text-left">Diluent Vol (m³)</th>
+            <th className="p-2 text-left">Diluent Density</th>
+            <th className="p-2 text-left">Crude Vol (m³)</th>
+            <th className="p-2 text-left">Crude Density</th>
+            <th className="p-2 text-left">X (%)</th>
+            <th className="p-2 text-left">XX (%)</th>
+            <th className="p-2 text-left">Blend (%)</th>
+            <th className="p-2 text-left">1/dL</th>
+            <th className="p-2 text-left">1/dH</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {/* BUTANE */}
+          <tr>
+            <td className="p-2">Butane</td>
+            <td className="p-2">0.0</td>
+            <td className="p-2">{fmt(butaneDensityKgM3, 2)}</td>
+            <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
+            <td className="p-2">0.00</td>
+            <td className="p-2">100.00</td>
+            <td className="p-2">100.00</td>
+            <td className="p-2">{fmt(1 / butaneDensityKgM3, 5)}</td>
+            <td className="p-2">{fmt(inv_dH, 5)}</td>
+          </tr>
+
+          {/* CONDENSATE */}
+          <tr>
+            <td className="p-2">Condensate</td>
+            <td className="p-2">{fmt(condensateEstVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(condensateDensityKgM3, 1)}</td>
+            <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
+            <td className="p-2">{fmt(X, 2)}</td>
+            <td className="p-2">{fmt(XX, 2)}</td>
+            <td className="p-2">100.00</td>
+            <td className="p-2">{fmt(inv_dL, 5)}</td>
+            <td className="p-2">{fmt(inv_dH, 5)}</td>
+          </tr>
+
+          {/* OIL */}
+          <tr>
+            <td className="p-2">OIL</td>
+            <td className="p-2">{fmt(oilDiluentVolumeM3, 1)}</td>
+            <td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
+            <td className="p-2">-</td>
+            <td className="p-2">-</td>
+            <td className="p-2">100.00</td>
+            <td className="p-2">-</td>
+            <td className="p-2">100.00</td>
+            <td className="p-2">{fmt(inv_dH, 5)}</td>
+            <td className="p-2">-</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      {/* RESULTS */}
+      <div className="bg-white p-6 rounded shadow mt-10">
+        <h2 className="text-xl font-bold mb-4">RESULTS</h2>
+
+        <table className="w-full text-sm border border-gray-200 mb-6">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 text-left">Shrinkage Percent</th>
+              <th className="p-2 text-left">Shrinkage (m³)</th>
+              <th className="p-2 text-left">Sum of Volumes (m³)</th>
+              <th className="p-2 text-left">Resultant Volume (m³)</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {/* BUTANE */}
+            <tr>
+              <td className="p-2">{fmt(shrinkPctButane, 5)}%</td>
+              <td className="p-2">{fmt(shrinkVolButane, 3)}</td>
+              <td className="p-2">{fmt(sumVolButane, 3)}</td>
+              <td className="p-2">{fmt(resVolButane, 3)}</td>
+            </tr>
+
+            {/* CONDENSATE */}
+            <tr>
+              <td className="p-2">{fmt(shrinkPctCond, 5)}%</td>
+              <td className="p-2">{fmt(shrinkVolCond, 3)}</td>
+              <td className="p-2">{fmt(sumVolCond, 3)}</td>
+              <td className="p-2">{fmt(resVolCond, 3)}</td>
+            </tr>
+
+            {/* OIL */}
+            <tr>
+              <td className="p-2">{fmt(shrinkPctOil, 5)}%</td>
+              <td className="p-2">{fmt(shrinkVolOil, 3)}</td>
+              <td className="p-2">{fmt(sumVolOil, 3)}</td>
+              <td className="p-2">{fmt(resVolOil, 3)}</td>
+            </tr>
+
+            {/* FINAL SHRINKAGE */}
+            <tr>
+              <td className="p-2">{fmt(finalShrinkPct, 5)}%</td>
+              <td className="p-2">{fmt(totalShrinkageM3, 3)}</td>
+              <td className="p-2"></td>
+              <td className="p-2">{fmt(resVolOil, 3)}</td>
+            </tr>
+
+            {/* SUMMARY */}
+            <tr className="bg-gray-50">
+              <td></td><td></td>
+              <td className="p-2 font-semibold">Total Receipts:</td>
+              <td className="p-2 font-semibold">{fmt(totalReceiptsM3, 3)}</td>
+            </tr>
+
+            <tr>
+              <td></td><td></td>
+              <td className="p-2 font-semibold">Total Shrinkage:</td>
+              <td className="p-2 font-semibold">{fmt(totalShrinkageM3, 3)}</td>
+            </tr>
+
+            <tr>
+              <td></td><td></td>
+              <td className="p-2 font-semibold">Net Volume:</td>
+              <td className="p-2 font-semibold">{fmt(netVolumeM3, 3)}</td>
+            </tr>
+
+            <tr>
+              <td></td><td></td>
+              <td className="p-2 font-semibold">Total Shrinkage as % of Total Receipts:</td>
+              <td className="p-2 font-semibold">{fmt(totalShrinkagePct, 5)}%</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div className="flex justify-between">
+        <a href="/models" className="text-blue-600 underline">
+          ← Back to Models
+        </a>
+        <a
+          href={`/heavy-oil/model-c?scenarioId=${scenarioId}`}
+          className="text-blue-600 underline"
+        >
+          Continue to Part C (Paper Blend – Condensate Only)
+        </a>
+      </div>
+    </div>
+  </main>
+);
