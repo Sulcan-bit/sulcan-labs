@@ -431,43 +431,39 @@ await prisma.scenarioResults.upsert({
 
             <tr>
               <td className="p-2">C5+ (Condensate)</td>
-              <td className="p-2">{condVol.toFixed(1)}</td>
-              <td className="p-2">{condDensity.toFixed(1)}</td>
+              <td className="p-2">{fmt(condVol, 1)}</td>
+              <td className="p-2">{fmt(condDensity, 1)}</td>
               <td className="p-2">
-                {((condVol / blendPreShrinkVol) * 100).toFixed(2)}%
+                {fmt((condVol / blendPreShrinkVol) * 100, 2)}%
               </td>
             </tr>
 
             <tr>
               <td className="p-2">C4 (Butane)</td>
-              <td className="p-2">{butaneVol.toFixed(1)}</td>
-              <td className="p-2">{butaneDensity.toFixed(1)}</td>
+              <td className="p-2">{fmt(butaneVol, 1)}</td>
+              <td className="p-2">{fmt(butaneDensity, 1)}</td>
               <td className="p-2">
-                {((butaneVol / blendPreShrinkVol) * 100).toFixed(2)}%
+                {fmt((butaneVol / blendPreShrinkVol) * 100, 2)}%
               </td>
             </tr>
 
             <tr className="bg-gray-50">
               <td className="p-2 font-semibold">Blend (pre-Shrinkage)</td>
-              <td className="p-2 font-semibold">
-                {blendPreShrinkVol.toFixed(1)}
-              </td>
-              <td className="p-2 font-semibold">
-                {blendPreShrinkDensity.toFixed(1)}
-              </td>
+              <td className="p-2 font-semibold">{fmt(blendPreShrinkVol, 1)}</td>
+              <td className="p-2 font-semibold">{fmt(blendPreShrinkDensity, 1)}</td>
               <td className="p-2 font-semibold">100.00%</td>
             </tr>
 
             <tr>
               <td className="p-2">Estimated Shrinkage</td>
-              <td className="p-2">{totalShrinkageM3.toFixed(1)}</td>
+              <td className="p-2">{fmt(totalShrinkageM3, 1)}</td>
               <td className="p-2"></td>
               <td className="p-2"></td>
             </tr>
 
             <tr>
               <td className="p-2 font-semibold">NET BLEND</td>
-              <td className="p-2 font-semibold">{netBlendVol.toFixed(1)}</td>
+              <td className="p-2 font-semibold">{fmt(netBlendVol, 1)}</td>
               <td className="p-2"></td>
               <td className="p-2"></td>
             </tr>
@@ -493,55 +489,52 @@ await prisma.scenarioResults.upsert({
               <td className="p-2">Sale of Net Blend</td>
               <td className="p-2">{fmt(netBlendVol)}</td>
               <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
-<td className="p-2">
-  {(netBlendVol * heavyStreamPriceCadM3).toFixed(2)}
-</td>
-</tr>
+              <td className="p-2">{fmt(netBlendVol * heavyStreamPriceCadM3, 2)}</td>
+            </tr>
 
-<tr>
-  <td className="p-2">C5+ Cost</td>
-  <td className="p-2">{condVol.toFixed(2)}</td>
-  <td className="p-2">{(-condensatePriceAfterEqCadM3).toFixed(2)}</td>
-  <td className="p-2">{(-c5Cost_CAD).toFixed(2)}</td>
-</tr>
+            <tr>
+              <td className="p-2">C5+ Cost</td>
+              <td className="p-2">{fmt(condVol, 2)}</td>
+              <td className="p-2">{fmt(-condensatePriceAfterEqCadM3, 2)}</td>
+              <td className="p-2">{fmt(-c5Cost_CAD, 2)}</td>
+            </tr>
 
-<tr>
-  <td className="p-2">C4 Cost</td>
-  <td className="p-2">{butaneVol.toFixed(2)}</td>
-  <td className="p-2">{(-c4PriceCadM3).toFixed(2)}</td>
-  <td className="p-2">{(-c4Cost_CAD).toFixed(2)}</td>
-</tr>
+            <tr>
+              <td className="p-2">C4 Cost</td>
+              <td className="p-2">{fmt(butaneVol, 2)}</td>
+              <td className="p-2">{fmt(-c4PriceCadM3, 2)}</td>
+              <td className="p-2">{fmt(-c4Cost_CAD, 2)}</td>
+            </tr>
 
-<tr>
-  <td className="p-2">C5+ Transportation</td>
-  <td className="p-2">{condVol.toFixed(2)}</td>
-  <td className="p-2">{(-c5TransportRate).toFixed(2)}</td>
-  <td className="p-2">{(-c5Transport_CAD).toFixed(2)}</td>
-</tr>
+            <tr>
+              <td className="p-2">C5+ Transportation</td>
+              <td className="p-2">{fmt(condVol, 2)}</td>
+              <td className="p-2">{fmt(-c5TransportRate, 2)}</td>
+              <td className="p-2">{fmt(-c5Transport_CAD, 2)}</td>
+            </tr>
 
-<tr>
-  <td className="p-2">Blend Transportation</td>
-  <td className="p-2">{blendPreShrinkVol.toFixed(2)}</td>
-  <td className="p-2">{(-blendTransportRate).toFixed(2)}</td>
-  <td className="p-2">{(-blendTransport_CAD).toFixed(2)}</td>
-</tr>
+            <tr>
+              <td className="p-2">Blend Transportation</td>
+              <td className="p-2">{fmt(blendPreShrinkVol, 2)}</td>
+              <td className="p-2">{fmt(-blendTransportRate, 2)}</td>
+              <td className="p-2">{fmt(-blendTransport_CAD, 2)}</td>
+            </tr>
 
-<tr>
-  <td className="p-2">Loss Allowance</td>
-  <td className="p-2">{lossAllowanceVolume.toFixed(2)}</td>
-  <td className="p-2">{(-heavyStreamPriceCadM3).toFixed(2)}</td>
-  <td className="p-2">{(-lossAllowance_CAD).toFixed(2)}</td>
-</tr>
+            <tr>
+              <td className="p-2">Loss Allowance</td>
+              <td className="p-2">{fmt(lossAllowanceVolume, 2)}</td>
+              <td className="p-2">{fmt(-heavyStreamPriceCadM3, 2)}</td>
+              <td className="p-2">{fmt(-lossAllowance_CAD, 2)}</td>
+            </tr>
 
-<tr className="bg-gray-50">
-  <td className="p-2 font-semibold">Net Sales</td>
-  <td className="p-2"></td>
-  <td className="p-2"></td>
-  <td className="p-2 font-semibold">{netRevenue_CAD.toFixed(2)}</td>
-</tr>
-
-</tbody>
-</table>
+            <tr className="bg-gray-50">
+              <td className="p-2 font-semibold">Net Sales</td>
+              <td className="p-2"></td>
+              <td className="p-2"></td>
+              <td className="p-2 font-semibold">{fmt(netRevenue_CAD, 2)}</td>
+            </tr>
+          </tbody>
+        </table>
 
 {/* Net Price Metrics */}
 <h2 className="text-lg font-semibold mb-2">
@@ -739,17 +732,13 @@ await prisma.scenarioResults.upsert({
       </details>
     </td>
   </tr>
-
 </tbody>
-
 </table>
-
 
 <div className="flex justify-between">
   <a href="/models" className="text-blue-600 underline">
     ← Back to Models
   </a>
-
   <a
     href={`/heavy-oil/model-f?scenarioId=${scenarioId}`}
     className="text-blue-600 underline"
@@ -757,7 +746,6 @@ await prisma.scenarioResults.upsert({
     Continue to Part F (Net Financial Benefit)
   </a>
 </div>
-
       </div>
     </main>
   );
