@@ -175,7 +175,7 @@ await prisma.scenarioResults.upsert({
 });
 
 
-  return (
+ return (
     <main className="min-h-screen bg-gray-50 p-8">
       <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
 
@@ -212,32 +212,32 @@ await prisma.scenarioResults.upsert({
             <tr>
               <td className="p-2">Raw Crude Oil</td>
               <td className="p-2 text-right">{fmt(rawCrudeVol, 1)}</td>
-              <td className="p-2 text-right">{producer_density_kg_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{rawPctOfBlend.toFixed(3)}%</td>
+              <td className="p-2 text-right">{fmt(producer_density_kg_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(rawPctOfBlend, 3)}%</td>
               <td className="p-2"></td>
             </tr>
 
             <tr>
               <td className="p-2">Butane (Primary Diluent)</td>
-              <td className="p-2 text-right">{butaneVol_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{butaneDensity.toFixed(1)}</td>
-              <td className="p-2 text-right">{butanePctOfBlend.toFixed(3)}%</td>
-              <td className="p-2 text-right">{butanePctOfRaw.toFixed(2)}% of Raw</td>
+              <td className="p-2 text-right">{fmt(butaneVol_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(butaneDensity, 1)}</td>
+              <td className="p-2 text-right">{fmt(butanePctOfBlend, 3)}%</td>
+              <td className="p-2 text-right">{fmt(butanePctOfRaw, 2)}% of Raw</td>
             </tr>
 
             <tr>
               <td className="p-2">Condensate (Secondary Diluent)</td>
-              <td className="p-2 text-right">{condVol_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{cond_density_kg_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{condPctOfBlend.toFixed(3)}%</td>
+              <td className="p-2 text-right">{fmt(condVol_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(cond_density_kg_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(condPctOfBlend, 3)}%</td>
               <td className="p-2 text-right">
-                {target_blend_density.toFixed(1)} kg/m³ target
+                {fmt(target_blend_density, 1)} kg/m³ target
               </td>
             </tr>
 
             <tr className="font-semibold">
               <td className="p-2">Total Receipts</td>
-              <td className="p-2 text-right">{totalBlendVol_m3.toFixed(1)}</td>
+              <td className="p-2 text-right">{fmt(totalBlendVol_m3, 1)}</td>
               <td className="p-2"></td>
               <td className="p-2 text-right">100.000%</td>
               <td className="p-2"></td>
@@ -247,11 +247,11 @@ await prisma.scenarioResults.upsert({
               <td className="p-2 font-semibold">Wt. Avg. Density</td>
               <td className="p-2"></td>
               <td className="p-2 text-right font-semibold">
-                {weightedAvgDensity.toFixed(1)} kg/m³
+                {fmt(weightedAvgDensity, 1)} kg/m³
               </td>
               <td className="p-2"></td>
               <td className="p-2 text-right">
-                {historicalActualBlendDensity.toFixed(1)} kg/m³ historical
+                {fmt(historicalActualBlendDensity, 1)} kg/m³ historical
               </td>
             </tr>
           </tbody>
@@ -266,32 +266,32 @@ await prisma.scenarioResults.upsert({
           <tbody>
             <tr>
               <td className="p-2">dL (Density of Light – Butane)</td>
-              <td className="p-2">{butaneDensity.toFixed(2)}</td>
+              <td className="p-2">{fmt(butaneDensity, 2)}</td>
               <td className="p-2">kg/m³</td>
             </tr>
             <tr>
               <td className="p-2">dL (Density of Light – Condensate)</td>
-              <td className="p-2">{cond_density_kg_m3.toFixed(2)}</td>
+              <td className="p-2">{fmt(cond_density_kg_m3, 2)}</td>
               <td className="p-2">kg/m³</td>
             </tr>
             <tr>
               <td className="p-2">dH (Density of Heavy – Raw Crude)</td>
-              <td className="p-2">{producer_density_kg_m3.toFixed(2)}</td>
+              <td className="p-2">{fmt(producer_density_kg_m3, 2)}</td>
               <td className="p-2">kg/m³</td>
             </tr>
             <tr>
               <td className="p-2">1/dL (Butane)</td>
-              <td className="p-2">{inv_dL_butane.toFixed(5)}</td>
+              <td className="p-2">{fmt(inv_dL_butane, 5)}</td>
               <td className="p-2">1 / dL</td>
             </tr>
             <tr>
               <td className="p-2">1/dL (Condensate)</td>
-              <td className="p-2">{inv_dL_cond.toFixed(5)}</td>
+              <td className="p-2">{fmt(inv_dL_cond, 5)}</td>
               <td className="p-2">1 / dL</td>
             </tr>
             <tr>
               <td className="p-2">1/dH</td>
-              <td className="p-2">{inv_dH_crude.toFixed(5)}</td>
+              <td className="p-2">{fmt(inv_dH_crude, 5)}</td>
               <td className="p-2">1 / dH</td>
             </tr>
           </tbody>
@@ -320,144 +320,128 @@ await prisma.scenarioResults.upsert({
           <tbody>
             <tr>
               <td className="p-2">Butane</td>
-              <td className="p-2 text-right">{butaneVol_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{butaneDensity.toFixed(2)}</td>
+              <td className="p-2 text-right">{fmt(butaneVol_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(butaneDensity, 2)}</td>
               <td className="p-2 text-right">{fmt(rawCrudeVol, 1)}</td>
-              <td className="p-2 text-right">{producer_density_kg_m3.toFixed(2)}</td>
-              <td className="p-2 text-right">{X_butane.toFixed(2)}</td>
-              <td className="p-2 text-right">
-                {(100 - X_butane).toFixed(2)}
-              </td>
+              <td className="p-2 text-right">{fmt(producer_density_kg_m3, 2)}</td>
+              <td className="p-2 text-right">{fmt(X_butane, 2)}</td>
+              <td className="p-2 text-right">{fmt(100 - X_butane, 2)}</td>
               <td className="p-2 text-right">100.00</td>
-              <td className="p-2 text-right">{inv_dL_butane.toFixed(5)}</td>
-              <td className="p-2 text-right">{inv_dH_crude.toFixed(5)}</td>
+              <td className="p-2 text-right">{fmt(inv_dL_butane, 5)}</td>
+              <td className="p-2 text-right">{fmt(inv_dH_crude, 5)}</td>
             </tr>
+
             <tr>
               <td className="p-2">Condensate</td>
-              <td className="p-2 text-right">{condVol_m3.toFixed(1)}</td>
-              <td className="p-2 text-right">{cond_density_kg_m3.toFixed(2)}</td>
-              <td className="p-2 text-right">{crudeVolCondRow.toFixed(1)}</td>
-              <td className="p-2 text-right">{producer_density_kg_m3.toFixed(2)}</td>
-              <td className="p-2 text-right">{X_cond.toFixed(2)}</td>
-              <td className="p-2 text-right">
-                {(100 - X_cond).toFixed(2)}
-              </td>
+              <td className="p-2 text-right">{fmt(condVol_m3, 1)}</td>
+              <td className="p-2 text-right">{fmt(cond_density_kg_m3, 2)}</td>
+              <td className="p-2 text-right">{fmt(crudeVolCondRow, 1)}</td>
+              <td className="p-2 text-right">{fmt(producer_density_kg_m3, 2)}</td>
+              <td className="p-2 text-right">{fmt(X_cond, 2)}</td>
+              <td className="p-2 text-right">{fmt(100 - X_cond, 2)}</td>
               <td className="p-2 text-right">100.00</td>
-              <td className="p-2 text-right">{inv_dL_cond.toFixed(5)}</td>
-              <td className="p-2 text-right">{inv_dH_crude.toFixed(5)}</td>
+              <td className="p-2 text-right">{fmt(inv_dL_cond, 5)}</td>
+              <td className="p-2 text-right">{fmt(inv_dH_crude, 5)}</td>
             </tr>
+
             <tr>
               <td className="p-2">Raw Crude Oil</td>
-              <td className="p-2 text-right">{sumVolOil.toFixed(1)}</td>
-              <td className="p-2 text-right">{producer_density_kg_m3.toFixed(2)}</td>
+              <td className="p-2 text-right">{fmt(sumVolOil, 1)}</td>
+              <td className="p-2 text-right">{fmt(producer_density_kg_m3, 2)}</td>
               <td className="p-2 text-right">-</td>
               <td className="p-2 text-right">-</td>
               <td className="p-2 text-right">100.00</td>
               <td className="p-2 text-right">-</td>
               <td className="p-2 text-right">100.00</td>
-              <td className="p-2 text-right">{inv_dH_crude.toFixed(5)}</td>
+              <td className="p-2 text-right">{fmt(inv_dH_crude, 5)}</td>
               <td className="p-2 text-right">-</td>
             </tr>
           </tbody>
         </table>
 
- {/* ========================= */}
-{/*   RESULTS SECTION (CARD)  */}
-{/* ========================= */}
+        {/* RESULTS SECTION */}
+        <div className="bg-white p-6 rounded shadow mt-10">
+          <h2 className="text-xl font-bold mb-4">RESULTS</h2>
 
-<div className="bg-white p-6 rounded shadow mt-10">
-  <h2 className="text-xl font-bold mb-4">RESULTS</h2>
+          <table className="w-full text-sm border border-gray-200 mb-6">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="p-2 text-left">Shrinkage Percent</th>
+                <th className="p-2 text-right">Shrinkage (m³)</th>
+                <th className="p-2 text-right">Sum of Volumes (m³)</th>
+                <th className="p-2 text-right">Resultant Volume (m³)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="p-2">{fmt(shrinkPctButane, 5)}%</td>
+                <td className="p-2 text-right">{fmt(shrinkVolButane, 3)}</td>
+                <td className="p-2 text-right">{fmt(sumVolButane, 3)}</td>
+                <td className="p-2 text-right">{fmt(resultantVolButane, 3)}</td>
+              </tr>
 
-  <table className="w-full text-sm border border-gray-200 mb-6">
-    <thead>
-      <tr className="bg-gray-100">
-        <th className="p-2 text-left">Shrinkage Percent</th>
-        <th className="p-2 text-right">Shrinkage (m³)</th>
-        <th className="p-2 text-right">Sum of Volumes (m³)</th>
-        <th className="p-2 text-right">Resultant Volume (m³)</th>
-      </tr>
-    </thead>
-    <tbody>
+              <tr>
+                <td className="p-2">{fmt(shrinkPctCond, 5)}%</td>
+                <td className="p-2 text-right">{fmt(shrinkVolCond, 3)}</td>
+                <td className="p-2 text-right">{fmt(sumVolCond, 3)}</td>
+                <td className="p-2 text-right">{fmt(resultantVolCond, 3)}</td>
+              </tr>
 
-      {/* ROW 1 — BUTANE */}
-      <tr>
-        <td className="p-2">{shrinkPctButane.toFixed(5)}%</td>
-        <td className="p-2 text-right">{shrinkVolButane.toFixed(3)}</td>
-        <td className="p-2 text-right">{sumVolButane.toFixed(3)}</td>
-        <td className="p-2 text-right">{resultantVolButane.toFixed(3)}</td>
-      </tr>
+              <tr>
+                <td className="p-2">{fmt(shrinkPctOil, 5)}%</td>
+                <td className="p-2 text-right">{fmt(shrinkVolOil, 3)}</td>
+                <td className="p-2 text-right">{fmt(sumVolOil, 3)}</td>
+                <td className="p-2 text-right">{fmt(resultantVolOil, 3)}</td>
+              </tr>
 
-      {/* ROW 2 — CONDENSATE */}
-      <tr>
-        <td className="p-2">{shrinkPctCond.toFixed(5)}%</td>
-        <td className="p-2 text-right">{shrinkVolCond.toFixed(3)}</td>
-        <td className="p-2 text-right">{sumVolCond.toFixed(3)}</td>
-        <td className="p-2 text-right">{resultantVolCond.toFixed(3)}</td>
-      </tr>
+              <tr>
+                <td className="p-2">{fmt(totalShrinkagePct, 5)}%</td>
+                <td className="p-2 text-right">{fmt(totalShrinkageM3, 3)}</td>
+                <td className="p-2 text-right"></td>
+                <td className="p-2 text-right">{fmt(resultantVolOil, 3)}</td>
+              </tr>
 
-      {/* ROW 3 — OIL */}
-      <tr>
-        <td className="p-2">{shrinkPctOil.toFixed(5)}%</td>
-        <td className="p-2 text-right">{shrinkVolOil.toFixed(3)}</td>
-        <td className="p-2 text-right">{sumVolOil.toFixed(3)}</td>
-        <td className="p-2 text-right">{resultantVolOil.toFixed(3)}</td>
-      </tr>
+              <tr className="bg-gray-50">
+                <td></td><td></td>
+                <td className="p-2 font-semibold">Total Receipts:</td>
+                <td className="p-2 font-semibold">{fmt(totalReceipts, 3)}</td>
+              </tr>
 
-      {/* ROW 4 — FINAL SHRINKAGE PERCENT */}
-      <tr>
-        <td className="p-2">{totalShrinkagePct.toFixed(5)}%</td>
-        <td className="p-2 text-right">{totalShrinkageM3.toFixed(3)}</td>
-        <td className="p-2 text-right"></td>
-        <td className="p-2 text-right">{resultantVolOil.toFixed(3)}</td>
-      </tr>
+              <tr>
+                <td></td><td></td>
+                <td className="p-2 font-semibold">Total Shrinkage:</td>
+                <td className="p-2 font-semibold">{fmt(totalShrinkageM3, 3)}</td>
+              </tr>
 
-      {/* SUMMARY ROWS */}
-      <tr className="bg-gray-50">
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Receipts:</td>
-        <td className="p-2 font-semibold">{totalReceipts.toFixed(3)}</td>
-      </tr>
+              <tr>
+                <td></td><td></td>
+                <td className="p-2 font-semibold">Net Volume:</td>
+                <td className="p-2 font-semibold">{fmt(netVolume, 3)}</td>
+              </tr>
 
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Shrinkage:</td>
-        <td className="p-2 font-semibold">{totalShrinkageM3.toFixed(3)}</td>
-      </tr>
+              <tr>
+                <td></td><td></td>
+                <td className="p-2 font-semibold">Total Shrinkage as % of Total Receipts:</td>
+                <td className="p-2 font-semibold">{fmt(totalShrinkageAsPctOfReceipts, 5)}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Net Volume:</td>
-        <td className="p-2 font-semibold">{netVolume.toFixed(3)}</td>
-      </tr>
+        <div className="flex justify-between">
+          <a href="/models" className="text-blue-600 underline">
+            ← Back to Models
+          </a>
 
-      <tr>
-        <td></td><td></td>
-        <td className="p-2 font-semibold">Total Shrinkage as % of Total Receipts:</td>
-        <td className="p-2 font-semibold">{totalShrinkageAsPctOfReceipts.toFixed(5)}%</td>
-      </tr>
+          <a
+            href={`/heavy-oil/model-e?scenarioId=${scenarioId}`}
+            className="text-blue-600 underline"
+          >
+            Continue to Part E (Butane & Condensate Net Sales)
+          </a>
+        </div>
 
-    </tbody>
-  </table>
-</div>
-
-<div className="flex justify-between">
-  <a href="/models" className="text-blue-600 underline">
-    ← Back to Models
-  </a>
-
-  <a
-    href={`/heavy-oil/model-e?scenarioId=${scenarioId}`}
-    className="text-blue-600 underline"
-  >
-    Continue to Part E (Butane & Condensate Net Sales)
-  </a>
-</div>
-
-      </div>   {/* closes the big white card */}
+      </div>
     </main>
   );
 }
-
-
-
-
