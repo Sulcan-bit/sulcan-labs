@@ -282,7 +282,7 @@ const finalShrinkPct =
           </thead>
           <tbody>
             <tr>
-              <td className="p-2">RAW CRUDE OIL</td>
+              <td className="p-2">Raw Crude Oil</td>
               <td className="p-2">{producerVolumeM3.toFixed(1)}</td>
               <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
               <td className="p-2">{rawCrudePctOfBlend.toFixed(3)}%</td>
