@@ -138,10 +138,11 @@ export default async function HeavyOilModelFPage(props: PageProps) {
           <tbody>
 
             {/* E131 */}
-            <tr className="bg-gray-50">
-              <td className="p-2 font-semibold">NET FINANCIAL BENEFIT</td>
-              <td className="p-2 font-semibold">{netFinancialBenefit.toFixed(2)} CAD</td>
-            </tr>
+<tr className="bg-gray-50">
+  <td className="p-2 font-semibold">NET FINANCIAL BENEFIT</td>
+  <td className="p-2 font-semibold">{fmt(netFinancialBenefit, 2)} CAD</td>
+</tr>
+
 
             {/* E132 */}
             <tr>
