@@ -297,6 +297,12 @@ function normalizeLsdNumber(value: string): string {
 
       {/* Load Previous Inputs */}
 <Section title="Load Previous Inputs">
+
+  {/* Legend */}
+  <div className="text-xs text-gray-600 mb-1">
+    Format: DATE — Terminal — Producer — Raw Density — Cond Density — Stream
+  </div>
+
   <select
     className="border p-2 rounded w-full"
     value={selectedPreviousId}
@@ -310,14 +316,18 @@ function normalizeLsdNumber(value: string): string {
 
     {previousSets.map((p) => (
       <option key={p.id} value={p.id.toString()}>
-  #{p.id} — {p.created_at.slice(0, 10)} — {p.scenario?.terminal_operator} — {p.producer_name} — {p.producer_density_kg_m3}kg/m³ — {p.cond1_density_kg_m3}kg/m³ — {p.heavy_oil_stream}
-</option>
-
-
-
+        #{p.id} — 
+        Date: {p.created_at.slice(0, 10)} — 
+        Terminal: {p.scenario?.terminal_operator} — 
+        Producer: {p.producer_name} — 
+        Raw Density: {p.producer_density_kg_m3}kg/m³ — 
+        Cond Density: {p.cond1_density_kg_m3}kg/m³ — 
+        Stream: {p.heavy_oil_stream}
+      </option>
     ))}
   </select>
 </Section>
+
 
 
       {/* 1. Pricing Month */}
