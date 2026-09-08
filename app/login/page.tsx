@@ -139,6 +139,8 @@ function SmsLogin() {
       return;
     }
 
+setPhone(digits);
+
     try {
       const res = await fetch("/api/auth/send-sms", {
   method: "POST",
