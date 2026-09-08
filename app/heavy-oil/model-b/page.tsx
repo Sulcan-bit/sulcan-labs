@@ -283,9 +283,10 @@ const finalShrinkPct =
           <tbody>
             <tr>
               <td className="p-2">Raw Crude Oil</td>
-              <td className="p-2">{producerVolumeM3.toFixed(1)}</td>
-              <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
-              <td className="p-2">{rawCrudePctOfBlend.toFixed(3)}%</td>
+              <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
+<td className="p-2">{fmt(producerDensityKgM3, 1)}</td>
+<td className="p-2">{fmt(rawCrudePctOfBlend, 3)}%</td>
+
             </tr>
             <tr>
               <td className="p-2">Butane</td>
@@ -401,7 +402,7 @@ const finalShrinkPct =
       <td className="p-2">Butane</td>
       <td className="p-2">0.0</td>
       <td className="p-2">{butaneDensityKgM3.toFixed(2)}</td>
-      <td className="p-2">{producerVolumeM3.toFixed(1)}</td>
+      <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
       <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
       <td className="p-2">0.00</td>
       <td className="p-2">100.00</td>
@@ -415,7 +416,7 @@ const finalShrinkPct =
       <td className="p-2">Condensate</td>
       <td className="p-2">{condensateEstVolumeM3.toFixed(1)}</td>
       <td className="p-2">{condensateDensityKgM3.toFixed(1)}</td>
-      <td className="p-2">{producerVolumeM3.toFixed(1)}</td>
+      <td className="p-2">{fmt(producerVolumeM3, 1)}</td>
       <td className="p-2">{producerDensityKgM3.toFixed(1)}</td>
       <td className="p-2">{X.toFixed(2)}</td>
       <td className="p-2">{XX.toFixed(2)}</td>
@@ -464,7 +465,7 @@ const finalShrinkPct =
       <tr>
         <td className="p-2">{shrinkPctButane.toFixed(5)}%</td>
         <td className="p-2">{shrinkVolButane.toFixed(3)}</td>
-        <td className="p-2">{sumVolButane.toFixed(3)}</td>
+        <td className="p-2">{fmt(sumVolButane, 3)}</td>
         <td className="p-2">{resVolButane.toFixed(3)}</td>
       </tr>
 
