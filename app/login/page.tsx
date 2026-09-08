@@ -144,7 +144,7 @@ function SmsLogin() {
   method: "POST",
   credentials: "include",   // ⭐ REQUIRED
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, phone: `+1${digits}` }),
+  body: JSON.stringify({ email, phone: digits }),
 });
 
 
