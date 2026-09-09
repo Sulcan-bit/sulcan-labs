@@ -156,20 +156,31 @@ const cleanedInputs = inputs; // TT1‑only architecture — no cleaning require
 
   const condensateSulphur = (cleanedInputs?.cond1_sulphur_pct ?? 0) / 100;
 
+  // ⭐ NEW: Condensate Light‑Ends (%vol)
+const condC2Pct = Number(cleanedInputs?.cond_c2_pct ?? 0);
+const condC3Pct = Number(cleanedInputs?.cond_c3_pct ?? 0);
+const condC4Pct = Number(cleanedInputs?.cond_c4_pct ?? 0);
+
+
 const condensateEqCredit =
   (750 - condensateDensity) * condensateDensitySlope +
   (0.2 - condensateSulphur) * (condensate_sulphur_slope * 10);
 
+  const deemedButanePct = condC4Pct + 3 * (condC3Pct + condC2Pct);
 
-  const butaneInjectionRatePct = cleanedInputs?.butane_injection_rate_pct ?? 0;
+  // ⭐ NEW: Butane Penalty (CAD/m³) based on Deemed Butane
+const excessButanePct = Math.max(0, deemedButanePct - 5);
 
-  const condensateButanePenalty =
-    butaneInjectionRatePct > 5 ? "Yes (Butane > 5%)" : "No";
+const condensateButanePenaltyCadM3 =
+  (excessButanePct / 100) * condensateAllowancePriceCadM3;
+
 
   // ⭐ NEW: Condensate Price After EQ
-  const condensatePriceAfterEqCadM3 =
-    condensateStreamPriceCadM3 +
-    condensateEqCredit;
+const condensatePriceAfterEqCadM3 =
+  condensateStreamPriceCadM3 +
+  condensateEqCredit -
+  condensateButanePenaltyCadM3;
+
 
 await prisma.scenarioResults.upsert({
   where: { scenarioId: scenario.id },
@@ -394,11 +405,16 @@ await prisma.scenarioResults.upsert({
             </tr>
 
             {/* Condensate Butane Penalty */}
-            <tr>
-              <td className="p-2">Condensate Butane Penalty</td>
-              <td className="p-2">{condensateButanePenalty}</td>
-              <td className="p-2">If butane injection rate &gt; 5%</td>
-            </tr>
+<tr>
+  <td className="p-2">Condensate Butane Penalty</td>
+  <td className="p-2">
+    {condensateButanePenaltyCadM3 > 0
+      ? condensateButanePenaltyCadM3.toFixed(2)
+      : "No"}
+  </td>
+  <td className="p-2">CAD/m³ (Deemed Butane &gt; 5%)</td>
+</tr>
+
 
             {/* ⭐ NEW ROW — placed directly below Condensate Butane Penalty */}
             <tr className="bg-gray-50">

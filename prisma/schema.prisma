@@ -247,15 +247,20 @@ model HeavyOilInputs {
   cond1_hours_tt2                      Float?
   cond1_hours_comp                     Float?
 
-cond2_density_kg_m3        Float?
-cond2_sulphur_pct          Float?
-cond2_load_fee_cad_m3      Float?
-cond2_transport_tt1_cad_m3 Float?
-cond2_transport_tt2_cad_m3 Float?
-cond2_transport_comp_cad_m3 Float?
-cond2_hours_tt1            Float?
-cond2_hours_tt2            Float?
-cond2_hours_comp           Float?
+  // ⭐ NEW FIELDS — Condensate Light‑Ends Content (%vol)
+  cond_c2_pct                          Float      // Ethane (C2) %vol
+  cond_c3_pct                          Float      // Propane (C3) %vol
+  cond_c4_pct                          Float      // Butane (C4) %vol
+
+  cond2_density_kg_m3                  Float?
+  cond2_sulphur_pct                    Float?
+  cond2_load_fee_cad_m3                Float?
+  cond2_transport_tt1_cad_m3           Float?
+  cond2_transport_tt2_cad_m3           Float?
+  cond2_transport_comp_cad_m3          Float?
+  cond2_hours_tt1                      Float?
+  cond2_hours_tt2                      Float?
+  cond2_hours_comp                     Float?
 
   c4_landed_tt1_pct_wti                Float?
   c4_landed_tt2_pct_wti                Float?
@@ -300,6 +305,7 @@ cond2_hours_comp           Float?
   user                                 User?       @relation(fields: [userId], references: [id])
   scenario                             Scenario?
 }
+
 
 model User {
   id               Int       @id @default(autoincrement())

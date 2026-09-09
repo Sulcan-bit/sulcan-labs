@@ -402,10 +402,34 @@ function normalizeLsdNumber(value: string): string {
       </Section>
 
       {/* 5. Condensate Source 1 */}
-      <Section title="5. Condensate Source 1">
+      <Section title="5. Condensate Source">
         <Input label="Density (kg/m³)" field="cond1_density_kg_m3" update={updateField} placeholder="660.0" value={form.cond1_density_kg_m3} />
         <Input label="Sulphur (%)" field="cond1_sulphur_pct" update={updateField} placeholder="0.015" value={form.cond1_sulphur_pct} />
-        <Input label="Truck Load Fee (CAD/m³)" field="cond1_load_fee_cad_m3" update={updateField} placeholder="8.50" value={form.cond1_load_fee_cad_m3} />
+        <Input
+  label="Ethane (C2) %vol"
+  field="cond_c2_pct"
+  update={updateField}
+  placeholder="0.10"
+  value={form.cond_c2_pct}
+/>
+
+<Input
+  label="Propane (C3) %vol"
+  field="cond_c3_pct"
+  update={updateField}
+  placeholder="0.30"
+  value={form.cond_c3_pct}
+/>
+
+<Input
+  label="Butane (C4) %vol"
+  field="cond_c4_pct"
+  update={updateField}
+  placeholder="4.50"
+  value={form.cond_c4_pct}
+/>
+
+        <Input label="Truck Load & Unloading Fee (CAD/m³)" field="cond1_load_fee_cad_m3" update={updateField} placeholder="8.50" value={form.cond1_load_fee_cad_m3} />
         <Input
           label={`Truck Rate to ${terminalLocation} (CAD/m³)`}
           field="cond1_transport_tt1_cad_m3"
@@ -415,7 +439,7 @@ function normalizeLsdNumber(value: string): string {
         />
 
         <Input
-          label={`Condensate 1 Trucking Hours: Source to ${terminalLocation}`}
+          label={`Condensate Trucking Hours: Source to ${terminalLocation}`}
           field="cond1_hours_tt1"
           update={updateField}
           placeholder="1.0"
