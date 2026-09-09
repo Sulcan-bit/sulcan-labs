@@ -117,6 +117,11 @@ export async function POST(req: Request) {
         cond_trucking_rate_cad_m3: Number(cond_trucking_rate_cad_m3),
         cond_truck_volume_m3: Number(cond_truck_volume_m3),
 
+// ⭐ NEW: Condensate Light‑Ends (%vol)
+    cond_c2_pct: Number(normalized.cond_c2_pct ?? 0),
+    cond_c3_pct: Number(normalized.cond_c3_pct ?? 0),
+    cond_c4_pct: Number(normalized.cond_c4_pct ?? 0),
+
         // Butane
         butane_injection_rate_pct: Number(butane_injection_rate_pct),
         c4_trucking_rate_cad_m3: Number(c4_trucking_rate_cad_m3),

@@ -219,118 +219,124 @@ model ScenarioResults {
 }
 
 model HeavyOilInputs {
-  id                                   Int         @id @default(autoincrement())
-  userId                               Int?
-  monthId                              Int
-  producer_name                        String
-  producer_volume_m3                   Float
-  producer_density_kg_m3               Float
-  producer_TAN                         Float
+  // Identity & relations
+  id                                      Int         @id @default(autoincrement())
+  userId                                  Int?
+  monthId                                 Int
 
-  raw_crude_trucking_rate_cad_m3       Float
-  raw_crude_truck_volume_m3            Float
-  raw_crude_hours_tt1                  Float?
-  raw_crude_hours_tt2                  Float?
-  raw_crude_hours_comp                 Float?
+  // Producer properties
+  producer_name                           String
+  producer_volume_m3                      Float
+  producer_density_kg_m3                  Float
+  producer_TAN                            Float
 
-  cond1_density_kg_m3                  Float
-  cond1_sulphur_pct                    Float
-  cond1_est_volume_m3                  Float?
-  cond1_load_fee_cad_m3                Float
-  cond1_transport_tt1_cad_m3           Float
-  cond1_transport_tt2_cad_m3           Float?
-  cond1_transport_comp_cad_m3          Float?
-  condensate_index_choice              String?
-  cond_trucking_rate_cad_m3            Float
-  cond_truck_volume_m3                 Float
-  cond1_hours_tt1                      Float?
-  cond1_hours_tt2                      Float?
-  cond1_hours_comp                     Float?
+  // Condensate properties (Cond1 + Cond2 + Light-ends)
+  cond1_density_kg_m3                     Float
+  cond1_sulphur_pct                       Float
+  cond_c2_pct                             Float?
+  cond_c3_pct                             Float?
+  cond_c4_pct                             Float?
 
-  // ⭐ NEW FIELDS — Condensate Light‑Ends Content (%vol)
-  cond_c2_pct                          Float      // Ethane (C2) %vol
-  cond_c3_pct                          Float      // Propane (C3) %vol
-  cond_c4_pct                          Float      // Butane (C4) %vol
+  // Condensate fees & transport (Cond1 + Cond2)
+  cond1_load_fee_cad_m3                   Float
+  cond1_transport_tt1_cad_m3              Float
+  cond1_transport_tt2_cad_m3              Float?
+  cond1_transport_comp_cad_m3             Float?
+  condensate_index_choice                 String?
 
-  cond2_density_kg_m3                  Float?
-  cond2_sulphur_pct                    Float?
-  cond2_load_fee_cad_m3                Float?
-  cond2_transport_tt1_cad_m3           Float?
-  cond2_transport_tt2_cad_m3           Float?
-  cond2_transport_comp_cad_m3          Float?
-  cond2_hours_tt1                      Float?
-  cond2_hours_tt2                      Float?
-  cond2_hours_comp                     Float?
+  cond2_density_kg_m3                     Float?
+  cond2_sulphur_pct                       Float?
+  cond2_load_fee_cad_m3                   Float?
+  cond2_transport_tt1_cad_m3              Float?
+  cond2_transport_tt2_cad_m3              Float?
+  cond2_transport_comp_cad_m3             Float?
 
-  c4_landed_tt1_pct_wti                Float?
-  c4_landed_tt2_pct_wti                Float?
-  c4_trucking_adder_tt2_cad_m3         Float?
-  c4_trucking_rate_cad_m3              Float
-  c4_truck_volume_m3                   Float
-  c4_hours_tt1                         Float?
-  c4_hours_tt2                         Float?
-  c4_hours_comp                        Float?
+  // C4 pricing & trucking
+  c4_landed_tt1_pct_wti                   Float?
+  c4_landed_tt2_pct_wti                   Float?
+  c4_trucking_adder_tt2_cad_m3            Float?
+  butane_injection_rate_pct               Float
 
-  butane_injection_rate_pct            Float
+  // Blend density targets
+  actual_blend_density_kg_m3              Float?
+  paper_blend_density_kg_m3               Float?
+  target_blend_density                    Float?
+  cond1_est_volume_m3                     Float?
 
-  actual_blend_density_kg_m3           Float?
-  paper_blend_density_kg_m3            Float?
-  target_blend_density                 Float?
-  heavy_oil_stream                     String
+  // Terminal & pipeline fees
+  tt1_fee_cad_m3                          Float
+  tt2_fee_cad_m3                          Float?
+  tt_competitor_fee_cad_m3                Float?
+  pipeline_power_surcharge_cad_m3         Float
+  pipeline_loss_allowance_pct             Float
+  pipeline_toll_tt1_cad_m3                Float
+  pipeline_toll_tt2_cad_m3                Float?
+  pipeline_toll_existcompetitor_cad_m3    Float?
 
-  tt1_fee_cad_m3                       Float
-  tt2_fee_cad_m3                       Float?
-  tt1_diluent_sharing_pct              Float
-  tt2_diluent_sharing_pct              Float?
-  tt_competitor_fee_cad_m3             Float?
+  // Competitor pipeline/tolling
+  tt1_diluent_sharing_pct                 Float
+  tt2_diluent_sharing_pct                 Float?
+  comp_pipeline_diluent_sharing_pct       Float?
+  comp_tt1_toll_cad_m3                    Float?
+  comp_pipeline_fee_cad_m3                Float?
+  comp_tt_fee_cad_m3                      Float?
+  comp_pipeline_loss_allowance_pct        Float?
 
-  pipeline_power_surcharge_cad_m3      Float
-  pipeline_loss_allowance_pct          Float
-  pipeline_toll_tt1_cad_m3             Float
-  pipeline_toll_tt2_cad_m3             Float?
-  pipeline_toll_existcompetitor_cad_m3 Float?
+  // Raw crude trucking + hours
+  raw_crude_trucking_rate_cad_m3          Float
+  raw_crude_truck_volume_m3               Float
+  raw_crude_hours_tt1                     Float?
+  raw_crude_hours_tt2                     Float?
+  raw_crude_hours_comp                    Float?
 
-  comp_pipeline_diluent_sharing_pct    Float?
-  comp_tt1_toll_cad_m3                 Float?
-  comp_pipeline_fee_cad_m3             Float?
-  comp_tt_fee_cad_m3                   Float?
-  comp_pipeline_loss_allowance_pct     Float?
+  // Condensate trucking + hours
+  cond_trucking_rate_cad_m3               Float
+  cond_truck_volume_m3                    Float
+  cond1_hours_tt1                         Float?
+  cond1_hours_tt2                         Float?
+  cond1_hours_comp                        Float?
+  cond2_hours_tt1                         Float?
+  cond2_hours_tt2                         Float?
+  cond2_hours_comp                        Float?
 
-  premium_crude_value_usd_bbl          Float
+  // C4 trucking + hours
+  c4_trucking_rate_cad_m3                 Float
+  c4_truck_volume_m3                      Float
+  c4_hours_tt1                            Float?
+  c4_hours_tt2                            Float?
+  c4_hours_comp                           Float?
+
+  // Premium crude values
+  premium_crude_value_usd_bbl             Float
+  heavy_oil_stream                        String
   terminalhub_premium_crude_value_usd_bbl Float
 
-  created_at                           DateTime    @default(now())
-  updated_at                           DateTime    @updatedAt
-  month                                MonthlyData @relation(fields: [monthId], references: [id])
-  user                                 User?       @relation(fields: [userId], references: [id])
-  scenario                             Scenario?
+  // Metadata & relations
+  created_at                              DateTime    @default(now())
+  updated_at                              DateTime    @updatedAt
+  month                                   MonthlyData @relation(fields: [monthId], references: [id])
+  user                                    User?       @relation(fields: [userId], references: [id])
+  scenario                                Scenario?
 }
 
-
 model User {
-  id               Int       @id @default(autoincrement())
-  email            String    @unique
+  id               Int              @id @default(autoincrement())
+  email            String           @unique
   password_hash    String?
-  phone            String?   @unique
-
-  first_name       String?
-  last_name        String?
-
+  phone            String?          @unique
+  sms_code         String?
+  sms_code_expires DateTime?
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  last_login       DateTime?
   address_line1    String?
   address_line2    String?
   city             String?
-  province         String?
-  postal_code      String?
   country          String?
-
-  sms_code         String?
-  sms_code_expires DateTime?
-
-  created_at       DateTime  @default(now())
-  updated_at       DateTime  @updatedAt
-  last_login       DateTime?
-
+  first_name       String?
+  last_name        String?
+  postal_code      String?
+  province         String?
   heavyOilInputs   HeavyOilInputs[]
   scenarios        Scenario[]
 }
-
