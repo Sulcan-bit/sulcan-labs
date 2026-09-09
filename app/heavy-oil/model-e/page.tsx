@@ -215,8 +215,25 @@ export default async function HeavyOilModelEPage(props: PageProps) {
     (750 - condDensity) * condensateDensitySlope +
     (0.2 - condensateSulphur) * (condensate_sulphur_slope * 10);
 
-  const condensatePriceAfterEqCadM3 =
-    condensateStreamPriceCadM3 + condensateEqCredit;
+   // ⭐ NEW: Condensate Light‑Ends (%vol)
+const condC2Pct = Number(inputs.cond_c2_pct ?? 0);
+const condC3Pct = Number(inputs.cond_c3_pct ?? 0);
+const condC4Pct = Number(inputs.cond_c4_pct ?? 0);
+
+// ⭐ NEW: Deemed Butane
+const deemedButanePct = condC4Pct + 3 * (condC3Pct + condC2Pct);
+
+// ⭐ NEW: Excess Butane above 5%
+const excessButanePct = Math.max(0, deemedButanePct - 5);
+
+// ⭐ NEW: Butane Penalty (CAD/m³)
+const condensateButanePenaltyCadM3 =
+  (excessButanePct / 100) * (monthly.c5_allow_price_cad_m3 ?? 0);
+ 
+ const condensatePriceAfterEqCadM3 =
+  condensateStreamPriceCadM3 +
+  condensateEqCredit -
+  condensateButanePenaltyCadM3;
 
   // Butane price
   const c4PricePctWti = monthly.c4_to_wti_usd_bbl ?? 0;
