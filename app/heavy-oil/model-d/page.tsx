@@ -233,11 +233,8 @@ await prisma.scenarioResults.upsert({
               <td className="p-2 text-right">{fmt(rawCrudeVol, 1)}</td>
               <td className="p-2 text-right">{fmt(producer_density_kg_m3, 1)}</td>
               <td className="p-2 text-right">{fmt(rawPctOfBlend, 3)}%</td>
-              <td className="p-2 text-right">
-  {rawCrudeTan.toFixed(2)} mg KOH/g
+              <td className="p-2 text-right">{rawCrudeTan.toFixed(2)} mg KOH/g
 </td>
-
-
             </tr>
 
             <tr>
@@ -258,13 +255,14 @@ await prisma.scenarioResults.upsert({
               </td>
             </tr>
 
-<tr>
-  <td className="p-2 font-semibold">Blended Crude TAN</td>
+            <tr className="font-semibold">
+  <td className="p-2">Total Receipts</td>
   <td className="p-2 text-right">{fmt(totalBlendVol_m3, 1)}</td>
-  <td className="p-2 text-right">{fmt(weightedAvgDensity, 1)}</td>
+  <td className="p-2"></td>
   <td className="p-2 text-right">100.000%</td>
   <td className="p-2 text-right">{blendedCrudeTan.toFixed(2)} mg KOH/g</td>
 </tr>
+
 {tanWarning && (
   <tr>
     <td className="p-2 text-red-600 font-semibold" colSpan={5}>
@@ -273,14 +271,6 @@ await prisma.scenarioResults.upsert({
   </tr>
 )}
 
-
-            <tr className="font-semibold">
-              <td className="p-2">Total Receipts</td>
-              <td className="p-2 text-right">{fmt(totalBlendVol_m3, 1)}</td>
-              <td className="p-2"></td>
-              <td className="p-2 text-right">100.000%</td>
-              <td className="p-2"></td>
-            </tr>
 
             <tr>
               <td className="p-2 font-semibold">Wt. Avg. Density</td>
