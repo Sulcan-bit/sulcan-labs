@@ -135,6 +135,7 @@ const adjustedHeavyStreamIndexUsdBbl =
   heavy_oil_conversion_factor *
   fx;
 
+const heavyStreamLabel = inputs.heavy_oil_stream ?? "WCS";
 
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 
@@ -282,19 +283,17 @@ await prisma.scenarioResults.upsert({
             </tr>
 
             {/* Heavy Stream Index */}
-            <tr>
-              <td className="p-2">Heavy Stream Index</td>
-              <td className="p-2">{adjustedHeavyStreamIndexUsdBbl.toFixed(2)}</td>
-
-              <td className="p-2">USD/bbl</td>
-            </tr>
+<tr>
+  <td className="p-2">Heavy Stream Index ({heavyStreamLabel})</td>
+  <td className="p-2">{heavyStreamIndexUsdBbl.toFixed(2)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
 
             <tr>
   <td className="p-2">Premium Crude Value</td>
   <td className="p-2">{premiumHeavyPriceUsdBbl.toFixed(2)}</td>
   <td className="p-2">USD/bbl</td>
 </tr>
-
 
             {/* Condensate Index */}
             <tr>
