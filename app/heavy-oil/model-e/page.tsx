@@ -301,6 +301,13 @@ const condensateButanePenaltyCadM3 =
 
   const diffToWTI = netPrice_per_bbl_USD - wti;
   const diffToWCS = diffToWTI - heavyStreamIndexUsdBbl;
+  const heavyStreamPriceUsdBbl =
+  wti +
+  heavyStreamIndexUsdBbl +
+  (inputs.premium_crude_value_usd_bbl ?? 0);
+const diffToHeavyStream =
+  netPrice_per_bbl_USD - heavyStreamPriceUsdBbl;
+
 
   const diluentFee_per_m3_raw =
     netPrice_per_m3_raw -
@@ -374,7 +381,8 @@ await prisma.scenarioResults.upsert({
     partE_net_price_per_bbl_cad: netPrice_per_bbl_CAD,
     partE_net_price_per_bbl_usd: netPrice_per_bbl_USD,
     partE_diff_to_wti_usd_bbl: diffToWTI,
-    partE_diff_to_wcs_usd_bbl: diffToWCS,
+    partE_diff_to_wcs_usd_bbl: diffToHeavyStream,
+
     partE_diluent_fee_m3_raw: diluentFee_per_m3_raw,
     partE_diluent_cost_m3_blend: diluentCost_per_m3_blend,
     partE_c5_diluent_cost_m3_blend: c5DiluentCost_per_m3_blend,
@@ -387,7 +395,8 @@ await prisma.scenarioResults.upsert({
     partE_net_price_per_bbl_cad: netPrice_per_bbl_CAD,
     partE_net_price_per_bbl_usd: netPrice_per_bbl_USD,
     partE_diff_to_wti_usd_bbl: diffToWTI,
-    partE_diff_to_wcs_usd_bbl: diffToWCS,
+    partE_diff_to_wcs_usd_bbl: diffToHeavyStream,
+
     partE_diluent_fee_m3_raw: diluentFee_per_m3_raw,
     partE_diluent_cost_m3_blend: diluentCost_per_m3_blend,
     partE_c5_diluent_cost_m3_blend: c5DiluentCost_per_m3_blend,
