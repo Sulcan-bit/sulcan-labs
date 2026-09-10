@@ -146,12 +146,13 @@ export default function InputsForm({ months }: { months: MonthType[] }) {
   const [selectedPreviousId, setSelectedPreviousId] = useState("");
 
   const STREAM_OPTIONS = [
-    "MSW", "MSE", "MSY",
-    "PEACE C5", "KAPS C5", "CRW C5",
-    "WCS", "CHV", "LLB", "LLK",
-    "WCB", "CWH", "BRN", "BRS",
-    "CAL", "LSB"
-  ];
+  "MSW", "MSE", "MSY",
+  "PEACE C5", "KAPS C5", "CRW C5",
+  "WCS", "CHV", "LLB", "LLK",
+  "WCB", "CWH", "BRN", "BRS",
+  "CAL", "LSB"
+];
+
 
   // ------------------------------------------------------------
   // Load previous datasets

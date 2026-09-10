@@ -43,12 +43,17 @@ function getHeavyStreamIndexUsdBbl(monthly: any, stream: string) {
       return monthly.cwh_diff_usd_bbl ?? 0;
     case "WCB":
       return monthly.wcb_diff_usd_bbl ?? 0;
+    case "LLK":
+      return monthly.llk_diff_usd_bbl ?? 0;
+    case "CLK":
+      return monthly.clk_diff_usd_bbl ?? 0;
     case "WCS":
       return 0;
     default:
       return 0;
   }
 }
+
 
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;

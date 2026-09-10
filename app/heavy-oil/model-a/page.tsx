@@ -42,6 +42,10 @@ function getHeavyStreamIndexUsdBbl(monthly: any, stream: string) {
       return monthly.cwh_diff_usd_bbl ?? 0;
     case "WCB":
       return monthly.wcb_diff_usd_bbl ?? 0;
+    case "LLK":
+      return monthly.llk_diff_usd_bbl ?? 0;
+    case "CLK":
+      return monthly.clk_diff_usd_bbl ?? 0;
     case "WCS":
       return 0;
     default:
@@ -135,7 +139,7 @@ const adjustedHeavyStreamIndexUsdBbl =
   heavy_oil_conversion_factor *
   fx;
 
-const heavyStreamLabel = inputs.heavy_oil_stream ?? "WCS";
+const heavyStreamLabel = inputs!.heavy_oil_stream ?? "WCS";
 
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 

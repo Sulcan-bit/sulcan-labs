@@ -111,6 +111,14 @@ model MonthlyData {
   wcb_diff_usd_bbl                  Float?
   wcb_price_usd_bbl                 Float?
   wcb_price_cad_m3                  Float?
+llk_diff_usd_bbl   Float?
+llk_price_usd_bbl  Float?
+llk_price_cad_m3   Float?
+
+clk_diff_usd_bbl   Float?
+clk_price_usd_bbl  Float?
+clk_price_cad_m3   Float?
+
   created_at                        DateTime         @default(now())
   updated_at                        DateTime         @updatedAt
   heavyOilInputs                    HeavyOilInputs[]

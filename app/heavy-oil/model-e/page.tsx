@@ -174,14 +174,26 @@ export default async function HeavyOilModelEPage(props: PageProps) {
   const fx = monthly.fx_cad_usd ?? 0;
 
   const heavyStreamIndexUsdBbl = (() => {
-    switch (inputs.heavy_oil_stream ?? "WCS") {
-      case "CHV": return monthly.chv_diff_usd_bbl ?? 0;
-      case "LLB": return monthly.llb_diff_usd_bbl ?? 0;
-      case "CWH": return monthly.cwh_diff_usd_bbl ?? 0;
-      case "WCB": return monthly.wcb_diff_usd_bbl ?? 0;
-      default: return 0;
-    }
-  })();
+  switch (inputs!.heavy_oil_stream ?? "WCS") {
+    case "CHV":
+      return monthly.chv_diff_usd_bbl ?? 0;
+    case "LLB":
+      return monthly.llb_diff_usd_bbl ?? 0;
+    case "LLK":
+      return monthly.llk_diff_usd_bbl ?? 0;
+    case "CWH":
+      return monthly.cwh_diff_usd_bbl ?? 0;
+    case "WCB":
+      return monthly.wcb_diff_usd_bbl ?? 0;
+    case "CLK":
+      return monthly.clk_diff_usd_bbl ?? 0;
+    case "WCS":
+      return 0;
+    default:
+      return 0;
+  }
+})();
+
 
   const heavyStreamPriceCadM3 =
   scenario.results?.partA_heavy_stream_price_cad_m3 ?? 0;
