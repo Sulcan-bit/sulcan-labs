@@ -44,7 +44,11 @@ export default async function HeavyOilModelEPage(props: PageProps) {
 
   const scenario = await prisma.scenario.findUnique({
     where: { id: Number(scenarioId) },
-    include: { month: true },
+    include: {
+  month: true,
+  results: true,   // ⭐ REQUIRED
+},
+
   });
 
   if (!scenario) {
@@ -180,10 +184,7 @@ export default async function HeavyOilModelEPage(props: PageProps) {
   })();
 
   const heavyStreamPriceCadM3 =
-  (wti + heavyStreamIndexUsdBbl) *
-  heavy_oil_conversion_factor *
-  fx;
-
+  scenario.results?.partA_heavy_stream_price_cad_m3 ?? 0;
 
   // Condensate pricing
   const condensateIndexUsdBbl = (() => {
