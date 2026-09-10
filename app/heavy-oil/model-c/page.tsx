@@ -132,11 +132,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     inputs.condensate_index_choice ?? undefined
   );
 
-  const heavyStreamPriceCadM3 =
-  (wti + heavyStreamIndexUsdBbl) *
-  heavy_oil_conversion_factor *
-  fx;
-;
+ const heavyStreamPriceCadM3 = results?.partA_heavy_stream_price_cad_m3 ?? 0;
 
   // Condensate pricing (after EQ)
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
