@@ -208,29 +208,35 @@ return (
 
         <div className="overflow-x-auto">
           <table className="min-w-full border text-sm">
+
             <thead className="bg-gray-100">
-              <tr>
-                <th key={s.id} className="border p-2 text-left">
-  <div className="flex items-center gap-2">
-    <span>{s.scenario_name}</span>
+  <tr>
+    <th className="border p-2 text-left">Metric (Blended Crude)</th>
 
-    {isIncomplete(s) && (
-      <span className="text-red-600 text-xs font-semibold">
-        (Incomplete)
-      </span>
-    )}
-  </div>
+    {scenarios.map((s) => (
+      <th key={s.id} className="border p-2 text-left">
+        <div className="flex items-center gap-2">
+          <span>{s.scenario_name}</span>
 
-  <div className="text-xs text-gray-600">
-    {s.terminal_operator} — {s.terminal_location}
-  </div>
-</th>
+          {isIncomplete(s) && (
+            <span className="text-red-600 text-xs font-semibold">
+              (Incomplete)
+            </span>
+          )}
+        </div>
 
-                ))}
-              </tr>
-            </thead>
+        <div className="text-xs text-gray-600">
+          {s.terminal_operator} — {s.terminal_location}
+        </div>
+      </th>
+    ))}
+  </tr>
+</thead>
+
 
             <tbody>
+
+
              {/* Raw Crude Volume */}
 <tr>
   <td className="border p-2 font-medium">
