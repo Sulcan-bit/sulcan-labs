@@ -285,9 +285,6 @@ const condensateButanePenaltyCadM3 =
     blendTransport_CAD -
     lossAllowance_CAD;
 
-
-
-
   // ============================
   // NET PRICE METRICS
   // ============================
@@ -381,7 +378,6 @@ await prisma.scenarioResults.upsert({
     partE_diluent_cost_m3_blend: diluentCost_per_m3_blend,
     partE_c5_diluent_cost_m3_blend: c5DiluentCost_per_m3_blend,
     partE_c4_diluent_cost_m3_blend: c4DiluentCost_per_m3_blend,
-
   },
   create: {
     scenarioId: Number(scenarioId),
