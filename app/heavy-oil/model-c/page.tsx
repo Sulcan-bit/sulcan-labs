@@ -318,8 +318,11 @@ const wcsPriceUsdBbl = monthly.wcs_price_usd_bbl ?? 0;
 // Correct diffs (now that USD is correct)
 const diffToWTI = netPrice_per_bbl_USD - wti;
 // Correct Excel logic:
-// Diff to WCS = Diff to WTI − Heavy Oil Index
-const diffToWCS = diffToWTI - heavyStreamIndexUsdBbl;
+// Diff to Heavy Stream Price (with premium) = Diff to WTI − Heavy Oil Index + Premium Heavy Price
+const heavyStreamPriceUsdBbl =
+  wti + heavyStreamIndexUsdBbl + (inputs.premium_crude_value_usd_bbl ?? 0);
+
+const diffToHeavyStream = netPrice_per_bbl_USD - heavyStreamPriceUsdBbl;
 
 const diluentFee_per_m3_raw =
   netPrice_per_m3_raw -
@@ -531,20 +534,21 @@ await prisma.scenarioResults.upsert({
               <td className="p-2">{fmt(netPrice_per_m3_raw, 2)} CAD/m³</td>
             </tr>
             <tr>
-              <td className="p-2">Net Price per bbl (CAD)</td>
+              <td className="p-2">Net Price (CAD) per bbl Raw Crude</td>
               <td className="p-2">{fmt(netPrice_per_bbl_CAD, 2)} CAD/bbl</td>
             </tr>
             <tr>
-              <td className="p-2">Net Price per bbl (USD)</td>
+              <td className="p-2">Net Price (USD) per bbl Raw Crude</td>
               <td className="p-2">{fmt(netPrice_per_bbl_USD, 2)} USD/bbl</td>
             </tr>
             <tr>
-              <td className="p-2">Raw Crude Net Price - Diff to WTI</td>
+              <td className="p-2">Net Price (USD) - Diff to WTI per bbl Raw Crude</td>
               <td className="p-2">{fmt(diffToWTI, 2)} USD/bbl</td>
             </tr>
             <tr>
-              <td className="p-2">Raw Crude Net Price - Diff to WCS</td>
-              <td className="p-2">{fmt(diffToWCS, 2)} USD/bbl</td>
+              <td className="p-2">Net Price (USD) - Diff to Heavy Stream Price (w/Premium if any) per bbl Raw Crude</td>
+              <td className="p-2">{fmt(diffToHeavyStream, 2)} USD/bbl</td>
+
             </tr>
             <tr>
               <td className="p-2">Diluent Cost (CAD/m³ of Raw Crude)</td>
