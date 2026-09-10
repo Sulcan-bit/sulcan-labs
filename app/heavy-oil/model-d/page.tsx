@@ -163,17 +163,37 @@ export default async function HeavyOilModelDPage(props: PageProps) {
   const totalShrinkageAsPctOfReceipts =
     totalReceipts > 0 ? (totalShrinkageM3 / totalReceipts) * 100 : 0; // H86/I86
 
+    // ============================
+// RAW CRUDE TAN & BLENDED TAN
+// ============================
+
+const rawCrudeTan = inputs!.producer_TAN ?? 0;
+
+const blendedCrudeTan = (() => {
+  const rawVol = rawCrudeVol;
+  const blendVol = netVolumeM3; // Part D net blended volume
+  if (blendVol === 0) return 0;
+  return (rawVol * rawCrudeTan) / blendVol;
+})();
+
+// Pipeline TAN limit warning
+const tanWarning = blendedCrudeTan > 1.1;
+
+
 await prisma.scenarioResults.upsert({
   where: { scenarioId: scenario.id },
   update: {
     partD_net_blend_volume_m3: netVolumeM3
+    partD_raw_crude_tan: rawCrudeTan,
+  partD_blended_crude_tan: blendedCrudeTan,
   },
   create: {
     scenarioId: scenario.id,
     partD_net_blend_volume_m3: netVolumeM3
+    partD_raw_crude_tan: rawCrudeTan,
+  partD_blended_crude_tan: blendedCrudeTan,
   }
 });
-
 
  return (
     <main className="min-h-screen bg-gray-50 p-8">
@@ -214,7 +234,10 @@ await prisma.scenarioResults.upsert({
               <td className="p-2 text-right">{fmt(rawCrudeVol, 1)}</td>
               <td className="p-2 text-right">{fmt(producer_density_kg_m3, 1)}</td>
               <td className="p-2 text-right">{fmt(rawPctOfBlend, 3)}%</td>
-              <td className="p-2"></td>
+              <td className="p-2 text-right">
+  Raw TAN: {rawCrudeTan.toFixed(2)}
+</td>
+
             </tr>
 
             <tr>
@@ -234,6 +257,22 @@ await prisma.scenarioResults.upsert({
                 {fmt(target_blend_density, 1)} kg/m³ target
               </td>
             </tr>
+
+<tr>
+  <td className="p-2 font-semibold">Blended Crude TAN</td>
+  <td className="p-2 text-right">{fmt(totalBlendVol_m3, 1)}</td>
+  <td className="p-2 text-right">{fmt(weightedAvgDensity, 1)}</td>
+  <td className="p-2 text-right">100.000%</td>
+  <td className="p-2 text-right">{blendedCrudeTan.toFixed(2)} mg KOH/g</td>
+</tr>
+{tanWarning && (
+  <tr>
+    <td className="p-2 text-red-600 font-semibold" colSpan={5}>
+      ⚠️ Blended Crude TAN exceeds pipeline limit (1.1)
+    </td>
+  </tr>
+)}
+
 
             <tr className="font-semibold">
               <td className="p-2">Total Receipts</td>
