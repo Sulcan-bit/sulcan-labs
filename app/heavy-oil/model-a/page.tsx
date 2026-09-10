@@ -110,6 +110,13 @@ const cleanedInputs = inputs; // TT1‑only architecture — no cleaning require
   cleanedInputs?.heavy_oil_stream ?? "WCS"
 );
 
+// ⭐ NEW: Premium Heavy Crude Value (USD/bbl)
+const premiumHeavyPriceUsdBbl =
+  cleanedInputs?.premium_crude_value_usd_bbl ?? 0;
+
+// ⭐ NEW: Adjusted Heavy Stream Index
+const adjustedHeavyStreamIndexUsdBbl =
+  heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl;
 
   const condensateIndexUsdBbl = getCondensateIndexUsdBbl(
   monthly,
@@ -123,12 +130,11 @@ const cleanedInputs = inputs; // TT1‑only architecture — no cleaning require
   const c4PurchasePriceUsdBbl = wti * c4PricePctWti;
   const c4DiffToWtiUsdBbl = c4PurchasePriceUsdBbl - wti;
 
-  const premiumHeavyPriceUsdBbl = 0;
-
   const heavyStreamPriceCadM3 =
-    (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
-    heavy_oil_conversion_factor *
-    fx;
+  (wti + adjustedHeavyStreamIndexUsdBbl) *
+  heavy_oil_conversion_factor *
+  fx;
+
 
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 

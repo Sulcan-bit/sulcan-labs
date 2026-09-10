@@ -179,12 +179,11 @@ export default async function HeavyOilModelEPage(props: PageProps) {
     }
   })();
 
-  const premiumHeavyPriceUsdBbl = 0;
-
   const heavyStreamPriceCadM3 =
-    (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
-    heavy_oil_conversion_factor *
-    fx;
+  (wti + adjustedHeavyStreamIndexUsdBbl) *
+  heavy_oil_conversion_factor *
+  fx;
+
 
   // Condensate pricing
   const condensateIndexUsdBbl = (() => {

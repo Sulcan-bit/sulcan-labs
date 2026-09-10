@@ -329,13 +329,8 @@ function normalizeLsdNumber(value: string): string {
         </option>
       ))}
     </select>
-
   </div>
-
 </Section>
-
-
-
 
       {/* 1. Pricing Month */}
       <Section title="1. Pricing Month">
@@ -450,9 +445,7 @@ function normalizeLsdNumber(value: string): string {
         <Input label="Condensate Truck Haul Volume (m³)" field="cond_truck_volume_m3" update={updateField} placeholder="58.0" value={form.cond_truck_volume_m3} />
       </Section>
 
-      {/* 6a. Condensate Source 2 */}
-
-      {/* 6b. Butane */}
+      {/* 6. Butane */}
       <Section title="6. Butane (C4) Inputs">
         <Input label="Butane Injection Rate (%)" field="butane_injection_rate_pct" update={updateField} placeholder="3.20" value={form.butane_injection_rate_pct} />
         <Input label="Butane Truck Haul Rate (CAD/m³)" field="c4_trucking_rate_cad_m3" update={updateField} placeholder="195.00" value={form.c4_trucking_rate_cad_m3} />
@@ -498,8 +491,8 @@ function normalizeLsdNumber(value: string): string {
 
       {/* 10. Premium Crude Values */}
       <Section title="10. Premium Crude Values">
-        <Input label="Premium Crude Value (USD/bbl)" field="premium_crude_value_usd_bbl" update={updateField} placeholder="0.15" value={form.premium_crude_value_usd_bbl} />
-        <Input label="Terminal Premium (USD/bbl)" field="terminalhub_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.terminalhub_premium_crude_value_usd_bbl} />
+        <Input label="Premium Heavy Crude Stream Value (USD/bbl)" field="premium_crude_value_usd_bbl" update={updateField} placeholder="0.15" value={form.premium_crude_value_usd_bbl} />
+        <Input label="Terminal Raw Crude Premium Paid (USD/bbl)" field="terminalhub_premium_crude_value_usd_bbl" update={updateField} placeholder="1.00" value={form.terminalhub_premium_crude_value_usd_bbl} />
       </Section>
 
       {message && <div className="mb-4 text-red-600 font-medium">{message}</div>}

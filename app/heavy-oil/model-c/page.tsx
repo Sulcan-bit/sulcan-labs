@@ -132,13 +132,11 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     inputs.condensate_index_choice ?? undefined
   );
 
-  const premiumHeavyPriceUsdBbl = 0;
-
-  // Heavy oil stream price (Blend Sales Price)
   const heavyStreamPriceCadM3 =
-    (wti + heavyStreamIndexUsdBbl + premiumHeavyPriceUsdBbl) *
-    heavy_oil_conversion_factor *
-    fx;
+  (wti + adjustedHeavyStreamIndexUsdBbl) *
+  heavy_oil_conversion_factor *
+  fx;
+;
 
   // Condensate pricing (after EQ)
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
