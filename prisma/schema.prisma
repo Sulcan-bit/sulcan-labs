@@ -185,6 +185,8 @@ model ScenarioResults {
   partB_net_volume_m3                    Float?
   partB_total_shrinkage_pct              Float?
   partB_final_shrink_pct                 Float?
+partB_raw_crude_tan        Float?   @default(0)
+partB_blended_crude_tan    Float?   @default(0)
   partC_net_sales                        Float?
   partC_net_blend_volume_m3              Float?
   partC_total_shrinkage_m3               Float?
@@ -204,6 +206,8 @@ model ScenarioResults {
   partD_total_shrinkage_m3               Float?
   partD_net_blend_volume_m3              Float?
   partD_weighted_density_kg_m3           Float?
+partD_raw_crude_tan        Float?   @default(0)
+partD_blended_crude_tan    Float?   @default(0)
   partE_net_sales                        Float?
   partE_net_price_per_m3_raw             Float?
   partE_net_price_per_bbl_cad            Float?

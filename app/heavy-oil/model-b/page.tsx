@@ -213,6 +213,23 @@ const finalShrinkPct =
     ? 0
     : (totalShrinkageM3 / totalReceiptsM3) * 100;
 
+  // ============================
+// RAW CRUDE TAN & BLENDED TAN
+// ============================
+
+const rawCrudeTan = inputs.producer_TAN ?? 0;
+
+const blendedCrudeTan = (() => {
+  const rawVol = producerVolumeM3;
+  const blendVol = netVolumeM3; // Part B net blended volume
+  if (blendVol === 0) return 0;
+  return (rawVol * rawCrudeTan) / blendVol;
+})();
+
+// Pipeline TAN limit warning
+const tanWarning = blendedCrudeTan > 1.1;
+  
+
     await prisma.scenarioResults.upsert({
   where: { scenarioId: scenario.id },
   update: {
@@ -229,6 +246,8 @@ const finalShrinkPct =
     partB_net_volume_m3: netVolumeM3,
     partB_total_shrinkage_pct: totalShrinkagePct,
     partB_final_shrink_pct: finalShrinkPct,
+    partB_raw_crude_tan: rawCrudeTan,
+partB_blended_crude_tan: blendedCrudeTan,
   },
   create: {
     scenarioId: scenario.id,
@@ -245,6 +264,8 @@ const finalShrinkPct =
     partB_net_volume_m3: netVolumeM3,
     partB_total_shrinkage_pct: totalShrinkagePct,
     partB_final_shrink_pct: finalShrinkPct,
+    partB_raw_crude_tan: rawCrudeTan,
+partB_blended_crude_tan: blendedCrudeTan,
   }
 });
 
@@ -321,6 +342,28 @@ const finalShrinkPct =
             <td className="p-2"></td>
             <td className="p-2">{fmt(targetBlendDensityKgM3, 1)}</td>
           </tr>
+
+          {/* RAW & BLENDED TAN */}
+<tr>
+  <td className="p-2">Raw Crude TAN</td>
+  <td className="p-2">{rawCrudeTan.toFixed(2)}</td>
+  <td className="p-2">mg KOH/g</td>
+</tr>
+
+<tr>
+  <td className="p-2">Blended Crude TAN</td>
+  <td className="p-2">{blendedCrudeTan.toFixed(2)}</td>
+  <td className="p-2">mg KOH/g</td>
+</tr>
+
+{tanWarning && (
+  <tr>
+    <td className="p-2 text-red-600 font-semibold" colSpan={3}>
+      ⚠️ Warning: Blended Crude TAN exceeds pipeline limit (1.1)
+    </td>
+  </tr>
+)}
+
         </tbody>
       </table>
 
