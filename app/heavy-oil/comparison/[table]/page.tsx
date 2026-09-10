@@ -98,6 +98,16 @@ const fmtComma = (n: number | null | undefined, decimals = 2) => {
   });
 };
 
+const isIncomplete = (s: any) => {
+  const r = s.results;
+  if (!r) return true;
+
+  return (
+    !r.partC_net_sales ||
+    !r.partD_net_blend_volume_m3 ||
+    !r.partE_net_sales
+  );
+};
 
 return (
   <main className="min-h-screen bg-gray-50 p-6">
@@ -338,7 +348,6 @@ return (
     </td>
   ))}
 </tr>
-
 
               {/* Stream */}
               <tr>
