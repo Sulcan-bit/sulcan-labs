@@ -595,7 +595,7 @@ await prisma.scenarioResults.upsert({
 
   {/* Net Price per bbl CAD */}
   <tr>
-    <td className="p-2">Net Price per bbl (CAD)</td>
+    <td className="p-2">Net Price (CAD) per bbl Raw Crude</td>
     <td className="p-2">{netPrice_per_bbl_CAD.toFixed(2)} CAD/bbl</td>
     <td className="p-2">
       <details>
@@ -611,7 +611,7 @@ await prisma.scenarioResults.upsert({
 
   {/* Net Price per bbl USD */}
   <tr>
-    <td className="p-2">Net Price per bbl (USD)</td>
+    <td className="p-2">Net Price (USD) per bbl Raw Crude</td>
     <td className="p-2">{netPrice_per_bbl_USD.toFixed(2)} USD/bbl</td>
     <td className="p-2">
       <details>
@@ -627,7 +627,7 @@ await prisma.scenarioResults.upsert({
 
   {/* Diff to WTI */}
   <tr>
-    <td className="p-2">Net Price - Diff to WTI</td>
+    <td className="p-2">Net Price (USD) - Diff to WTI per bbl Raw Crude</td>
     <td className="p-2">{diffToWTI.toFixed(2)} USD/bbl</td>
     <td className="p-2">
       <details>
@@ -641,21 +641,27 @@ await prisma.scenarioResults.upsert({
     </td>
   </tr>
 
-  {/* Diff to WCS */}
-  <tr>
-    <td className="p-2">Net Price - Diff to WCS</td>
-    <td className="p-2">{diffToWCS.toFixed(2)} USD/bbl</td>
-    <td className="p-2">
-      <details>
-        <summary className="cursor-pointer text-blue-600">Explain</summary>
-        <div className="mt-1">
-          <strong>Formula:</strong><br />
-          Diff to WCS = <strong>Diff to WTI</strong> – <strong>Heavy Index Price</strong><br /><br />
-          Shows how the producer’s realized price compares to the WCS heavy benchmark.
-        </div>
-      </details>
-    </td>
-  </tr>
+  {/* Diff to Heavy Stream Price (w/Premium) */}
+<tr>
+  <td className="p-2">
+    Net Price (USD) - Diff to Heavy Stream Price (w/Premium if any) per bbl
+  </td>
+  <td className="p-2">{diffToHeavyStream.toFixed(2)} USD/bbl</td>
+  <td className="p-2">
+    <details>
+      <summary className="cursor-pointer text-blue-600">Explain</summary>
+      <div className="mt-1">
+        <strong>Formula:</strong><br />
+        Diff to Heavy Stream (with Premium) =<br />
+        <strong>Net Price (USD/bbl)</strong> –<br />
+        <strong>(WTI + Heavy Stream Index + Premium Heavy Crude Price)</strong><br /><br />
+        This shows how the producer’s realized price compares to the fully
+        premium‑adjusted heavy stream benchmark.
+      </div>
+    </details>
+  </td>
+</tr>
+
 
   {/* Diluent Fee Raw Crude (Cost) */}
   <tr>
