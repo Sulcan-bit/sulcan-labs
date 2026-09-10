@@ -179,17 +179,16 @@ const blendedCrudeTan = (() => {
 // Pipeline TAN limit warning
 const tanWarning = blendedCrudeTan > 1.1;
 
-
 await prisma.scenarioResults.upsert({
   where: { scenarioId: scenario.id },
   update: {
-    partD_net_blend_volume_m3: netVolumeM3
+    partD_net_blend_volume_m3: netVolumeM3,
     partD_raw_crude_tan: rawCrudeTan,
   partD_blended_crude_tan: blendedCrudeTan,
   },
   create: {
     scenarioId: scenario.id,
-    partD_net_blend_volume_m3: netVolumeM3
+    partD_net_blend_volume_m3: netVolumeM3,
     partD_raw_crude_tan: rawCrudeTan,
   partD_blended_crude_tan: blendedCrudeTan,
   }
