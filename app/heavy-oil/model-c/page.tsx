@@ -76,7 +76,11 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
 
   const scenario = await prisma.scenario.findUnique({
     where: { id: Number(scenarioId) },
-    include: { month: true },
+    include: {
+  month: true,
+  results: true,   // ⭐ REQUIRED
+},
+
   });
 
   if (!scenario) {
