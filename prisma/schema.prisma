@@ -213,6 +213,9 @@ model ScenarioResults {
   partF_loss_allowance_savings           Float?
   partF_netBenefit_per_m3_raw            Float?
   partF_netBenefit_per_m3_blend          Float?
+partF_producer_share        Float?   @default(0)
+partF_terminal_share        Float?   @default(0)
+
   created_at                             DateTime @default(now())
   updated_at                             DateTime @updatedAt
   scenario                               Scenario @relation(fields: [scenarioId], references: [id])

@@ -223,6 +223,3 @@ partF_terminal_share: terminalShare,
     </main>
   );
 }
-
-
-
