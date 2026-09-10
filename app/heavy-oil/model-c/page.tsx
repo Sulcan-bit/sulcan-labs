@@ -133,7 +133,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
   );
 
   const heavyStreamPriceCadM3 =
-  (wti + adjustedHeavyStreamIndexUsdBbl) *
+  (wti + heavyStreamIndexUsdBbl) *
   heavy_oil_conversion_factor *
   fx;
 ;

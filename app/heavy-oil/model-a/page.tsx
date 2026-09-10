@@ -191,42 +191,46 @@ const condensatePriceAfterEqCadM3 =
 await prisma.scenarioResults.upsert({
   where: { scenarioId: scenario.id },
   update: {
-    partA_wti_usd_bbl: wti,
-    partA_fx_cad_usd: fx,
-    partA_heavy_stream_index_usd_bbl: heavyStreamIndexUsdBbl,
-    partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
-partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
-partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
-    partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
-    partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
-    partA_condensate_stream_price_cad_m3: condensateStreamPriceCadM3,
-    partA_condensate_eq_credit_cad_m3: condensateEqCredit,
-    partA_condensate_price_after_eq_cad_m3: condensatePriceAfterEqCadM3,
-    partA_c4_price_pct_wti: c4PricePctWti,
-    partA_c4_purchase_price_usd_bbl: c4PurchasePriceUsdBbl,
-    partA_c4_diff_to_wti_usd_bbl: c4DiffToWtiUsdBbl,
-    partA_c4_price_cad_m3: c4PriceCadM3,
-  },
-  create: {
-    scenarioId: scenario.id,
-    partA_wti_usd_bbl: wti,
-    partA_fx_cad_usd: fx,
-    partA_heavy_stream_index_usd_bbl: heavyStreamIndexUsdBbl,
-    partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
-partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
-partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
-    partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
-    partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
-    partA_condensate_stream_price_cad_m3: condensateStreamPriceCadM3,
-    partA_condensate_eq_credit_cad_m3: condensateEqCredit,
-    partA_condensate_price_after_eq_cad_m3: condensatePriceAfterEqCadM3,
-    partA_c4_price_pct_wti: c4PricePctWti,
-    partA_c4_purchase_price_usd_bbl: c4PurchasePriceUsdBbl,
-    partA_c4_diff_to_wti_usd_bbl: c4DiffToWtiUsdBbl,
-    partA_c4_price_cad_m3: c4PriceCadM3,
-  }
-});
+  partA_wti_usd_bbl: wti,
+  partA_fx_cad_usd: fx,
 
+  // ⭐ KEEP ONLY THIS VERSION
+  partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
+  partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
+  partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
+
+  partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
+  partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
+  partA_condensate_stream_price_cad_m3: condensateStreamPriceCadM3,
+  partA_condensate_eq_credit_cad_m3: condensateEqCredit,
+  partA_condensate_price_after_eq_cad_m3: condensatePriceAfterEqCadM3,
+  partA_c4_price_pct_wti: c4PricePctWti,
+  partA_c4_purchase_price_usd_bbl: c4PurchasePriceUsdBbl,
+  partA_c4_diff_to_wti_usd_bbl: c4DiffToWtiUsdBbl,
+  partA_c4_price_cad_m3: c4PriceCadM3,
+},
+
+  create: {
+  scenarioId: scenario.id,
+  partA_wti_usd_bbl: wti,
+  partA_fx_cad_usd: fx,
+
+  // ⭐ KEEP ONLY THIS VERSION
+  partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
+  partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
+  partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
+
+  partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
+  partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
+  partA_condensate_stream_price_cad_m3: condensensateStreamPriceCadM3,
+  partA_condensate_eq_credit_cad_m3: condensateEqCredit,
+  partA_condensate_price_after_eq_cad_m3: condensatePriceAfterEqCadM3,
+  partA_c4_price_pct_wti: c4PricePctWti,
+  partA_c4_purchase_price_usd_bbl: c4PurchasePriceUsdBbl,
+  partA_c4_diff_to_wti_usd_bbl: c4DiffToWtiUsdBbl,
+  partA_c4_price_cad_m3: c4PriceCadM3,
+}
+});
 
   return (
     <main className="min-h-screen bg-gray-50 p-8">
