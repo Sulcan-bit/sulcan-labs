@@ -142,10 +142,11 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 
   const condensateParPriceCadM3 =
-    (wti + condensateIndexUsdBbl + premiumHeavyPriceUsdBbl) *
-      light_oil_conversion_factor *
-      fx +
-    condensateWadfCadM3;
+  (wti + condensateIndexUsdBbl) *
+    light_oil_conversion_factor *
+    fx +
+  condensateWadfCadM3;
+
 
   const condensateStreamPriceCadM3 =
     condensateParPriceCadM3 - condensateWadfCadM3;

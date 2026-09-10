@@ -139,10 +139,10 @@ const adjustedHeavyStreamIndexUsdBbl =
   const condensateWadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 
   const condensateParPriceCadM3 =
-    (wti + condensateIndexUsdBbl + premiumHeavyPriceUsdBbl) *
-      light_oil_conversion_factor *
-      fx +
-    condensateWadfCadM3;
+  (wti + condensateIndexUsdBbl) *
+    light_oil_conversion_factor *
+    fx +
+  condensateWadfCadM3;
 
   const condensateStreamPriceCadM3 =
     condensateParPriceCadM3 - condensateWadfCadM3;
@@ -195,7 +195,8 @@ await prisma.scenarioResults.upsert({
     partA_fx_cad_usd: fx,
     partA_heavy_stream_index_usd_bbl: heavyStreamIndexUsdBbl,
     partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
-    partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
+partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
+partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
     partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
     partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
     partA_condensate_stream_price_cad_m3: condensateStreamPriceCadM3,
@@ -212,7 +213,8 @@ await prisma.scenarioResults.upsert({
     partA_fx_cad_usd: fx,
     partA_heavy_stream_index_usd_bbl: heavyStreamIndexUsdBbl,
     partA_premium_heavy_usd_bbl: premiumHeavyPriceUsdBbl,
-    partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
+partA_heavy_stream_index_usd_bbl: adjustedHeavyStreamIndexUsdBbl,
+partA_heavy_stream_price_cad_m3: heavyStreamPriceCadM3,
     partA_condensate_index_usd_bbl: condensateIndexUsdBbl,
     partA_condensate_par_price_cad_m3: condensateParPriceCadM3,
     partA_condensate_stream_price_cad_m3: condensateStreamPriceCadM3,
@@ -278,9 +280,17 @@ await prisma.scenarioResults.upsert({
             {/* Heavy Stream Index */}
             <tr>
               <td className="p-2">Heavy Stream Index</td>
-              <td className="p-2">{heavyStreamIndexUsdBbl.toFixed(2)}</td>
+              <td className="p-2">{adjustedHeavyStreamIndexUsdBbl.toFixed(2)}</td>
+
               <td className="p-2">USD/bbl</td>
             </tr>
+
+            <tr>
+  <td className="p-2">Premium Crude Value</td>
+  <td className="p-2">{premiumHeavyPriceUsdBbl.toFixed(2)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
+
 
             {/* Condensate Index */}
             <tr>
