@@ -234,8 +234,9 @@ await prisma.scenarioResults.upsert({
               <td className="p-2 text-right">{fmt(producer_density_kg_m3, 1)}</td>
               <td className="p-2 text-right">{fmt(rawPctOfBlend, 3)}%</td>
               <td className="p-2 text-right">
-  Raw TAN: {rawCrudeTan.toFixed(2)}
+  {rawCrudeTan.toFixed(2)} mg KOH/g
 </td>
+
 
             </tr>
 
