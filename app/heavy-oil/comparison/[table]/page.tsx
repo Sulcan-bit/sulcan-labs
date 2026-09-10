@@ -186,8 +186,6 @@ return (
   </div>
 </div>
 
-
-
       {/* PRINT BUTTON */}
       <div className="mb-6">
         <button
@@ -197,7 +195,6 @@ return (
           Print to PDF
         </button>
       </div>
-
 
         <div className="overflow-x-auto">
           <table className="min-w-full border text-sm">
@@ -227,8 +224,6 @@ return (
     </td>
   ))}
 </tr>
-
-
 
               {/* Raw Crude Density */}
               <tr>
@@ -283,6 +278,67 @@ return (
                   </td>
                 ))}
               </tr>
+
+              {/* Condensate Sulphur */}
+<tr>
+  <td className="border p-2 font-medium">Condensate Sulphur (%wt)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.inputs?.cond1_sulphur_pct, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Condensate C2 */}
+<tr>
+  <td className="border p-2 font-medium">Condensate C2 (%vol)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.inputs?.cond_c2_pct, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Condensate C3 */}
+<tr>
+  <td className="border p-2 font-medium">Condensate C3 (%vol)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.inputs?.cond_c3_pct, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Condensate C4 */}
+<tr>
+  <td className="border p-2 font-medium">Condensate C4 (%vol)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.inputs?.cond_c4_pct, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* C5 Diluent Cost (CAD/m³) */}
+<tr>
+  <td className="border p-2 font-medium">C5 Diluent Cost (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtComma(s.results?.partA_condensate_price_after_eq_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* C4 Diluent Cost (CAD/m³) */}
+<tr>
+  <td className="border p-2 font-medium">C4 Diluent Cost (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtComma(s.results?.partA_c4_price_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
 
               {/* Stream */}
               <tr>
@@ -374,7 +430,7 @@ return (
 
 {/* C5 Diluent Cost */}
 <tr>
-  <td className="border p-2 font-medium">C5 Diluent Cost (CAD/M3)</td>
+  <td className="border p-2 font-medium">C5 Diluent Cost (CAD/M3 Blended Vol.)</td>
   {scenarios.map((s) => (
     <td key={s.id} className="border p-2">
       {fmtMoney(-Math.abs(s.results?.partE_c5_diluent_cost_m3_blend ?? 0), 2)}
@@ -384,7 +440,7 @@ return (
 
 {/* C4 Diluent Cost */}
 <tr>
-  <td className="border p-2 font-medium">C4 Diluent Cost (CAD/M3)</td>
+  <td className="border p-2 font-medium">C4 Diluent Cost (CAD/M3 Blended Vol.)</td>
   {scenarios.map((s) => (
     <td key={s.id} className="border p-2">
       {fmtMoney(-Math.abs(s.results?.partE_c4_diluent_cost_m3_blend ?? 0), 2)}
@@ -443,7 +499,6 @@ return (
   })}
 </tr>
 
-
 {/* Netback (CAD/M3 Blend) */}
 <tr className="bg-gray-100">
   <td className="border p-2 font-bold">Netback (CAD/M3 Blend)</td>
@@ -477,7 +532,6 @@ return (
     );
   })}
 </tr>
-
 
 {/* Raw Crude Trucking (CAD/M3 Blended Vol) */}
 <tr>
