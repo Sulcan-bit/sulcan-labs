@@ -353,7 +353,7 @@ await prisma.scenarioResults.upsert({
     partC_net_price_per_m3_raw: netPrice_per_m3_raw,
     partC_diluent_cost_m3_blend: diluentCost_per_m3_blend,
     partC_diluent_fee_m3_raw: diluentFee_per_m3_raw,
-    partC_diff_to_wcs_usd_bbl: diffToWCS,
+    partC_diff_to_wcs_usd_bbl: diffToHeavyStream,
     partD_net_blend_volume_m3: netBlendVol
   },
   create: {
@@ -362,7 +362,7 @@ await prisma.scenarioResults.upsert({
     partC_net_price_per_m3_raw: netPrice_per_m3_raw,
     partC_diluent_cost_m3_blend: diluentCost_per_m3_blend,
     partC_diluent_fee_m3_raw: diluentFee_per_m3_raw,
-    partC_diff_to_wcs_usd_bbl: diffToWCS,
+    partC_diff_to_wcs_usd_bbl: diffToHeavyStream,
     partD_net_blend_volume_m3: netBlendVol
   }
 });
