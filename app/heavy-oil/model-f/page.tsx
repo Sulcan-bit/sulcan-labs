@@ -81,6 +81,15 @@ export default async function HeavyOilModelFPage(props: PageProps) {
 
   const netFinancialBenefit = partE_net - partC_net;
 
+// ============================
+// PROFIT SHARING (Section 9)
+// ============================
+
+const sharingPct = (inputs.tt1_diluent_sharing_pct ?? 0) / 100;
+
+const producerShare = netFinancialBenefit * sharingPct;
+const terminalShare = netFinancialBenefit * (1 - sharingPct);
+
   // ============================
   // EXCEL E133 — Net Benefit per m³ Raw Crude
   // ============================
@@ -119,6 +128,9 @@ export default async function HeavyOilModelFPage(props: PageProps) {
       partF_loss_allowance_savings: 0,
       partF_netBenefit_per_m3_raw: netBenefit_per_m3_raw,
       partF_netBenefit_per_m3_blend: netBenefit_per_m3_blend,
+      partF_producer_share: producerShare,
+partF_terminal_share: terminalShare,
+
     },
   });
 
@@ -143,6 +155,17 @@ export default async function HeavyOilModelFPage(props: PageProps) {
   <td className="p-2 font-semibold">{fmt(netFinancialBenefit, 2)} CAD</td>
 </tr>
 
+{/* E131A */}
+<tr>
+  <td className="p-2">Producer Share ({fmt(sharingPct * 100, 0)}%)</td>
+  <td className="p-2">{fmt(producerShare, 2)} CAD</td>
+</tr>
+
+{/* E131B */}
+<tr>
+  <td className="p-2">Terminal Operator Share ({fmt((1 - sharingPct) * 100, 0)}%)</td>
+  <td className="p-2">{fmt(terminalShare, 2)} CAD</td>
+</tr>
 
             {/* E132 */}
             <tr>
