@@ -12,7 +12,6 @@ export default function ProfilePage() {
     first_name: "",
     last_name: "",
     address_line1: "",
-    address_line2: "",
     city: "",
     province: "",
     postal_code: "",
@@ -44,7 +43,6 @@ export default function ProfilePage() {
           first_name: data.first_name ?? "",
           last_name: data.last_name ?? "",
           address_line1: data.address_line1 ?? "",
-          address_line2: data.address_line2 ?? "",
           city: data.city ?? "",
           province: data.province ?? "",
           postal_code: data.postal_code ?? "",
@@ -111,7 +109,7 @@ export default function ProfilePage() {
     }
   }
 
-  // ⭐ Google Places Autocomplete (ONE FIELD)
+  // ⭐ Google Places Autocomplete — ONE FIELD
   async function handleAddressInput(value: string) {
     setForm({ ...form, address_line1: value });
 
@@ -396,4 +394,5 @@ export default function ProfilePage() {
     </main>
   );
 }
+
 
