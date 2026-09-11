@@ -26,6 +26,7 @@ export default function ProfilePage() {
   >([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // Load profile
   useEffect(() => {
     async function loadProfile() {
       try {
@@ -58,6 +59,7 @@ export default function ProfilePage() {
     loadProfile();
   }, []);
 
+  // Save profile
   async function handleSave() {
     try {
       const res = await fetch("/api/profile", {
@@ -82,6 +84,7 @@ export default function ProfilePage() {
     }
   }
 
+  // Delete profile
   async function handleDelete() {
     const confirmed = window.confirm(
       "Are you sure you want to delete your profile? Your account will be disabled, but your information will be retained by Sulcan."
@@ -108,7 +111,7 @@ export default function ProfilePage() {
     }
   }
 
-  // ⭐ Google Places Autocomplete
+  // ⭐ Google Places Autocomplete (ONE FIELD)
   async function handleAddressInput(value: string) {
     setForm({ ...form, address_line1: value });
 
@@ -243,8 +246,7 @@ export default function ProfilePage() {
 
             <div className="bg-gray-50 p-5 rounded border">
               <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
-              <div><strong>Address Line 1:</strong> {user.address_line1 || "Not set"}</div>
-              <div><strong>Address Line 2:</strong> {user.address_line2 || "Not set"}</div>
+              <div><strong>Address:</strong> {user.address_line1 || "Not set"}</div>
               <div><strong>City:</strong> {user.city || "Not set"}</div>
               <div><strong>Province:</strong> {user.province || "Not set"}</div>
               <div><strong>Postal Code:</strong> {user.postal_code || "Not set"}</div>
@@ -302,11 +304,12 @@ export default function ProfilePage() {
               </label>
             </div>
 
+            {/* ⭐ ONE SINGLE ADDRESS FIELD WITH AUTOCOMPLETE */}
             <div className="bg-gray-50 p-5 rounded border space-y-4">
               <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
 
               <label className="flex flex-col relative">
-                <span className="font-medium">Address Line 1</span>
+                <span className="font-medium">Address</span>
                 <input
                   className="border p-2 rounded"
                   value={form.address_line1}
@@ -330,50 +333,44 @@ export default function ProfilePage() {
                 )}
               </label>
 
-              <label className="flex flex-col">
-                <span className="font-medium">Address Line 2</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.address_line2}
-                  onChange={(e) => setForm({ ...form, address_line2: e.target.value })}
-                />
-              </label>
+              {/* Auto-filled fields (read-only) */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <span className="font-medium">City</span>
+                  <input
+                    className="border p-2 rounded bg-gray-100"
+                    value={form.city}
+                    readOnly
+                  />
+                </div>
 
-              <label className="flex flex-col">
-                <span className="font-medium">City</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.city}
-                  onChange={(e) => setForm({ ...form, city: e.target.value })}
-                />
-              </label>
+                <div>
+                  <span className="font-medium">Province</span>
+                  <input
+                    className="border p-2 rounded bg-gray-100"
+                    value={form.province}
+                    readOnly
+                  />
+                </div>
 
-              <label className="flex flex-col">
-                <span className="font-medium">Province</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.province}
-                  onChange={(e) => setForm({ ...form, province: e.target.value })}
-                />
-              </label>
+                <div>
+                  <span className="font-medium">Postal Code</span>
+                  <input
+                    className="border p-2 rounded bg-gray-100"
+                    value={form.postal_code}
+                    readOnly
+                  />
+                </div>
 
-              <label className="flex flex-col">
-                <span className="font-medium">Postal Code</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.postal_code}
-                  onChange={(e) => setForm({ ...form, postal_code: e.target.value })}
-                />
-              </label>
-
-              <label className="flex flex-col">
-                <span className="font-medium">Country</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.country}
-                  onChange={(e) => setForm({ ...form, country: e.target.value })}
-                />
-              </label>
+                <div>
+                  <span className="font-medium">Country</span>
+                  <input
+                    className="border p-2 rounded bg-gray-100"
+                    value={form.country}
+                    readOnly
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="flex gap-4 mt-6">
@@ -399,3 +396,4 @@ export default function ProfilePage() {
     </main>
   );
 }
+
