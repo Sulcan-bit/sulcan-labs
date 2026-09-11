@@ -4,6 +4,8 @@
 
 import { useEffect, useState } from "react";
 
+const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
   const [form, setForm] = useState({
@@ -19,7 +21,9 @@ export default function ProfilePage() {
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<
+    { description: string; place_id: string }[]
+  >([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
@@ -104,7 +108,7 @@ export default function ProfilePage() {
     }
   }
 
-  // ⭐ Google Places Autocomplete (same UX as Waste Driver)
+  // ⭐ Google Places Autocomplete
   async function handleAddressInput(value: string) {
     setForm({ ...form, address_line1: value });
 
@@ -114,15 +118,74 @@ export default function ProfilePage() {
     }
 
     try {
-      const res = await fetch(
-        `/api/address-autocomplete?q=${encodeURIComponent(value)}`
-      );
-      const data = await res.json();
+      const url =
+        `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
+        `?input=${encodeURIComponent(value)}` +
+        `&components=country:ca` +
+        `&types=address` +
+        `&key=${GOOGLE_API_KEY}`;
 
-      setSuggestions(data.suggestions || []);
+      const res = await fetch(url);
+      const json = await res.json();
+
+      if (json.status !== "OK") {
+        setSuggestions([]);
+        setShowSuggestions(false);
+        return;
+      }
+
+      setSuggestions(
+        json.predictions.map((p: any) => ({
+          description: p.description,
+          place_id: p.place_id,
+        }))
+      );
+
       setShowSuggestions(true);
     } catch (err) {
       console.error("Autocomplete error:", err);
+    }
+  }
+
+  // ⭐ Google Place Details → auto-fill city/province/postal/country
+  async function handleSelectSuggestion(place_id: string, description: string) {
+    setForm({ ...form, address_line1: description });
+    setShowSuggestions(false);
+
+    try {
+      const url =
+        `https://maps.googleapis.com/maps/api/place/details/json` +
+        `?place_id=${place_id}` +
+        `&fields=address_component,formatted_address` +
+        `&key=${GOOGLE_API_KEY}`;
+
+      const res = await fetch(url);
+      const json = await res.json();
+
+      const components = json?.result?.address_components ?? [];
+
+      const get = (type: string) =>
+        components.find((c: any) => c.types.includes(type))?.long_name ?? "";
+
+      const streetNumber = get("street_number");
+      const route = get("route");
+      const city = get("locality") || get("sublocality");
+      const province = get("administrative_area_level_1");
+      const postalCode = get("postal_code");
+      const country = get("country");
+
+      const address_line1 = [streetNumber, route].filter(Boolean).join(" ");
+
+      setForm({
+        ...form,
+        address_line1,
+        city,
+        province,
+        postal_code: postalCode,
+        country,
+      });
+    } catch (err) {
+      console.error("Place details error:", err);
     }
   }
 
@@ -256,12 +319,11 @@ export default function ProfilePage() {
                       <div
                         key={idx}
                         className="p-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          setForm({ ...form, address_line1: s });
-                          setShowSuggestions(false);
-                        }}
+                        onClick={() =>
+                          handleSelectSuggestion(s.place_id, s.description)
+                        }
                       >
-                        {s}
+                        {s.description}
                       </div>
                     ))}
                   </div>
@@ -337,6 +399,3 @@ export default function ProfilePage() {
     </main>
   );
 }
-
-
-
