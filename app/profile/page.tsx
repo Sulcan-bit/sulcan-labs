@@ -17,6 +17,7 @@ export default function ProfilePage() {
     postal_code: "",
     country: "",
   });
+
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
@@ -394,6 +395,7 @@ export default function ProfilePage() {
     </main>
   );
 }
+
 
 
 
