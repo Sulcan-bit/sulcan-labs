@@ -18,6 +18,8 @@ export default function ProfilePage() {
   });
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [addressSuggestions, setAddressSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     async function loadProfile() {
@@ -107,6 +109,30 @@ export default function ProfilePage() {
     }
   }
 
+  // ⭐ Simple address autocomplete (client-side only)
+  async function handleAddressInput(value: string) {
+    setForm({ ...form, address_line1: value });
+
+    if (value.length < 3) {
+      setShowSuggestions(false);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `/api/address-autocomplete?q=${encodeURIComponent(value)}`
+      );
+      const data = await res.json();
+
+      if (Array.isArray(data.suggestions)) {
+        setAddressSuggestions(data.suggestions);
+        setShowSuggestions(true);
+      }
+    } catch (err) {
+      console.error("Address autocomplete error:", err);
+    }
+  }
+
   if (error) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -129,39 +155,39 @@ export default function ProfilePage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded shadow max-w-lg w-full">
+      <div className="bg-white p-8 rounded shadow max-w-xl w-full">
 
         {/* Navigation */}
         <div className="flex justify-between mb-6">
-          <a href="/models" className="text-blue-600 underline">
+          <a href="/models" className="text-gray-700 hover:text-black">
             ← Back
           </a>
 
-          <a href="/api/auth/logout" className="text-red-600 underline">
+          <a href="/api/auth/logout" className="text-gray-700 hover:text-black">
             Logout
           </a>
         </div>
 
-        <h1 className="text-2xl font-bold mb-6">Your Profile</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Your Profile</h1>
 
         {/* READ MODE */}
         {!isEditing && (
-          <div className="space-y-4">
+          <div className="space-y-6">
 
-            <div className="bg-gray-50 p-4 rounded border">
-              <h2 className="font-semibold mb-2">Account</h2>
+            <div className="bg-gray-50 p-5 rounded border">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Account</h2>
               <div><strong>Email:</strong> {user.email}</div>
               <div><strong>Phone:</strong> {user.phone}</div>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded border">
-              <h2 className="font-semibold mb-2">Personal Information</h2>
+            <div className="bg-gray-50 p-5 rounded border">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Personal Information</h2>
               <div><strong>First Name:</strong> {user.first_name || "Not set"}</div>
               <div><strong>Last Name:</strong> {user.last_name || "Not set"}</div>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded border">
-              <h2 className="font-semibold mb-2">Address</h2>
+            <div className="bg-gray-50 p-5 rounded border">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
               <div><strong>Address Line 1:</strong> {user.address_line1 || "Not set"}</div>
               <div><strong>Address Line 2:</strong> {user.address_line2 || "Not set"}</div>
               <div><strong>City:</strong> {user.city || "Not set"}</div>
@@ -170,16 +196,16 @@ export default function ProfilePage() {
               <div><strong>Country:</strong> {user.country || "Not set"}</div>
             </div>
 
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-4 mt-6">
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="px-5 py-2 rounded bg-gray-800 text-white hover:bg-black"
                 onClick={() => setIsEditing(true)}
               >
                 Edit Profile
               </button>
 
               <button
-                className="bg-red-600 text-white px-4 py-2 rounded"
+                className="px-5 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
                 onClick={handleDelete}
               >
                 Delete Profile
@@ -193,14 +219,14 @@ export default function ProfilePage() {
         {isEditing && (
           <div className="space-y-6">
 
-            <div className="bg-gray-50 p-4 rounded border">
-              <h2 className="font-semibold mb-2">Account</h2>
+            <div className="bg-gray-50 p-5 rounded border">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Account</h2>
               <div><strong>Email:</strong> {user.email}</div>
               <div><strong>Phone:</strong> {user.phone}</div>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded border space-y-4">
-              <h2 className="font-semibold mb-2">Personal Information</h2>
+            <div className="bg-gray-50 p-5 rounded border space-y-4">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Personal Information</h2>
 
               <label className="flex flex-col">
                 <span className="font-medium">First Name</span>
@@ -221,16 +247,33 @@ export default function ProfilePage() {
               </label>
             </div>
 
-            <div className="bg-gray-50 p-4 rounded border space-y-4">
-              <h2 className="font-semibold mb-2">Address</h2>
+            <div className="bg-gray-50 p-5 rounded border space-y-4">
+              <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
 
-              <label className="flex flex-col">
+              <label className="flex flex-col relative">
                 <span className="font-medium">Address Line 1</span>
                 <input
                   className="border p-2 rounded"
                   value={form.address_line1}
-                  onChange={(e) => setForm({ ...form, address_line1: e.target.value })}
+                  onChange={(e) => handleAddressInput(e.target.value)}
                 />
+
+                {showSuggestions && (
+                  <div className="absolute bg-white border rounded shadow mt-1 w-full z-10">
+                    {addressSuggestions.map((s, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setForm({ ...form, address_line1: s });
+                          setShowSuggestions(false);
+                        }}
+                      >
+                        {s}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </label>
 
               <label className="flex flex-col">
@@ -279,16 +322,16 @@ export default function ProfilePage() {
               </label>
             </div>
 
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-4 mt-6">
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="px-5 py-2 rounded bg-gray-800 text-white hover:bg-black"
                 onClick={handleSave}
               >
                 Save Profile
               </button>
 
               <button
-                className="bg-gray-500 text-white px-4 py-2 rounded"
+                className="px-5 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
@@ -302,4 +345,5 @@ export default function ProfilePage() {
     </main>
   );
 }
+
 
