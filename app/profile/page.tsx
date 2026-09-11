@@ -18,16 +18,14 @@ export default function ProfilePage() {
   });
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [addressSuggestions, setAddressSuggestions] = useState<string[]>([]);
+
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     async function loadProfile() {
       try {
-        const res = await fetch("/api/profile", {
-          credentials: "include",
-        });
-
+        const res = await fetch("/api/profile", { credentials: "include" });
         const data = await res.json();
 
         if (!res.ok) {
@@ -66,7 +64,6 @@ export default function ProfilePage() {
       });
 
       const data = await res.json();
-
       if (!res.ok) {
         alert(data.error || "Failed to update profile.");
         return;
@@ -85,7 +82,6 @@ export default function ProfilePage() {
     const confirmed = window.confirm(
       "Are you sure you want to delete your profile? Your account will be disabled, but your information will be retained by Sulcan."
     );
-
     if (!confirmed) return;
 
     try {
@@ -95,7 +91,6 @@ export default function ProfilePage() {
       });
 
       const data = await res.json();
-
       if (!res.ok) {
         alert(data.error || "Failed to delete profile.");
         return;
@@ -109,7 +104,7 @@ export default function ProfilePage() {
     }
   }
 
-  // ⭐ Simple address autocomplete (client-side only)
+  // ⭐ Google Places Autocomplete (same UX as Waste Driver)
   async function handleAddressInput(value: string) {
     setForm({ ...form, address_line1: value });
 
@@ -124,12 +119,10 @@ export default function ProfilePage() {
       );
       const data = await res.json();
 
-      if (Array.isArray(data.suggestions)) {
-        setAddressSuggestions(data.suggestions);
-        setShowSuggestions(true);
-      }
+      setSuggestions(data.suggestions || []);
+      setShowSuggestions(true);
     } catch (err) {
-      console.error("Address autocomplete error:", err);
+      console.error("Autocomplete error:", err);
     }
   }
 
@@ -162,7 +155,6 @@ export default function ProfilePage() {
           <a href="/models" className="text-gray-700 hover:text-black">
             ← Back
           </a>
-
           <a href="/api/auth/logout" className="text-gray-700 hover:text-black">
             Logout
           </a>
@@ -258,9 +250,9 @@ export default function ProfilePage() {
                   onChange={(e) => handleAddressInput(e.target.value)}
                 />
 
-                {showSuggestions && (
+                {showSuggestions && suggestions.length > 0 && (
                   <div className="absolute bg-white border rounded shadow mt-1 w-full z-10">
-                    {addressSuggestions.map((s, idx) => (
+                    {suggestions.map((s, idx) => (
                       <div
                         key={idx}
                         className="p-2 hover:bg-gray-100 cursor-pointer"
@@ -345,5 +337,6 @@ export default function ProfilePage() {
     </main>
   );
 }
+
 
 
