@@ -6,8 +6,20 @@ import { useEffect, useState } from "react";
 
 const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
+type User = {
+  email: string;
+  phone: string;
+  first_name?: string;
+  last_name?: string;
+  address_line1?: string;
+  city?: string;
+  province?: string;
+  postal_code?: string;
+  country?: string;
+};
+
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -110,12 +122,13 @@ export default function ProfilePage() {
     }
   }
 
-  // ⭐ Google Places Autocomplete — ONE FIELD
+  // ONE SINGLE ADDRESS FIELD WITH AUTOCOMPLETE
   async function handleAddressInput(value: string) {
-    setForm({ ...form, address_line1: value });
+    setForm((prev) => ({ ...prev, address_line1: value }));
 
     if (value.length < 3) {
       setShowSuggestions(false);
+      setSuggestions([]);
       return;
     }
 
@@ -142,16 +155,16 @@ export default function ProfilePage() {
           place_id: p.place_id,
         }))
       );
-
       setShowSuggestions(true);
     } catch (err) {
       console.error("Autocomplete error:", err);
+      setShowSuggestions(false);
+      setSuggestions([]);
     }
   }
 
-  // ⭐ Google Place Details → auto-fill city/province/postal/country
+  // Google Place Details → auto-fill city/province/postal/country
   async function handleSelectSuggestion(place_id: string, description: string) {
-    setForm({ ...form, address_line1: description });
     setShowSuggestions(false);
 
     try {
@@ -178,14 +191,14 @@ export default function ProfilePage() {
 
       const address_line1 = [streetNumber, route].filter(Boolean).join(" ");
 
-      setForm({
-        ...form,
-        address_line1,
+      setForm((prev) => ({
+        ...prev,
+        address_line1: address_line1 || description,
         city,
         province,
         postal_code: postalCode,
         country,
-      });
+      }));
     } catch (err) {
       console.error("Place details error:", err);
     }
@@ -289,7 +302,9 @@ export default function ProfilePage() {
                 <input
                   className="border p-2 rounded"
                   value={form.first_name}
-                  onChange={(e) => setForm({ ...form, first_name: e.target.value })}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, first_name: e.target.value }))
+                  }
                 />
               </label>
 
@@ -298,12 +313,14 @@ export default function ProfilePage() {
                 <input
                   className="border p-2 rounded"
                   value={form.last_name}
-                  onChange={(e) => setForm({ ...form, last_name: e.target.value })}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, last_name: e.target.value }))
+                  }
                 />
               </label>
             </div>
 
-            {/* ⭐ ONE SINGLE ADDRESS FIELD WITH AUTOCOMPLETE */}
+            {/* ONE SINGLE ADDRESS FIELD WITH AUTOCOMPLETE */}
             <div className="bg-gray-50 p-5 rounded border space-y-4">
               <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
 
@@ -317,9 +334,9 @@ export default function ProfilePage() {
 
                 {showSuggestions && suggestions.length > 0 && (
                   <div className="absolute bg-white border rounded shadow mt-1 w-full z-10">
-                    {suggestions.map((s, idx) => (
+                    {suggestions.map((s) => (
                       <div
-                        key={idx}
+                        key={s.place_id}
                         className="p-2 hover:bg-gray-100 cursor-pointer"
                         onClick={() =>
                           handleSelectSuggestion(s.place_id, s.description)
@@ -395,6 +412,8 @@ export default function ProfilePage() {
     </main>
   );
 }
+
+
 
 
 
