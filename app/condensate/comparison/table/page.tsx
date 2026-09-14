@@ -398,3 +398,10 @@ function ComparisonTableContent() {
   );
 }
 
+export default function CondensateComparisonTablePage() {
+  return (
+    <Suspense fallback={<div>Loading comparison…</div>}>
+      <ComparisonTableContent />
+    </Suspense>
+  );
+}
