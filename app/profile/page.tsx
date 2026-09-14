@@ -38,6 +38,9 @@ export default function ProfilePage() {
   >([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // ⭐ Prevent autocomplete from overwriting formattedAddress
+  const [addressLocked, setAddressLocked] = useState(false);
+
   // Load profile
   useEffect(() => {
     async function loadProfile() {
@@ -138,6 +141,9 @@ export default function ProfilePage() {
   async function handleAddressInput(value: string) {
     console.log("🟦 [AUTOCOMPLETE] Input typed:", value);
 
+    // ⭐ Prevent overwriting formattedAddress after selection
+    if (addressLocked) return;
+
     setForm((prev) => ({ ...prev, address_line1: value }));
 
     if (value.length < 3) {
@@ -161,12 +167,10 @@ export default function ProfilePage() {
       const json = await res.json();
       console.log("🟦 [AUTOCOMPLETE] Backend JSON:", json);
 
-     const mapped = (json.suggestions || []).map((s: any) => ({
-  place_id: s.placePrediction.placeId,
-  description: s.placePrediction.text.text, // ⭐ FIXED — now a string
-}));
-
-
+      const mapped = (json.suggestions || []).map((s: any) => ({
+        place_id: s.placePrediction.placeId,
+        description: s.placePrediction.text.text, // ⭐ FIXED
+      }));
 
       console.log("🟦 [AUTOCOMPLETE] Mapped suggestions:", mapped);
 
@@ -207,10 +211,8 @@ export default function ProfilePage() {
       const postalCode = get("postal_code");
       const country = get("country");
 
-      const address_line1 = [streetNumber, route].filter(Boolean).join(" ");
-
       console.log("🟦 [DETAILS] Parsed address:", {
-        address_line1,
+        address_line1: json.formattedAddress,
         city,
         province,
         postal_code: postalCode,
@@ -219,12 +221,16 @@ export default function ProfilePage() {
 
       setForm((prev) => ({
         ...prev,
-        address_line1: address_line1 || description,
+        address_line1: json.formattedAddress, // ⭐ FULL FORMATTED ADDRESS
         city,
         province,
         postal_code: postalCode,
         country,
       }));
+
+      // ⭐ Prevent autocomplete from overwriting formattedAddress
+      setAddressLocked(true);
+
     } catch (err) {
       console.error("🔴 [DETAILS] Error:", err);
     }
@@ -355,18 +361,18 @@ export default function ProfilePage() {
                 />
 
                 {showSuggestions && suggestions.length > 0 && (
-  <ul className="absolute bg-white border rounded shadow-md mt-1 z-10 w-full">
-    {suggestions.map((s) => (
-      <li
-        key={s.place_id}
-        className="p-2 hover:bg-gray-100 cursor-pointer"
-        onClick={() => handleSelectSuggestion(s.place_id, s.description)}
-      >
-        {s.description}
-      </li>
-    ))}
-  </ul>
-)}
+                  <ul className="absolute bg-white border rounded shadow-md mt-1 z-10 w-full">
+                    {suggestions.map((s) => (
+                      <li
+                        key={s.place_id}
+                        className="p-2 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => handleSelectSuggestion(s.place_id, s.description)}
+                      >
+                        {s.description}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
               </label>
             </div>
