@@ -20,11 +20,14 @@ export async function POST(req: Request) {
         regionCode: "CA",
         locationBias: {
           circle: {
-            center: { latitude: 51.0447, longitude: -114.0719 },
-            radius: 50000,
-          },
+            center: {
+              latitude: 51.0447,   // Calgary
+              longitude: -114.0719
+            },
+            radius: 50000         // 50 km bias
+          }
         },
-        includedPrimaryTypes: ["street_address"],
+        includedPrimaryTypes: ["street_address"]
       }),
     }
   );
