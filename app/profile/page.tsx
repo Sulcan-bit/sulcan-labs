@@ -161,10 +161,11 @@ export default function ProfilePage() {
       const json = await res.json();
       console.log("🟦 [AUTOCOMPLETE] Backend JSON:", json);
 
-      const mapped = (json.suggestions || []).map((s: any) => ({
+     const mapped = (json.suggestions || []).map((s: any) => ({
   place_id: s.placePrediction.placeId,
-  description: s.placePrediction.text,
+  description: s.placePrediction.text.text, // ⭐ FIXED — now a string
 }));
+
 
 
       console.log("🟦 [AUTOCOMPLETE] Mapped suggestions:", mapped);
