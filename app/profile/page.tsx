@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react";
 
-const GOOGLE_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 type User = {
   email: string;
