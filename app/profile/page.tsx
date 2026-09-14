@@ -162,9 +162,10 @@ export default function ProfilePage() {
       console.log("🟦 [AUTOCOMPLETE] Backend JSON:", json);
 
       const mapped = (json.suggestions || []).map((s: any) => ({
-        place_id: s.placeId,
-        description: s.formattedSuggestion,
-      }));
+  place_id: s.placePrediction.placeId,
+  description: s.placePrediction.text,
+}));
+
 
       console.log("🟦 [AUTOCOMPLETE] Mapped suggestions:", mapped);
 
@@ -353,20 +354,19 @@ export default function ProfilePage() {
                 />
 
                 {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute bg-white border rounded shadow mt-1 w-full z-10">
-                    {suggestions.map((s) => (
-                      <div
-                        key={s.place_id}
-                        className="p-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() =>
-                          handleSelectSuggestion(s.place_id, s.description)
-                        }
-                      >
-                        {s.description}
-                      </div>
-                    ))}
-                  </div>
-                )}
+  <ul className="absolute bg-white border rounded shadow-md mt-1 z-10 w-full">
+    {suggestions.map((s) => (
+      <li
+        key={s.place_id}
+        className="p-2 hover:bg-gray-100 cursor-pointer"
+        onClick={() => handleSelectSuggestion(s.place_id, s.description)}
+      >
+        {s.description}
+      </li>
+    ))}
+  </ul>
+)}
+
               </label>
             </div>
 
