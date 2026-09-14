@@ -256,14 +256,7 @@ export default function ProfilePage() {
               <div><strong>Last Name:</strong> {user.last_name || "Not set"}</div>
             </div>
 
-            <div className="bg-gray-50 p-5 rounded border">
-              <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
-              <div><strong>Address:</strong> {user.address_line1 || "Not set"}</div>
-              <div><strong>City:</strong> {user.city || "Not set"}</div>
-              <div><strong>Province:</strong> {user.province || "Not set"}</div>
-              <div><strong>Postal Code:</strong> {user.postal_code || "Not set"}</div>
-              <div><strong>Country:</strong> {user.country || "Not set"}</div>
-            </div>
+            
 
             <div className="flex gap-4 mt-6">
               <button
@@ -321,65 +314,7 @@ export default function ProfilePage() {
             </div>
 
             {/* ONE SINGLE ADDRESS FIELD WITH AUTOCOMPLETE */}
-            <div className="bg-gray-50 p-5 rounded border space-y-4">
-              <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
-
-              <label className="flex flex-col relative">
-                <span className="font-medium">Address</span>
-                <input
-                  className="border p-2 rounded"
-                  value={form.address_line1}
-                  onChange={(e) => handleAddressInput(e.target.value)}
-                />
-
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute bg-white border rounded shadow mt-1 w-full z-10">
-                    {suggestions.map((s) => (
-                      <div
-                        key={s.place_id}
-                        className="p-2 hover:bg-gray-100 cursor-pointer"
-                        onClick={() =>
-                          handleSelectSuggestion(s.place_id, s.description)
-                        }
-                      >
-                        {s.description}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </label>
-
-              {/* Auto-filled fields as plain text (NO extra inputs) */}
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <span className="font-medium">City</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
-                    {form.city || ""}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="font-medium">Province</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
-                    {form.province || ""}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="font-medium">Postal Code</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
-                    {form.postal_code || ""}
-                  </div>
-                </div>
-
-                <div>
-                  <span className="font-medium">Country</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
-                    {form.country || ""}
-                  </div>
-                </div>
-              </div>
-            </div>
+            
 
             <div className="flex gap-4 mt-6">
               <button
