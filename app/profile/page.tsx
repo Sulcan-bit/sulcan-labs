@@ -17,6 +17,8 @@ type User = {
 };
 
 export default function ProfilePage() {
+  console.log("🟦 [PROFILE] Page loaded");
+
   const [user, setUser] = useState<User | null>(null);
   const [form, setForm] = useState({
     first_name: "",
@@ -39,9 +41,13 @@ export default function ProfilePage() {
   // Load profile
   useEffect(() => {
     async function loadProfile() {
+      console.log("🟦 [PROFILE] Loading profile...");
+
       try {
         const res = await fetch("/api/profile", { credentials: "include" });
         const data = await res.json();
+
+        console.log("🟦 [PROFILE] Profile response:", data);
 
         if (!res.ok) {
           setError(data.error || "Failed to load profile.");
@@ -60,7 +66,7 @@ export default function ProfilePage() {
           country: data.country ?? "",
         });
       } catch (err) {
-        console.error(err);
+        console.error("🔴 [PROFILE] Unexpected error:", err);
         setError("Unexpected error occurred.");
       }
     }
@@ -70,6 +76,8 @@ export default function ProfilePage() {
 
   // Save profile
   async function handleSave() {
+    console.log("🟦 [PROFILE] Saving profile:", form);
+
     try {
       const res = await fetch("/api/profile", {
         method: "POST",
@@ -79,6 +87,8 @@ export default function ProfilePage() {
       });
 
       const data = await res.json();
+      console.log("🟦 [PROFILE] Save response:", data);
+
       if (!res.ok) {
         alert(data.error || "Failed to update profile.");
         return;
@@ -88,13 +98,15 @@ export default function ProfilePage() {
       setIsEditing(false);
       setUser(data.user);
     } catch (err) {
-      console.error(err);
+      console.error("🔴 [PROFILE] Save error:", err);
       alert("Unexpected error occurred.");
     }
   }
 
   // Delete profile
   async function handleDelete() {
+    console.log("🟦 [PROFILE] Delete requested");
+
     const confirmed = window.confirm(
       "Are you sure you want to delete your profile? Your account will be disabled, but your information will be retained by Sulcan."
     );
@@ -107,6 +119,8 @@ export default function ProfilePage() {
       });
 
       const data = await res.json();
+      console.log("🟦 [PROFILE] Delete response:", data);
+
       if (!res.ok) {
         alert(data.error || "Failed to delete profile.");
         return;
@@ -115,44 +129,56 @@ export default function ProfilePage() {
       alert("Your profile has been deleted. Your data remains securely stored.");
       window.location.href = "/api/auth/logout";
     } catch (err) {
-      console.error(err);
+      console.error("🔴 [PROFILE] Delete error:", err);
       alert("Unexpected error occurred.");
     }
   }
 
   // SECURE AUTOCOMPLETE — calls backend, NOT Google
   async function handleAddressInput(value: string) {
+    console.log("🟦 [AUTOCOMPLETE] Input typed:", value);
+
     setForm((prev) => ({ ...prev, address_line1: value }));
 
     if (value.length < 3) {
+      console.log("🟦 [AUTOCOMPLETE] Input too short, clearing suggestions");
       setShowSuggestions(false);
       setSuggestions([]);
       return;
     }
 
     try {
+      console.log("🟦 [AUTOCOMPLETE] Sending request to backend...");
+
       const res = await fetch("/api/google/autocomplete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ input: value }),
       });
 
+      console.log("🟦 [AUTOCOMPLETE] Backend response status:", res.status);
+
       const json = await res.json();
+      console.log("🟦 [AUTOCOMPLETE] Backend JSON:", json);
 
       const mapped = (json.suggestions || []).map((s: any) => ({
         place_id: s.placeId,
         description: s.formattedSuggestion,
       }));
 
+      console.log("🟦 [AUTOCOMPLETE] Mapped suggestions:", mapped);
+
       setSuggestions(mapped);
       setShowSuggestions(true);
     } catch (err) {
-      console.error("Autocomplete error:", err);
+      console.error("🔴 [AUTOCOMPLETE] Error:", err);
     }
   }
 
   // SECURE PLACE DETAILS — calls backend, NOT Google
   async function handleSelectSuggestion(place_id: string, description: string) {
+    console.log("🟦 [DETAILS] Selected place:", place_id, description);
+
     setShowSuggestions(false);
 
     try {
@@ -162,7 +188,10 @@ export default function ProfilePage() {
         body: JSON.stringify({ place_id }),
       });
 
+      console.log("🟦 [DETAILS] Backend response status:", res.status);
+
       const json = await res.json();
+      console.log("🟦 [DETAILS] Backend JSON:", json);
 
       const components = json.addressComponents || [];
 
@@ -178,6 +207,14 @@ export default function ProfilePage() {
 
       const address_line1 = [streetNumber, route].filter(Boolean).join(" ");
 
+      console.log("🟦 [DETAILS] Parsed address:", {
+        address_line1,
+        city,
+        province,
+        postal_code: postalCode,
+        country,
+      });
+
       setForm((prev) => ({
         ...prev,
         address_line1: address_line1 || description,
@@ -187,7 +224,7 @@ export default function ProfilePage() {
         country,
       }));
     } catch (err) {
-      console.error("Place details error:", err);
+      console.error("🔴 [DETAILS] Error:", err);
     }
   }
 
