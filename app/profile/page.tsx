@@ -349,42 +349,34 @@ export default function ProfilePage() {
                 )}
               </label>
 
-              {/* Auto-filled fields (read-only) */}
-              <div className="grid grid-cols-2 gap-4">
+              {/* Auto-filled fields as plain text (NO extra inputs) */}
+              <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="font-medium">City</span>
-                  <input
-                    className="border p-2 rounded bg-gray-100"
-                    value={form.city}
-                    readOnly
-                  />
+                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                    {form.city || ""}
+                  </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Province</span>
-                  <input
-                    className="border p-2 rounded bg-gray-100"
-                    value={form.province}
-                    readOnly
-                  />
+                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                    {form.province || ""}
+                  </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Postal Code</span>
-                  <input
-                    className="border p-2 rounded bg-gray-100"
-                    value={form.postal_code}
-                    readOnly
-                  />
+                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                    {form.postal_code || ""}
+                  </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Country</span>
-                  <input
-                    className="border p-2 rounded bg-gray-100"
-                    value={form.country}
-                    readOnly
-                  />
+                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                    {form.country || ""}
+                  </div>
                 </div>
               </div>
             </div>
@@ -412,9 +404,4 @@ export default function ProfilePage() {
     </main>
   );
 }
-
-
-
-
-
 
