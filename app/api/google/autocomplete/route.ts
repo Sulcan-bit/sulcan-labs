@@ -11,6 +11,7 @@ export async function POST(req: Request) {
   const key = process.env.GOOGLE_MAPS_API_KEY;
   console.log("🔵 [AUTOCOMPLETE] Using key:", key?.substring(0, 10) + "...");
 
+  // Google Places API (New) — valid request body
   const requestBody = {
     input,
     languageCode: "en",
@@ -24,23 +25,24 @@ export async function POST(req: Request) {
         radius: 50000,
       },
     },
-    includedPrimaryTypes: ["address"],   // ⭐ FIXED
   };
 
   console.log("🔵 [AUTOCOMPLETE] Sending request body:", requestBody);
 
-  const googleRes = await fetch(
-    `https://places.googleapis.com/v1/places:autocomplete?key=${key}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Goog-FieldMask":
-          "suggestions.placeId,suggestions.formattedSuggestion",
-      },
-      body: JSON.stringify(requestBody),
-    }
-  );
+  const googleRes = await fetch("https://places.googleapis.com/v1/places:autocomplete", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+
+      // REQUIRED for Places API (New)
+      "X-Goog-Api-Key": key as string,
+
+      // REQUIRED: valid field mask for Autocomplete (New)
+      "X-Goog-FieldMask":
+        "suggestions.placePrediction.placeId,suggestions.placePrediction.text",
+    },
+    body: JSON.stringify(requestBody),
+  });
 
   console.log("🔵 [AUTOCOMPLETE] Google status:", googleRes.status);
 
