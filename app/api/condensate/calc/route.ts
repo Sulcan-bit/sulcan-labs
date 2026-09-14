@@ -92,10 +92,9 @@ export async function POST(req: Request) {
     const wti = monthly.wti_cma_usd_bbl ?? 0;
     const fx = monthly.fx_cad_usd ?? 0;
 
-    const streamPriceUsdBbl = wti + streamDiffUsdBbl;
+    const streamPriceUsdBbl = Number(wti) + Number(streamDiffUsdBbl);
 
-    const streamPriceCadM3 =
-      streamPriceUsdBbl * fx * light_oil_conversion_factor;
+    const streamPriceCadM3 = Number(streamPriceUsdBbl) * Number(fx) * light_oil_conversion_factor;
 
     const wadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 
@@ -126,8 +125,7 @@ export async function POST(req: Request) {
       priceBeforeTruckingCadM3 +
       Number(trucking_cad_m3);
 
-    const landedCostUsdBbl =
-      landedCostCadM3 / (fx * light_oil_conversion_factor);
+    const landedCostUsdBbl = Number(landedCostCadM3) / (Number(fx) * light_oil_conversion_factor);
 
     const landedCostDiffToWtiUsdBbl =
       landedCostUsdBbl - wti;
