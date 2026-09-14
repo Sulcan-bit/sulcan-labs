@@ -295,11 +295,15 @@ export default function ProfilePage() {
 
             <div className="flex gap-4 mt-6">
               <button
-                className="px-5 py-2 rounded bg-gray-800 text-white hover:bg-black"
-                onClick={() => setIsEditing(true)}
-              >
-                Edit Profile
-              </button>
+  className="px-5 py-2 rounded bg-gray-800 text-white hover:bg-black"
+  onClick={() => {
+    setAddressLocked(false);   // ⭐ unlock address editing
+    setIsEditing(true);
+  }}
+>
+  Edit Profile
+</button>
+
 
               <button
                 className="px-5 py-2 rounded bg-gray-600 text-white hover:bg-gray-700"
