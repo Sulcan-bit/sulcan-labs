@@ -3,11 +3,12 @@
 "use client";
 export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function CondensateComparisonTablePage() {
+function ComparisonTableContent() {
   const searchParams = useSearchParams();
   const idsParam = searchParams.get("ids") ?? "";
 
