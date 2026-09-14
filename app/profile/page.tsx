@@ -4,10 +4,6 @@
 
 import { useEffect, useState } from "react";
 
-const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-console.log("GOOGLE KEY:", GOOGLE_API_KEY);
-
 type User = {
   email: string;
   phone: string;
@@ -124,7 +120,7 @@ export default function ProfilePage() {
     }
   }
 
-  // GOOGLE PLACES API — AUTOCOMPLETE
+  // SECURE AUTOCOMPLETE — calls backend, NOT Google
   async function handleAddressInput(value: string) {
     setForm((prev) => ({ ...prev, address_line1: value }));
 
@@ -135,22 +131,11 @@ export default function ProfilePage() {
     }
 
     try {
-      const res = await fetch(
-        `https://places.googleapis.com/v1/places:autocomplete?key=${GOOGLE_API_KEY}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Goog-FieldMask":
-              "suggestions.placeId,suggestions.formattedSuggestion",
-          },
-          body: JSON.stringify({
-            input: value,
-            includedPrimaryTypes: ["street_address"],
-            regionCode: "CA",
-          }),
-        }
-      );
+      const res = await fetch("/api/google/autocomplete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ input: value }),
+      });
 
       const json = await res.json();
 
@@ -166,21 +151,16 @@ export default function ProfilePage() {
     }
   }
 
-  // GOOGLE PLACES API — PLACE DETAILS
+  // SECURE PLACE DETAILS — calls backend, NOT Google
   async function handleSelectSuggestion(place_id: string, description: string) {
     setShowSuggestions(false);
 
     try {
-      const res = await fetch(
-        `https://places.googleapis.com/v1/places/${place_id}?key=${GOOGLE_API_KEY}`,
-        {
-          method: "GET",
-          headers: {
-            "X-Goog-FieldMask":
-              "addressComponents,formattedAddress",
-          },
-        }
-      );
+      const res = await fetch("/api/google/details", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ place_id }),
+      });
 
       const json = await res.json();
 
@@ -327,7 +307,6 @@ export default function ProfilePage() {
             <div className="bg-gray-50 p-5 rounded border space-y-4">
               <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
 
-              {/* ONE editable address textbox */}
               <label className="flex flex-col relative">
                 <span className="font-medium">Address</span>
                 <input
