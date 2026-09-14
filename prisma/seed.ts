@@ -121,8 +121,7 @@ async function seedMonthlyData() {
           hvy_all_price_cad_m3: row.hvy_all_price_cad_m3 ?? null,
           wcs_vs_c5_diluent_cost_usd_bbl: row.wcs_vs_c5_diluent_cost_usd_bbl ?? null,
 
-          // ENB
-          enb_ref_temp: row.enb_ref_temp ?? null,
+          // ❌ REMOVED: enb_ref_temp
 
           // C4
           c4_to_wti_usd_bbl: row.c4_to_wti_usd_bbl,
@@ -244,7 +243,7 @@ async function seedMonthlyData() {
           hvy_all_price_cad_m3: row.hvy_all_price_cad_m3 ?? null,
           wcs_vs_c5_diluent_cost_usd_bbl: row.wcs_vs_c5_diluent_cost_usd_bbl ?? null,
 
-          enb_ref_temp: row.enb_ref_temp ?? null,
+          // ❌ REMOVED: enb_ref_temp
 
           c4_to_wti_usd_bbl: row.c4_to_wti_usd_bbl,
           c4_price_usd_bbl: row.c4_price_usd_bbl,
@@ -313,10 +312,10 @@ async function seedMonthlyData() {
 async function main() {
   await seedStreamInfo();
   await seedMonthlyData();
-
 }
 
 main()
+
   .catch(e => {
     console.error(e);
     process.exit(1);

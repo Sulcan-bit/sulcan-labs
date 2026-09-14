@@ -340,6 +340,24 @@ model HeavyOilInputs {
   scenario                                Scenario?
 }
 
+model CondensateScenario {
+  id                 Int      @id @default(autoincrement())
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  scenario_name      String
+  supplier           String
+  source_location    String?
+  trucking_time_hours Float?
+  destination        String?
+  heavy_stream       String?
+  month_name         String
+  year               Int
+
+  inputs             Json
+  results            Json
+}
+
 model User {
   id               Int              @id @default(autoincrement())
   email            String           @unique

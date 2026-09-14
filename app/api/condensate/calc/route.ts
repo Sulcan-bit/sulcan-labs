@@ -10,7 +10,6 @@ import {
   colc_fee_cad_m3,
 } from "@/app/heavy-oil/constants";
 
-// ⭐ EXACT EQ LOGIC FROM Heavy Oil Part A
 function computeCondensateEq(
   monthly: any,
   density: number,
@@ -64,9 +63,6 @@ export async function POST(req: Request) {
       trucking_cad_m3,
     } = body;
 
-    // -----------------------------
-    // 1. Parse month (e.g. "Jul-2024")
-    // -----------------------------
     const [monthName, yearStr] = month.split("-");
     const year = Number(yearStr);
 
@@ -81,17 +77,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // -----------------------------
-    // 2. Condensate Stream Diff + Price
-    // -----------------------------
-    const diffField = {
+    const diffMap: Record<string, string | null> = {
       FTSK: "ftsk_c5_diff_usd_bbl",
       CRW: "crw_c5_diff_usd_bbl",
       PEACE_C5: "peace_c5_diff_usd_bbl",
       OTHER: null,
-    }[supplier];
+    };
 
-    const streamDiffUsdBbl = diffField ? (monthly[diffField] ?? 0) : 0;
+    const diffField = diffMap[supplier] ?? null;
+
+    const streamDiffUsdBbl =
+      diffField ? (monthly[diffField as keyof typeof monthly] ?? 0) : 0;
 
     const wti = monthly.wti_cma_usd_bbl ?? 0;
     const fx = monthly.fx_cad_usd ?? 0;
@@ -101,18 +97,12 @@ export async function POST(req: Request) {
     const streamPriceCadM3 =
       streamPriceUsdBbl * fx * light_oil_conversion_factor;
 
-    // -----------------------------
-    // 3. WADF + PAR Price
-    // -----------------------------
     const wadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
 
     const parPriceCadM3 =
       streamPriceUsdBbl * fx * light_oil_conversion_factor +
       wadfCadM3;
 
-    // -----------------------------
-    // 4. EQ Adjustment
-    // -----------------------------
     const eqAdjustmentCadM3 = computeCondensateEq(
       monthly,
       Number(density_kg_m3),
@@ -122,9 +112,6 @@ export async function POST(req: Request) {
       Number(c4_pct)
     );
 
-    // -----------------------------
-    // 5. Price Before Trucking
-    // -----------------------------
     const priceBeforeTruckingCadM3 =
       streamPriceCadM3 +
       eqAdjustmentCadM3 +
@@ -135,28 +122,16 @@ export async function POST(req: Request) {
       edi_fee_cad_m3 +
       colc_fee_cad_m3;
 
-    // -----------------------------
-    // 6. Landed Cost (CAD/m³)
-    // -----------------------------
     const landedCostCadM3 =
       priceBeforeTruckingCadM3 +
       Number(trucking_cad_m3);
 
-    // -----------------------------
-    // 7. Landed Cost (USD/bbl)
-    // -----------------------------
     const landedCostUsdBbl =
       landedCostCadM3 / (fx * light_oil_conversion_factor);
 
-    // -----------------------------
-    // 8. Diff to WTI (USD/bbl)
-    // -----------------------------
     const landedCostDiffToWtiUsdBbl =
       landedCostUsdBbl - wti;
 
-    // -----------------------------
-    // 9. Save Condensate Scenario
-    // -----------------------------
     const scenario = await prisma.condensateScenario.create({
       data: {
         scenario_name,
