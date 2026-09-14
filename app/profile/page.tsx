@@ -323,7 +323,7 @@ export default function ProfilePage() {
             <div className="bg-gray-50 p-5 rounded border space-y-4">
               <h2 className="font-semibold text-lg mb-3 text-gray-800">Address</h2>
 
-              {/* Address input */}
+              {/* ONE address textbox */}
               <label className="flex flex-col relative">
                 <span className="font-medium">Address</span>
                 <input
@@ -349,32 +349,32 @@ export default function ProfilePage() {
                 )}
               </label>
 
-              {/* Auto-filled fields */}
+              {/* Auto-filled fields as plain text */}
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="font-medium">City</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                  <div className="mt-1 text-gray-800">
                     {form.city || ""}
                   </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Province</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                  <div className="mt-1 text-gray-800">
                     {form.province || ""}
                   </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Postal Code</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                  <div className="mt-1 text-gray-800">
                     {form.postal_code || ""}
                   </div>
                 </div>
 
                 <div>
                   <span className="font-medium">Country</span>
-                  <div className="mt-1 border p-2 rounded bg-gray-100">
+                  <div className="mt-1 text-gray-800">
                     {form.country || ""}
                   </div>
                 </div>
