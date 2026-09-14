@@ -1,0 +1,107 @@
+[
+  {
+    "year": 2023,
+    "month": "Jun",
+    "llb_diff_usd_bbl": -13.51,
+    "llb_price_cad_m3": 474.27,
+    "llb_price_usd_bbl": 56.76
+  },
+  {
+    "year": 2023,
+    "month": "Jul",
+    "llb_diff_usd_bbl": -11.52,
+    "llb_price_cad_m3": 536.05,
+    "llb_price_usd_bbl": 64.51
+  },
+  {
+    "year": 2023,
+    "month": "Aug",
+    "llb_diff_usd_bbl": -11.15,
+    "llb_price_cad_m3": 595.17,
+    "llb_price_usd_bbl": 70.17
+  },
+  {
+    "year": 2023,
+    "month": "Sep",
+    "llb_diff_usd_bbl": -15.61,
+    "llb_price_cad_m3": 628.36,
+    "llb_price_usd_bbl": 73.82
+  },
+  {
+    "year": 2023,
+    "month": "Oct",
+    "llb_diff_usd_bbl": -18.09,
+    "llb_price_cad_m3": 581.32,
+    "llb_price_usd_bbl": 67.38
+  },
+  {
+    "year": 2023,
+    "month": "Nov",
+    "llb_diff_usd_bbl": -20.60,
+    "llb_price_cad_m3": 489.63,
+    "llb_price_usd_bbl": 56.78
+  },
+  {
+    "year": 2023,
+    "month": "Dec",
+    "llb_diff_usd_bbl": -26.45,
+    "llb_price_cad_m3": 385.75,
+    "llb_price_usd_bbl": 45.67
+  },
+  {
+    "year": 2024,
+    "month": "Jan",
+    "llb_diff_usd_bbl": -19.86,
+    "llb_price_cad_m3": 455.97,
+    "llb_price_usd_bbl": 54.00,
+    "wcb_diff_usd_bbl": -19.58,
+    "wcb_price_cad_m3": 458.34,
+    "wcb_price_usd_bbl": 54.28
+  },
+  {
+    "year": 2024,
+    "month": "Feb",
+    "llb_diff_usd_bbl": -18.58,
+    "llb_price_cad_m3": 492.82,
+    "llb_price_usd_bbl": 58.03,
+    "wcb_diff_usd_bbl": -18.21,
+    "wcb_price_cad_m3": 495.96,
+    "wcb_price_usd_bbl": 58.40
+  },
+  {
+    "year": 2024,
+    "month": "Mar",
+    "llb_diff_usd_bbl": -18.99,
+    "llb_price_cad_m3": 522.98,
+    "llb_price_usd_bbl": 61.42,
+    "wcb_diff_usd_bbl": -18.61,
+    "wcb_price_cad_m3": 526.22,
+    "wcb_price_usd_bbl": 61.80
+  },
+  {
+    "year": 2024,
+    "month": "Apr",
+    "llb_diff_usd_bbl": -15.67,
+    "llb_price_cad_m3": 591.10,
+    "llb_price_usd_bbl": 68.72,
+    "wcb_diff_usd_bbl": -15.23,
+    "wcb_price_cad_m3": 594.88,
+    "wcb_price_usd_bbl": 69.16
+  },
+  {
+    "year": 2024,
+    "month": "May",
+    "llb_diff_usd_bbl": -12.97,
+    "llb_price_cad_m3": 564.72,
+    "llb_price_usd_bbl": 65.65
+  },
+  {
+    "year": 2024,
+    "month": "Jun",
+    "llb_diff_usd_bbl": -11.94,
+    "llb_price_cad_m3": 575.86,
+    "llb_price_usd_bbl": 66.76
+  }
+]
+
+

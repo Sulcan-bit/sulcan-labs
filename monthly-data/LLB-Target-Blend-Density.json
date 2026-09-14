@@ -1,0 +1,14 @@
+[
+  { "year": 2024, "month": "Jan", "llb_target_blend_density_kg_m3": 921.5 },
+  { "year": 2024, "month": "Feb", "llb_target_blend_density_kg_m3": 919.9 },
+  { "year": 2024, "month": "Mar", "llb_target_blend_density_kg_m3": 918.7 },
+  { "year": 2024, "month": "Apr", "llb_target_blend_density_kg_m3": 920.1 },
+  { "year": 2024, "month": "May", "llb_target_blend_density_kg_m3": 923.0 },
+  { "year": 2024, "month": "Jun", "llb_target_blend_density_kg_m3": 926.0 },
+  { "year": 2024, "month": "Jul", "llb_target_blend_density_kg_m3": 928.7 },
+  { "year": 2024, "month": "Aug", "llb_target_blend_density_kg_m3": 931.4 },
+  { "year": 2024, "month": "Sep", "llb_target_blend_density_kg_m3": 931.8 },
+  { "year": 2024, "month": "Oct", "llb_target_blend_density_kg_m3": 931.8 },
+  { "year": 2024, "month": "Nov", "llb_target_blend_density_kg_m3": 929.2 },
+  { "year": 2024, "month": "Dec", "llb_target_blend_density_kg_m3": 926.4 }
+]

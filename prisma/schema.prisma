@@ -66,7 +66,6 @@ model MonthlyData {
   wcs_vs_wti_usd_bbl                Float?
   hvy_all_price_cad_m3              Float?
   wcs_vs_c5_diluent_cost_usd_bbl    Float?
-  enb_ref_temp                      Float?
   c4_to_wti_usd_bbl                 Float?
   c4_price_usd_bbl                  Float?
   c4_price_cad_m3                   Float?
@@ -132,6 +131,13 @@ clk_price_cad_m3   Float?
   scenarios                         Scenario[]
 
   @@unique([year, month], name: "year_month")
+}
+
+model EnbridgeRefTemp {
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  refTemp   Float
 }
 
 model Scenario {

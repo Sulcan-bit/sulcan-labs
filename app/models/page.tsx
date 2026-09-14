@@ -13,9 +13,8 @@ export default function ModelsPage() {
           </Link>
 
           <a href="/api/auth/logout" className="text-red-600 underline">
-  Logout
-</a>
-
+            Logout
+          </a>
         </div>
 
         <h1 className="text-2xl font-bold mb-6">Select a Model</h1>
@@ -35,12 +34,22 @@ export default function ModelsPage() {
           >
             WTI Futures Curve (3-Year)
           </Link>
+
+          {/* ⭐ NEW: Condensate Comparison Model */}
+          <Link
+            href="/condensate"
+            prefetch={false}
+            className="block p-4 rounded bg-gray-700 text-white text-center"
+          >
+            Condensate Comparison Model
+          </Link>
         </div>
 
       </div>
     </main>
   );
 }
+
 
 
 

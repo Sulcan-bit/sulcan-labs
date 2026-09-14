@@ -1,0 +1,37 @@
+[
+  { "startDate": "2024-01-01", "endDate": "2024-01-15", "refTemp": 8.0 },
+  { "startDate": "2024-01-16", "endDate": "2024-01-31", "refTemp": 7.5 },
+
+  { "startDate": "2024-02-01", "endDate": "2024-02-15", "refTemp": 7.5 },
+  { "startDate": "2024-02-16", "endDate": "2024-02-28", "refTemp": 7.5 },
+
+  { "startDate": "2024-03-01", "endDate": "2024-03-15", "refTemp": 7.5 },
+  { "startDate": "2024-03-16", "endDate": "2024-03-31", "refTemp": 7.5 },
+
+  { "startDate": "2024-04-01", "endDate": "2024-04-15", "refTemp": 7.5 },
+  { "startDate": "2024-04-16", "endDate": "2024-04-30", "refTemp": 8.5 },
+
+  { "startDate": "2024-05-01", "endDate": "2024-05-15", "refTemp": 9.5 },
+  { "startDate": "2024-05-16", "endDate": "2024-05-31", "refTemp": 11.5 },
+
+  { "startDate": "2024-06-01", "endDate": "2024-06-15", "refTemp": 13.0 },
+  { "startDate": "2024-06-16", "endDate": "2024-06-30", "refTemp": 15.0 },
+
+  { "startDate": "2024-07-01", "endDate": "2024-07-15", "refTemp": 16.0 },
+  { "startDate": "2024-07-16", "endDate": "2024-07-31", "refTemp": 17.0 },
+
+  { "startDate": "2024-08-01", "endDate": "2024-08-15", "refTemp": 18.0 },
+  { "startDate": "2024-08-16", "endDate": "2024-08-31", "refTemp": 18.5 },
+
+  { "startDate": "2024-09-01", "endDate": "2024-09-15", "refTemp": 18.5 },
+  { "startDate": "2024-09-16", "endDate": "2024-09-30", "refTemp": 17.0 },
+
+  { "startDate": "2024-10-01", "endDate": "2024-10-15", "refTemp": 15.5 },
+  { "startDate": "2024-10-16", "endDate": "2024-10-31", "refTemp": 14.0 },
+
+  { "startDate": "2024-11-01", "endDate": "2024-11-15", "refTemp": 12.5 },
+  { "startDate": "2024-11-16", "endDate": "2024-11-30", "refTemp": 10.5 },
+
+  { "startDate": "2024-12-01", "endDate": "2024-12-15", "refTemp": 9.5 },
+  { "startDate": "2024-12-16", "endDate": "2024-12-31", "refTemp": 8.5 }
+]
