@@ -34,7 +34,7 @@ export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);
 
   const [suggestions, setSuggestions] = useState<
-    { description: string; place_id: string }[]
+    { place_id: string; description: string }[]
   >([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -122,7 +122,7 @@ export default function ProfilePage() {
     }
   }
 
-  // Google Autocomplete
+  // GOOGLE PLACES API v1 — AUTOCOMPLETE
   async function handleAddressInput(value: string) {
     setForm((prev) => ({ ...prev, address_line1: value }));
 
@@ -133,57 +133,60 @@ export default function ProfilePage() {
     }
 
     try {
-      const url =
-        `https://maps.googleapis.com/maps/api/place/autocomplete/json` +
-        `?input=${encodeURIComponent(value)}` +
-        `&components=country:ca` +
-        `&types=address` +
-        `&key=${GOOGLE_API_KEY}`;
+      const url = `https://places.googleapis.com/v1/places:autocomplete?key=${GOOGLE_API_KEY}`;
 
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Goog-FieldMask": "suggestions.placeId,suggestions.formattedSuggestion",
+        },
+        body: JSON.stringify({
+          input: value,
+          includedPrimaryTypes: ["street_address"],
+          regionCode: "CA",
+        }),
+      });
+
       const json = await res.json();
 
-      if (json.status !== "OK") {
-        setSuggestions([]);
-        setShowSuggestions(false);
-        return;
-      }
+      const mapped = (json.suggestions || []).map((s: any) => ({
+        place_id: s.placeId,
+        description: s.formattedSuggestion,
+      }));
 
-      setSuggestions(
-        json.predictions.map((p: any) => ({
-          description: p.description,
-          place_id: p.place_id,
-        }))
-      );
-
+      setSuggestions(mapped);
       setShowSuggestions(true);
     } catch (err) {
       console.error("Autocomplete error:", err);
     }
   }
 
-  // Google Place Details
+  // GOOGLE PLACES API v1 — PLACE DETAILS
   async function handleSelectSuggestion(place_id: string, description: string) {
     setShowSuggestions(false);
 
     try {
-      const url =
-        `https://maps.googleapis.com/maps/api/place/details/json` +
-        `?place_id=${place_id}` +
-        `&fields=address_component,formatted_address` +
-        `&key=${GOOGLE_API_KEY}`;
+      const url = `https://places.googleapis.com/v1/places/${place_id}?key=${GOOGLE_API_KEY}`;
 
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Goog-FieldMask":
+            "addressComponents,formattedAddress",
+        },
+      });
+
       const json = await res.json();
 
-      const components = json?.result?.address_components ?? [];
+      const components = json.addressComponents || [];
 
       const get = (type: string) =>
-        components.find((c: any) => c.types.includes(type))?.long_name ?? "";
+        components.find((c: any) => c.types.includes(type))?.longText ?? "";
 
       const streetNumber = get("street_number");
       const route = get("route");
-      const city = get("locality") || get("sublocality");
+      const city = get("locality");
       const province = get("administrative_area_level_1");
       const postalCode = get("postal_code");
       const country = get("country");
@@ -349,7 +352,7 @@ export default function ProfilePage() {
                 )}
               </label>
 
-              {/* Auto-filled fields as plain text */}
+              {/* Auto-filled fields */}
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
                   <span className="font-medium">City</span>
@@ -404,3 +407,4 @@ export default function ProfilePage() {
     </main>
   );
 }
+
