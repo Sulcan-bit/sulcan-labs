@@ -99,17 +99,28 @@ function ComparisonTableContent() {
         </div>
 
         {/* PRINT BUTTON */}
-        <div className="mb-6">
-          <button
-            onClick={() => window.print()}
-            className="px-4 py-2 bg-black text-white rounded"
-          >
-            Print to PDF
-          </button>
-        </div>
+<div className="mb-6">
+  <button
+    onClick={() => window.print()}
+    className="px-4 py-2 bg-black text-white rounded"
+  >
+    Print to PDF
+  </button>
+</div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full border text-sm">
+{/* ADD ANOTHER CONDENSATE SOURCE */}
+<div className="mb-6">
+  <Link
+    href={`/condensate?ids=${scenarioIds.join(",")}`}
+    className="px-4 py-2 bg-blue-600 text-white rounded"
+  >
+    + Add Another Condensate Source
+  </Link>
+</div>
+
+<div className="overflow-x-auto">
+  <table className="min-w-full border text-sm">
+
 
             <thead className="bg-gray-100">
               <tr>

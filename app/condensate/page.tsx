@@ -4,8 +4,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";   // ← NEW
 
 export default function CondensateInputPage() {
+  const searchParams = useSearchParams();            // ← NEW
+  const existingIds = searchParams.get("ids");       // ← NEW
+
   const [form, setForm] = useState({
   scenario_name: "",
   month: "",
@@ -50,7 +54,10 @@ export default function CondensateInputPage() {
       return;
     }
 
-    window.location.href = `/condensate/comparison/table?ids=${data.scenarioId}`;
+    const existing = new URLSearchParams(window.location.search).get("ids");
+const newIds = existing ? `${existing},${data.scenarioId}` : `${data.scenarioId}`;
+window.location.href = `/condensate/comparison/table?ids=${newIds}`;
+
   }
 
   return (
