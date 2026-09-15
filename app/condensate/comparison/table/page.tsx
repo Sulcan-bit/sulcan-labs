@@ -241,7 +241,7 @@ function ComparisonTableContent() {
 
               {/* Stream Diff */}
               <tr>
-                <td className="border p-2 font-medium">Stream Diff (USD/bbl)</td>
+                <td className="border p-2 font-medium">Condensate Stream Diff (USD/bbl)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.stream_diff_usd_bbl, 2)}
@@ -251,7 +251,7 @@ function ComparisonTableContent() {
 
               {/* Stream Price USD/bbl */}
               <tr>
-                <td className="border p-2 font-medium">Stream Price (USD/bbl)</td>
+                <td className="border p-2 font-medium">Condensate Stream Price (USD/bbl)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.stream_price_usd_bbl, 2)}
@@ -261,7 +261,7 @@ function ComparisonTableContent() {
 
               {/* Stream Price CAD/m³ */}
               <tr>
-                <td className="border p-2 font-medium">Stream Price (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Stream Price (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.stream_price_cad_m3, 2)}
@@ -271,7 +271,7 @@ function ComparisonTableContent() {
 
               {/* WADF */}
               <tr>
-                <td className="border p-2 font-medium">WADF (CAD/m³)</td>
+                <td className="border p-2 font-medium">CondensateWADF (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.wadf_cad_m3, 2)}
@@ -281,7 +281,7 @@ function ComparisonTableContent() {
 
               {/* PAR Price */}
               <tr>
-                <td className="border p-2 font-medium">PAR Price (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate PAR Price (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.par_price_cad_m3, 2)}
@@ -291,7 +291,7 @@ function ComparisonTableContent() {
 
               {/* EQ */}
               <tr>
-                <td className="border p-2 font-medium">EQ (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate EQ - Density/Sulphur/Deemed Butane (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.eq_adjustment_cad_m3, 2)}
@@ -301,7 +301,7 @@ function ComparisonTableContent() {
 
               {/* Tariff */}
               <tr>
-                <td className="border p-2 font-medium">Tariff (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Tariff (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.inputs?.tariff_cad_m3, 2)}
@@ -311,7 +311,7 @@ function ComparisonTableContent() {
 
               {/* Load Fee */}
               <tr>
-                <td className="border p-2 font-medium">Load Fee (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Load Fee (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.inputs?.loading_fee_cad_m3, 2)}
@@ -321,7 +321,7 @@ function ComparisonTableContent() {
 
               {/* Loss Allowance */}
               <tr>
-                <td className="border p-2 font-medium">Loss Allowance (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Loss Allowance (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.inputs?.loss_allowance_cad_m3, 2)}
@@ -331,7 +331,7 @@ function ComparisonTableContent() {
 
               {/* Premium/Discount */}
               <tr>
-                <td className="border p-2 font-medium">Premium/Discount (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Premium/Discount (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.inputs?.premium_discount_cad_m3, 2)}
@@ -341,7 +341,7 @@ function ComparisonTableContent() {
 
               {/* Price Before Trucking */}
               <tr className="bg-gray-50">
-                <td className="border p-2 font-semibold">Price Before Trucking (CAD/m³)</td>
+                <td className="border p-2 font-semibold">Condensate Price Before Trucking (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2 font-semibold">
                     {fmtMoney(s.results?.price_before_trucking_cad_m3, 2)}
@@ -351,7 +351,7 @@ function ComparisonTableContent() {
 
               {/* Trucking */}
               <tr>
-                <td className="border p-2 font-medium">Trucking (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate Trucking (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.inputs?.trucking_cad_m3, 2)}
