@@ -87,16 +87,19 @@ export async function POST(req: Request) {
     const diffField = diffMap[supplier] ?? null;
 
     const streamDiffUsdBbl =
-      diffField ? (monthly[diffField as keyof typeof monthly] ?? 0) : 0;
+      diffField
+        ? Number(monthly[diffField as keyof typeof monthly] ?? 0)
+        : 0;
 
-    const wti = monthly.wti_cma_usd_bbl ?? 0;
-    const fx = monthly.fx_cad_usd ?? 0;
+    const wti = Number(monthly.wti_cma_usd_bbl ?? 0);
+    const fx = Number(monthly.fx_cad_usd ?? 0);
 
-    const streamPriceUsdBbl = Number(wti) + Number(streamDiffUsdBbl);
+    const streamPriceUsdBbl = wti + streamDiffUsdBbl;
 
-    const streamPriceCadM3 = Number(streamPriceUsdBbl) * Number(fx) * light_oil_conversion_factor;
+    const streamPriceCadM3 =
+      streamPriceUsdBbl * fx * light_oil_conversion_factor;
 
-    const wadfCadM3 = monthly.crw_c5_enb_wadf_cad_m3 ?? 0;
+    const wadfCadM3 = Number(monthly.crw_c5_enb_wadf_cad_m3 ?? 0);
 
     const parPriceCadM3 =
       streamPriceUsdBbl * fx * light_oil_conversion_factor +
@@ -125,7 +128,8 @@ export async function POST(req: Request) {
       priceBeforeTruckingCadM3 +
       Number(trucking_cad_m3);
 
-    const landedCostUsdBbl = Number(landedCostCadM3) / (Number(fx) * light_oil_conversion_factor);
+    const landedCostUsdBbl =
+      landedCostCadM3 / (fx * light_oil_conversion_factor);
 
     const landedCostDiffToWtiUsdBbl =
       landedCostUsdBbl - wti;
@@ -184,3 +188,4 @@ export async function POST(req: Request) {
     );
   }
 }
+
