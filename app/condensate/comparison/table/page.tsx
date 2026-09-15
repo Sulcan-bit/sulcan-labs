@@ -271,7 +271,7 @@ function ComparisonTableContent() {
 
               {/* WADF */}
               <tr>
-                <td className="border p-2 font-medium">CondensateWADF (CAD/m³)</td>
+                <td className="border p-2 font-medium">Condensate WADF (CAD/m³)</td>
                 {scenarios.map((s) => (
                   <td key={s.id} className="border p-2">
                     {fmtMoney(s.results?.wadf_cad_m3, 2)}
@@ -290,14 +290,27 @@ function ComparisonTableContent() {
               </tr>
 
               {/* EQ */}
-              <tr>
-                <td className="border p-2 font-medium">Condensate EQ - Density/Sulphur/Deemed Butane (CAD/m³)</td>
-                {scenarios.map((s) => (
-                  <td key={s.id} className="border p-2">
-                    {fmtMoney(s.results?.eq_adjustment_cad_m3, 2)}
-                  </td>
-                ))}
-              </tr>
+<tr>
+  <td className="border p-2 font-medium">Condensate EQ - Density/Sulphur/Deemed Butane (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtMoney(s.results?.eq_adjustment_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Price After EQ */}
+<tr>
+  <td className="border p-2 font-medium">Condensate Price After EQ (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtMoney(s.results?.condensate_price_after_eq_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
+
+
 
               {/* Tariff */}
               <tr>
@@ -330,14 +343,35 @@ function ComparisonTableContent() {
               </tr>
 
               {/* Premium/Discount */}
-              <tr>
-                <td className="border p-2 font-medium">Condensate Premium/Discount (CAD/m³)</td>
-                {scenarios.map((s) => (
-                  <td key={s.id} className="border p-2">
-                    {fmtMoney(s.inputs?.premium_discount_cad_m3, 2)}
-                  </td>
-                ))}
-              </tr>
+<tr>
+  <td className="border p-2 font-medium">Condensate Premium/Discount (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtMoney(s.inputs?.premium_discount_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* EDI Fee */}
+<tr>
+  <td className="border p-2 font-medium">EDI Fee (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtMoney(s.results?.edi_fee_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* COLC Fee */}
+<tr>
+  <td className="border p-2 font-medium">COLC Fee (CAD/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmtMoney(s.results?.colc_fee_cad_m3, 2)}
+    </td>
+  ))}
+</tr>
+
 
               {/* Price Before Trucking */}
               <tr className="bg-gray-50">

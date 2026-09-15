@@ -7,24 +7,26 @@ import Link from "next/link";
 
 export default function CondensateInputPage() {
   const [form, setForm] = useState({
-    scenario_name: "",
-    month: "",
-    supplier: "",
-    source_location: "",
-    trucking_time_hours: "",
-    density_kg_m3: "",
-    sulphur_pct: "",
-    c2_pct: "",
-    c3_pct: "",
-    c4_pct: "",
-    destination: "",
-    heavy_stream: "",
-    tariff_cad_m3: "",
-    loading_fee_cad_m3: "",
-    loss_allowance_cad_m3: "",
-    premium_discount_cad_m3: "",
-    trucking_cad_m3: "",
-  });
+  scenario_name: "",
+  month: "",
+  supplier: "",
+  source_location: "",
+  trucking_time_hours: "",
+  density_kg_m3: "",
+  sulphur_pct: "",
+  c2_pct: "",
+  c3_pct: "",
+  c4_pct: "",
+  destination: "",
+  heavy_stream: "",
+  tariff_cad_m3: "",
+  loading_fee_cad_m3: "",
+  loss_allowance_cad_m3: "",
+  premium_discount_cad_m3: "",
+  trucking_cad_m3: "",
+  apply_edi_colc: false,   // NEW FIELD
+});
+
 
   const [saving, setSaving] = useState(false);
 
@@ -266,13 +268,26 @@ export default function CondensateInputPage() {
               </div>
 
               <div>
-                <label className="block font-medium mb-1">Trucking Cost</label>
-                <input
-                  className="border p-2 rounded w-full"
-                  value={form.trucking_cad_m3}
-                  onChange={(e) => update("trucking_cad_m3", e.target.value)}
-                />
-              </div>
+  <label className="block font-medium mb-1">Trucking Cost</label>
+  <input
+    className="border p-2 rounded w-full"
+    value={form.trucking_cad_m3}
+    onChange={(e) => update("trucking_cad_m3", e.target.value)}
+  />
+</div>
+
+{/* Apply EDI/COLC Fees */}
+<div className="col-span-2 flex items-center space-x-2">
+  <input
+    type="checkbox"
+    checked={form.apply_edi_colc}
+    onChange={(e) => update("apply_edi_colc", e.target.checked)}
+  />
+  <label className="font-medium">
+    Apply EDI & COLC Pipeline Fees
+  </label>
+</div>
+
 
             </div>
           </div>
