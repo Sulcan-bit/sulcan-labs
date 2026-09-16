@@ -4,34 +4,33 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";   // ← NEW
-import { Suspense } from "react";   // ← ADD THIS AT TOP
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function CondensateInputPage() {
-  const searchParams = useSearchParams();            // ← NEW
-  const existingIds = searchParams.get("ids");       // ← NEW
+function CondensateInputPageInner() {
+  const searchParams = useSearchParams();
+  const existingIds = searchParams.get("ids");
 
   const [form, setForm] = useState({
-  scenario_name: "",
-  month: "",
-  supplier: "",
-  source_location: "",
-  trucking_time_hours: "",
-  density_kg_m3: "",
-  sulphur_pct: "",
-  c2_pct: "",
-  c3_pct: "",
-  c4_pct: "",
-  destination: "",
-  heavy_stream: "",
-  tariff_cad_m3: "",
-  loading_fee_cad_m3: "",
-  loss_allowance_cad_m3: "",
-  premium_discount_cad_m3: "",
-  trucking_cad_m3: "",
-  apply_edi_colc: false,   // NEW FIELD
-});
-
+    scenario_name: "",
+    month: "",
+    supplier: "",
+    source_location: "",
+    trucking_time_hours: "",
+    density_kg_m3: "",
+    sulphur_pct: "",
+    c2_pct: "",
+    c3_pct: "",
+    c4_pct: "",
+    destination: "",
+    heavy_stream: "",
+    tariff_cad_m3: "",
+    loading_fee_cad_m3: "",
+    loss_allowance_cad_m3: "",
+    premium_discount_cad_m3: "",
+    trucking_cad_m3: "",
+    apply_edi_colc: false,
+  });
 
   const [saving, setSaving] = useState(false);
 
@@ -56,15 +55,14 @@ export default function CondensateInputPage() {
     }
 
     const existing = new URLSearchParams(window.location.search).get("ids");
-const newIds = existing ? `${existing},${data.scenarioId}` : `${data.scenarioId}`;
-window.location.href = `/condensate/comparison/table?ids=${newIds}`;
-
+    const newIds = existing ? `${existing},${data.scenarioId}` : `${data.scenarioId}`;
+    window.location.href = `/condensate/comparison/table?ids=${newIds}`;
   }
 
   return (
-    <Suspense fallback={<div>Loading…</div>}>   {/* ← NEW WRAPPER */}
     <main className="min-h-screen bg-gray-50 p-6">
       <div className="bg-white p-8 rounded shadow max-w-3xl mx-auto">
+
 
         <h1 className="text-2xl font-bold mb-6">
           Condensate Comparison Model
@@ -299,7 +297,7 @@ window.location.href = `/condensate/comparison/table?ids=${newIds}`;
             </div>
           </div>
 
-          <button
+                    <button
             onClick={handleSubmit}
             disabled={saving}
             className="px-5 py-2 bg-black text-white rounded w-full"
@@ -310,6 +308,14 @@ window.location.href = `/condensate/comparison/table?ids=${newIds}`;
         </div>
       </div>
     </main>
-     </Suspense>
   );
 }
+
+export default function CondensateInputPage() {
+  return (
+    <Suspense fallback={<div>Loading…</div>}>
+      <CondensateInputPageInner />
+    </Suspense>
+  );
+}
+
