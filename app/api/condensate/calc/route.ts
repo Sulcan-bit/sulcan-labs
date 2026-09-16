@@ -169,7 +169,7 @@ const colcFeeApplied = apply_edi_colc ? colc_fee_cad_m3 : 0;
           trucking_cad_m3: Number(trucking_cad_m3),
         },
 
-        results: {
+       results: {
   wti_usd_bbl: wti,
   fx_cad_usd: fx,
 
@@ -180,7 +180,10 @@ const colcFeeApplied = apply_edi_colc ? colc_fee_cad_m3 : 0;
   wadf_cad_m3: wadfCadM3,
   par_price_cad_m3: parPriceCadM3,
 
-  // NEW FIELDS
+  // NEW: expose slope constants
+  condensate_density_slope: monthly.c5_density_slope_cad_m3_per_kg_m3 ?? 0,
+  condensate_sulphur_slope: condensate_sulphur_slope,
+
   condensate_price_after_eq_cad_m3: condensatePriceAfterEqCadM3,
   edi_fee_cad_m3: ediFeeApplied,
   colc_fee_cad_m3: colcFeeApplied,
@@ -192,6 +195,7 @@ const colcFeeApplied = apply_edi_colc ? colc_fee_cad_m3 : 0;
   landed_cost_usd_bbl: landedCostUsdBbl,
   landed_cost_diff_to_wti_usd_bbl: landedCostDiffToWtiUsdBbl,
 },
+
 
       },
     });
