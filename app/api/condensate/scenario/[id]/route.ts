@@ -3,12 +3,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(request: NextRequest, context: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const id = Number(context.params.id);
+    // Next.js 16.3 requires awaiting params
+    const { id } = await context.params;
 
     const scenario = await prisma.condensateScenario.findUnique({
-      where: { id },
+      where: { id: Number(id) },
     });
 
     if (!scenario) {
@@ -21,4 +22,5 @@ export async function GET(request: NextRequest, context: { params: { id: string 
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
 
