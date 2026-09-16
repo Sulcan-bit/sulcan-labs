@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 
 // ---- Type Definitions ----
@@ -17,8 +17,7 @@ interface CondensateScenario {
 
 type ScenarioGroups = Record<string, CondensateScenario[]>;
 
-// ---- Component ----
-export default function CondensateHistoryPage() {
+function CondensateHistoryPageInner() {
   const [loading, setLoading] = useState(true);
   const [groups, setGroups] = useState<ScenarioGroups>({});
 
@@ -104,3 +103,10 @@ export default function CondensateHistoryPage() {
   );
 }
 
+export default function CondensateHistoryPage() {
+  return (
+    <Suspense fallback={<div>Loading…</div>}>
+      <CondensateHistoryPageInner />
+    </Suspense>
+  );
+}
