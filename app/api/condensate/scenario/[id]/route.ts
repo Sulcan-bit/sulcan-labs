@@ -1,7 +1,8 @@
 // app/api/condensate/scenario/[id]/route.ts
 
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma"; // adjust path if needed
+import { prisma } from "@/lib/prisma";
+
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   try {
