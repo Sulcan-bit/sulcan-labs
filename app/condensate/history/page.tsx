@@ -3,6 +3,7 @@
 "use client";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -25,7 +26,10 @@ export default function CondensateHistoryPage() {
 
   useEffect(() => {
     async function load() {
-      const res = await fetch("/api/condensate/scenarios");
+      const res = await fetch("/api/condensate/scenarios", {
+        cache: "no-store",
+      });
+
       const data: CondensateScenario[] = await res.json();
 
       const grouped: ScenarioGroups = data.reduce(
@@ -104,3 +108,4 @@ export default function CondensateHistoryPage() {
     </main>
   );
 }
+
