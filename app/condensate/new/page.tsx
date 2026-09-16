@@ -2,13 +2,11 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { useEffect } from "react"; // add at top if missing
 
-function CondensateInputPageInner() {
+export default function CondensateInputPage() {
   const searchParams = useSearchParams();
   const existingIds = searchParams.get("ids");
 
@@ -39,21 +37,21 @@ function CondensateInputPageInner() {
   const update = (field: string, value: any) =>
     setForm((prev) => ({ ...prev, [field]: value }));
 
-useEffect(() => {
-  if (!existingIds) return;
+  useEffect(() => {
+    if (!existingIds) return;
 
-  const ids = existingIds.split(",");
-  const lastId = ids[ids.length - 1];
+    const ids = existingIds.split(",");
+    const lastId = ids[ids.length - 1];
 
-  fetch(`/api/condensate/scenario/${lastId}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data?.scenario_name) {
-        setPreviousScenarioName(data.scenario_name);
-      }
-    })
-    .catch(() => {});
-}, [existingIds]);
+    fetch(`/api/condensate/scenario/${lastId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.scenario_name) {
+          setPreviousScenarioName(data.scenario_name);
+        }
+      })
+      .catch(() => {});
+  }, [existingIds]);
 
   async function handleSubmit() {
     setSaving(true);
@@ -78,49 +76,45 @@ useEffect(() => {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 p-6">
-      <div className="bg-white p-8 rounded shadow max-w-3xl mx-auto">
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white p-10 rounded-xl shadow-lg max-w-3xl w-full">
 
-
-        <h1 className="text-2xl font-bold mb-6">
+        {/* Header */}
+        <h1 className="text-3xl font-bold mb-8 text-gray-900">
           Condensate Comparison Model
         </h1>
 
         <div className="mb-6">
           <Link href="/condensate" className="text-blue-600 underline">
-  ← Back to Condensate Home
-</Link>
-
+            ← Back to Condensate Home
+          </Link>
         </div>
 
         <div className="space-y-6">
 
           {/* Scenario Name */}
-<div>
-  <label className="block font-medium mb-1">Scenario Name</label>
+          <div>
+            <label className="block font-medium mb-1">Scenario Name</label>
 
-  {/* Dropdown to reuse previous scenario name */}
-  <select
-    className="border p-2 rounded w-full mb-2"
-    onChange={(e) => update("scenario_name", e.target.value)}
-  >
-    <option value="">Type a new Scenario Name</option>
-    {previousScenarioName && (
-      <option value={previousScenarioName}>
-        Use previous: {previousScenarioName}
-      </option>
-    )}
-  </select>
+            <select
+              className="border p-2 rounded w-full mb-2"
+              onChange={(e) => update("scenario_name", e.target.value)}
+            >
+              <option value="">Type a new Scenario Name</option>
+              {previousScenarioName && (
+                <option value={previousScenarioName}>
+                  Use previous: {previousScenarioName}
+                </option>
+              )}
+            </select>
 
-  {/* Text input for new scenario name */}
-  <input
-    className="border p-2 rounded w-full"
-    placeholder="Enter Scenario Name"
-    value={form.scenario_name}
-    onChange={(e) => update("scenario_name", e.target.value)}
-  />
-</div>
-
+            <input
+              className="border p-2 rounded w-full"
+              placeholder="Enter Scenario Name"
+              value={form.scenario_name}
+              onChange={(e) => update("scenario_name", e.target.value)}
+            />
+          </div>
 
           {/* Month */}
           <div>
@@ -146,7 +140,7 @@ useEffect(() => {
             </select>
           </div>
 
-          {/* Condensate Supplier */}
+          {/* Supplier */}
           <div>
             <label className="block font-medium mb-1">Condensate Supplier</label>
             <select
@@ -162,7 +156,7 @@ useEffect(() => {
             </select>
           </div>
 
-          {/* Condensate Source Location */}
+          {/* Source Location */}
           <div>
             <label className="block font-medium mb-1">Condensate Source Location</label>
             <input
@@ -189,7 +183,7 @@ useEffect(() => {
             <h2 className="font-semibold mb-3">Condensate Properties</h2>
 
             <div className="grid grid-cols-2 gap-4">
-
+              {/* Density */}
               <div>
                 <label className="block font-medium mb-1">Density (KG/M3)</label>
                 <input
@@ -199,6 +193,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* Sulphur */}
               <div>
                 <label className="block font-medium mb-1">Sulphur (%Swt)</label>
                 <input
@@ -208,6 +203,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* C2 */}
               <div>
                 <label className="block font-medium mb-1">C2 (%vol)</label>
                 <input
@@ -217,6 +213,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* C3 */}
               <div>
                 <label className="block font-medium mb-1">C3 (%vol)</label>
                 <input
@@ -226,6 +223,7 @@ useEffect(() => {
                 />
               </div>
 
+              {/* C4 */}
               <div>
                 <label className="block font-medium mb-1">C4 (%vol)</label>
                 <input
@@ -234,7 +232,6 @@ useEffect(() => {
                   onChange={(e) => update("c4_pct", e.target.value)}
                 />
               </div>
-
             </div>
           </div>
 
@@ -269,89 +266,84 @@ useEffect(() => {
           </div>
 
           {/* Cost Inputs */}
-<div className="bg-gray-100 p-4 rounded border">
-  <h2 className="font-semibold mb-3">Cost Inputs (CAD/M3)</h2>
+          <div className="bg-gray-100 p-4 rounded border">
+            <h2 className="font-semibold mb-3">Cost Inputs (CAD/M3)</h2>
 
-  <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
 
-    <div>
-      <label className="block font-medium mb-1">Pipeline Tariff</label>
-      <input
-        className="border p-2 rounded w-full"
-        value={form.tariff_cad_m3}
-        onChange={(e) => update("tariff_cad_m3", e.target.value)}
-      />
-    </div>
+              <div>
+                <label className="block font-medium mb-1">Pipeline Tariff</label>
+                <input
+                  className="border p-2 rounded w-full"
+                  value={form.tariff_cad_m3}
+                  onChange={(e) => update("tariff_cad_m3", e.target.value)}
+                />
+              </div>
 
-    <div>
-      <label className="block font-medium mb-1">Load / Unload Fee</label>
-      <input
-        className="border p-2 rounded w-full"
-        value={form.loading_fee_cad_m3}
-        onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
-      />
-    </div>
+              <div>
+                <label className="block font-medium mb-1">Load / Unload Fee</label>
+                <input
+                  className="border p-2 rounded w-full"
+                  value={form.loading_fee_cad_m3}
+                  onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
+                />
+              </div>
 
-    <div>
-      <label className="block font-medium mb-1">Loss Allowance</label>
-      <input
-        className="border p-2 rounded w-full"
-        value={form.loss_allowance_cad_m3}
-        onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
-      />
-    </div>
+              <div>
+                <label className="block font-medium mb-1">Loss Allowance</label>
+                <input
+                  className="border p-2 rounded w-full"
+                  value={form.loss_allowance_cad_m3}
+                  onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
+                />
+              </div>
 
-    <div>
-      <label className="block font-medium mb-1">Premium / Discount</label>
-      <input
-        className="border p-2 rounded w-full"
-        value={form.premium_discount_cad_m3}
-        onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
-      />
-    </div>
+              <div>
+                <label className="block font-medium mb-1">Premium / Discount</label>
+                <input
+                  className="border p-2 rounded w-full"
+                  value={form.premium_discount_cad_m3}
+                  onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
+                />
+              </div>
 
-    <div>
-      <label className="block font-medium mb-1">Trucking Cost</label>
-      <input
-        className="border p-2 rounded w-full"
-        value={form.trucking_cad_m3}
-        onChange={(e) => update("trucking_cad_m3", e.target.value)}
-      />
-    </div>
+              <div>
+                <label className="block font-medium mb-1">Trucking Cost</label>
+                <input
+                  className="border p-2 rounded w-full"
+                  value={form.trucking_cad_m3}
+                  onChange={(e) => update("trucking_cad_m3", e.target.value)}
+                />
+              </div>
 
-    {/* Apply EDI/COLC Fees */}
-    <div className="col-span-2 flex items-center space-x-2">
-      <input
-        type="checkbox"
-        checked={form.apply_edi_colc}
-        onChange={(e) => update("apply_edi_colc", e.target.checked)}
-      />
-      <label className="font-medium">
-        Apply EDI & COLC Pipeline Fees
-      </label>
-    </div>
+              {/* Apply EDI/COLC Fees */}
+              <div className="col-span-2 flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={form.apply_edi_colc}
+                  onChange={(e) => update("apply_edi_colc", e.target.checked)}
+                />
+                <label className="font-medium">
+                  Apply EDI & COLC Pipeline Fees
+                </label>
+              </div>
 
-  </div>
-</div>
+            </div>
+          </div>
 
-<button
-  onClick={handleSubmit}
-  disabled={saving}
-  className="px-5 py-2 bg-black text-white rounded w-full"
->
-  {saving ? "Calculating…" : "Calculate Condensate Economics"}
-</button>
+        </div>
 
-</div>
-</div>
-</main>
-);
-}
+        {/* Submit Button */}
+        <button
+          onClick={handleSubmit}
+          disabled={saving}
+          className="mt-8 px-5 py-3 bg-black text-white rounded w-full font-medium"
+        >
+          {saving ? "Calculating…" : "Calculate Condensate Economics"}
+        </button>
 
-export default function CondensateInputPage() {
-  return (
-    <Suspense fallback={<div>Loading…</div>}>
-      <CondensateInputPageInner />
-    </Suspense>
+      </div>
+    </main>
   );
 }
+

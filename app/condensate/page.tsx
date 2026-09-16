@@ -1,39 +1,58 @@
 // app/condensate/page.tsx
 
-"use client";
+export const dynamic = "force-dynamic";
 
+import { redirect } from "next/navigation";
+import { getUserFromSession } from "@/lib/auth";
 import Link from "next/link";
 
-export default function CondensateHomePage() {
-  return (
-    <main className="min-h-screen bg-gray-50 p-6">
-      <div className="bg-white p-8 rounded shadow max-w-3xl mx-auto">
+export default async function CondensateHomePage() {
+  const user = await getUserFromSession();
 
-        <h1 className="text-2xl font-bold mb-6">
+  if (!user) {
+    redirect("/login");
+  }
+
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="bg-white p-10 rounded-xl shadow-lg max-w-md w-full">
+
+        {/* Title */}
+        <h1 className="text-3xl font-bold mb-8 text-gray-900">
           Condensate Comparison Model
         </h1>
 
-        <div className="space-y-6">
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-4">
 
-          {/* New Condensate Model */}
           <Link
             href="/condensate/new"
-            className="block px-5 py-3 bg-black text-white rounded text-center"
+            className="w-full p-4 rounded-lg bg-black text-white text-center font-medium hover:bg-gray-900 transition"
           >
             New Condensate Model Setup
           </Link>
 
-          {/* History */}
           <Link
             href="/condensate/history"
-            className="block px-5 py-3 bg-gray-800 text-white rounded text-center"
+            className="w-full p-4 rounded-lg bg-gray-800 text-white text-center font-medium hover:bg-gray-700 transition"
           >
             Condensate Comparison History
           </Link>
 
         </div>
 
+        {/* Navigation Footer */}
+        <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+          <Link
+            href="/models"
+            className="text-blue-600 hover:text-blue-800 font-medium underline"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+
       </div>
     </main>
   );
 }
+
