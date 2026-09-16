@@ -110,7 +110,7 @@ function CondensateInputPageInner() {
 
             <input
               className="border p-2 rounded w-full"
-              placeholder="Enter Scenario Name - e.g., 'Condensate Comparison Jan 2024'"
+              placeholder="e.g., 'Condensate Comparison Jan 2024'"
               value={form.scenario_name}
               onChange={(e) => update("scenario_name", e.target.value)}
             />
