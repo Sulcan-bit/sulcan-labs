@@ -2,7 +2,9 @@
 
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+export const dynamic = "force-dynamic";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 // ---- Type Definitions ----
@@ -17,7 +19,7 @@ interface CondensateScenario {
 
 type ScenarioGroups = Record<string, CondensateScenario[]>;
 
-function CondensateHistoryPageInner() {
+export default function CondensateHistoryPage() {
   const [loading, setLoading] = useState(true);
   const [groups, setGroups] = useState<ScenarioGroups>({});
 
@@ -100,13 +102,5 @@ function CondensateHistoryPageInner() {
 
       </div>
     </main>
-  );
-}
-
-export default function CondensateHistoryPage() {
-  return (
-    <Suspense fallback={<div>Loading…</div>}>
-      <CondensateHistoryPageInner />
-    </Suspense>
   );
 }
