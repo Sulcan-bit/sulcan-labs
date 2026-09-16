@@ -25,21 +25,29 @@ export default async function CondensateHomePage() {
         {/* Action Buttons */}
         <div className="flex flex-col gap-4">
 
-          <Link
-            href="/condensate/new"
-            className="w-full p-4 rounded-lg bg-black text-white text-center font-medium hover:bg-gray-900 transition"
-          >
-            New Condensate Model Setup
-          </Link>
+  <Link
+    href="/condensate/new"
+    className="w-full p-4 rounded-lg bg-black text-white text-center font-medium hover:bg-gray-900 transition"
+  >
+    New Condensate Model Setup
+  </Link>
 
-          <Link
-            href="/condensate/history"
-            className="w-full p-4 rounded-lg bg-gray-800 text-white text-center font-medium hover:bg-gray-700 transition"
-          >
-            Condensate Comparison History
-          </Link>
+  <Link
+    href="/condensate/history"
+    className="w-full p-4 rounded-lg bg-gray-800 text-white text-center font-medium hover:bg-gray-700 transition"
+  >
+    Condensate Comparison History
+  </Link>
 
-        </div>
+  <Link
+    href="/condensate/comparison/select"
+    className="w-full p-4 rounded-lg bg-blue-600 text-white text-center font-medium hover:bg-blue-700 transition"
+  >
+    Compare Existing Condensate Models
+  </Link>
+
+</div>
+
 
         {/* Navigation Footer */}
         <div className="mt-8 pt-6 border-t border-gray-200 text-center">

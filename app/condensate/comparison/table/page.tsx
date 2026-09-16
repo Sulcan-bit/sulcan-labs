@@ -111,11 +111,12 @@ function ComparisonTableContent() {
 {/* ADD ANOTHER CONDENSATE SOURCE */}
 <div className="mb-6">
   <Link
-    href={`/condensate?ids=${scenarioIds.join(",")}`}
-    className="px-4 py-2 bg-blue-600 text-white rounded"
-  >
-    + Add Another Condensate Source
-  </Link>
+  href={`/condensate/comparison/select?ids=${idsParam}`}
+  className="px-4 py-2 bg-blue-600 text-white rounded"
+>
+  + Add Another Condensate Source
+</Link>
+
 </div>
 
 <div className="overflow-x-auto">

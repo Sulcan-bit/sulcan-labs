@@ -117,11 +117,19 @@ export default function CondensateHistoryPage() {
                 </div>
 
                 <Link
-                  href={`/condensate/comparison/table?ids=${ids}`}
-                  className="inline-block px-4 py-2 bg-black text-white rounded"
-                >
-                  View Comparison Table
-                </Link>
+  href={`/condensate/comparison/table?ids=${ids}`}
+  className="inline-block px-4 py-2 bg-black text-white rounded mr-3"
+>
+  View Comparison Table
+</Link>
+
+<Link
+  href={`/condensate/comparison/select?ids=${ids}`}
+  className="inline-block px-4 py-2 bg-blue-600 text-white rounded"
+>
+  Add More Sources
+</Link>
+
               </div>
             );
           })}
