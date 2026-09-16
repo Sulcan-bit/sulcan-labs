@@ -28,14 +28,7 @@ export default function ModelsPage() {
             Heavy Oil Diluent Optimization
           </Link>
 
-          <Link
-            href="/wti-futures"
-            className="block p-4 rounded bg-gray-800 text-white text-center"
-          >
-            WTI Futures Curve (3-Year)
-          </Link>
-
-          {/* ⭐ NEW: Condensate Comparison Model */}
+{/* ⭐ NEW: Condensate Comparison Model */}
           <Link
             href="/condensate"
             prefetch={false}
@@ -43,6 +36,14 @@ export default function ModelsPage() {
           >
             Condensate Comparison Model
           </Link>
+
+          <Link
+            href="/wti-futures"
+            className="block p-4 rounded bg-gray-800 text-white text-center"
+          >
+            WTI Futures Curve (3-Year)
+          </Link>
+
         </div>
 
       </div>
