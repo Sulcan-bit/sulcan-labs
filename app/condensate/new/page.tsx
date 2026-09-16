@@ -110,7 +110,7 @@ function CondensateInputPageInner() {
 
             <input
               className="border p-2 rounded w-full"
-              placeholder="Enter Scenario Name"
+              placeholder="Enter Scenario Name - e.g., 'Condensate Comparison Jan 2024'"
               value={form.scenario_name}
               onChange={(e) => update("scenario_name", e.target.value)}
             />
@@ -187,46 +187,56 @@ function CondensateInputPageInner() {
               <div>
                 <label className="block font-medium mb-1">Density (KG/M3)</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.density_kg_m3}
-                  onChange={(e) => update("density_kg_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 660"
+  value={form.density_kg_m3}
+  onChange={(e) => update("density_kg_m3", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">Sulphur (%Swt)</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.sulphur_pct}
-                  onChange={(e) => update("sulphur_pct", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 0.020"
+  value={form.sulphur_pct}
+  onChange={(e) => update("sulphur_pct", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">C2 (%vol)</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.c2_pct}
-                  onChange={(e) => update("c2_pct", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 1.00"
+  value={form.c2_pct}
+  onChange={(e) => update("c2_pct", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">C3 (%vol)</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.c3_pct}
-                  onChange={(e) => update("c3_pct", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 2.00"
+  value={form.c3_pct}
+  onChange={(e) => update("c3_pct", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">C4 (%vol)</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.c4_pct}
-                  onChange={(e) => update("c4_pct", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 3.00"
+  value={form.c4_pct}
+  onChange={(e) => update("c4_pct", e.target.value)}
+/>
+
               </div>
 
             </div>
@@ -271,46 +281,56 @@ function CondensateInputPageInner() {
               <div>
                 <label className="block font-medium mb-1">Pipeline Tariff</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.tariff_cad_m3}
-                  onChange={(e) => update("tariff_cad_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 0.00"
+  value={form.tariff_cad_m3}
+  onChange={(e) => update("tariff_cad_m3", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">Load / Unload Fee</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.loading_fee_cad_m3}
-                  onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 8.50"
+  value={form.loading_fee_cad_m3}
+  onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">Loss Allowance</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.loss_allowance_cad_m3}
-                  onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 0.00"
+  value={form.loss_allowance_cad_m3}
+  onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">Premium / Discount</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.premium_discount_cad_m3}
-                  onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 0.00"
+  value={form.premium_discount_cad_m3}
+  onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
+/>
+
               </div>
 
               <div>
                 <label className="block font-medium mb-1">Trucking Cost</label>
                 <input
-                  className="border p-2 rounded w-full"
-                  value={form.trucking_cad_m3}
-                  onChange={(e) => update("trucking_cad_m3", e.target.value)}
-                />
+  className="border p-2 rounded w-full"
+  placeholder="e.g., 30.26"
+  value={form.trucking_cad_m3}
+  onChange={(e) => update("trucking_cad_m3", e.target.value)}
+/>
+
               </div>
 
               {/* Apply EDI/COLC Fees */}
