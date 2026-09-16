@@ -222,14 +222,35 @@ function ComparisonTableContent() {
               </tr>
 
               {/* C4 */}
-              <tr>
-                <td className="border p-2 font-medium">Condensate C4 (%vol)</td>
-                {scenarios.map((s) => (
-                  <td key={s.id} className="border p-2">
-                    {fmt(s.inputs?.c4_pct, 2)}
-                  </td>
-                ))}
-              </tr>
+<tr>
+  <td className="border p-2 font-medium">Condensate C4 (%vol)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.inputs?.c4_pct, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Condensate Density Slope */}
+<tr>
+  <td className="border p-2 font-medium">Condensate Density Slope (CAD/m³ per kg/m³)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.results?.condensate_density_slope, 2)}
+    </td>
+  ))}
+</tr>
+
+{/* Condensate Sulphur Slope */}
+<tr>
+  <td className="border p-2 font-medium">Condensate Sulphur Slope (CAD/m³ per 0.1 wt%)</td>
+  {scenarios.map((s) => (
+    <td key={s.id} className="border p-2">
+      {fmt(s.results?.condensate_sulphur_slope, 2)}
+    </td>
+  ))}
+</tr>
+
 
               {/* WTI */}
               <tr>
