@@ -5,21 +5,36 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+// ---- Type Definitions ----
+interface CondensateScenario {
+  id: number;
+  scenario_name: string;
+  supplier: string;
+  source_location: string;
+  month_name: string;
+  year: number;
+}
+
+type ScenarioGroups = Record<string, CondensateScenario[]>;
+
+// ---- Component ----
 export default function CondensateHistoryPage() {
   const [loading, setLoading] = useState(true);
-  const [groups, setGroups] = useState({});
+  const [groups, setGroups] = useState<ScenarioGroups>({});
 
   useEffect(() => {
     async function load() {
       const res = await fetch("/api/condensate/scenarios");
-      const data = await res.json();
+      const data: CondensateScenario[] = await res.json();
 
-      // Group by scenario_name
-      const grouped = data.reduce((acc, s) => {
-        if (!acc[s.scenario_name]) acc[s.scenario_name] = [];
-        acc[s.scenario_name].push(s);
-        return acc;
-      }, {});
+      const grouped: ScenarioGroups = data.reduce(
+        (acc: ScenarioGroups, s: CondensateScenario) => {
+          if (!acc[s.scenario_name]) acc[s.scenario_name] = [];
+          acc[s.scenario_name].push(s);
+          return acc;
+        },
+        {}
+      );
 
       setGroups(grouped);
       setLoading(false);
@@ -47,7 +62,6 @@ export default function CondensateHistoryPage() {
         <div className="space-y-8">
 
           {Object.entries(groups).map(([scenarioName, items]) => {
-            // Build ids list for comparison table
             const ids = items.map((s) => s.id).join(",");
 
             return (
@@ -65,7 +79,9 @@ export default function CondensateHistoryPage() {
                   <h3 className="font-medium mb-1">Condensate Sources:</h3>
                   <ul className="list-disc ml-6 text-gray-700">
                     {items.map((s) => (
-                      <li key={s.id}>{s.supplier} — {s.source_location}</li>
+                      <li key={s.id}>
+                        {s.supplier} — {s.source_location}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -87,3 +103,4 @@ export default function CondensateHistoryPage() {
     </main>
   );
 }
+
