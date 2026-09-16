@@ -294,8 +294,6 @@ window.location.href = `/condensate/comparison/table?ids=${newIds}`;
     Apply EDI & COLC Pipeline Fees
   </label>
 </div>
-
-
             </div>
           </div>
 
