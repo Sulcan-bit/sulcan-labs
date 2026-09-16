@@ -5,6 +5,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";   // ← NEW
+import { Suspense } from "react";   // ← ADD THIS AT TOP
 
 export default function CondensateInputPage() {
   const searchParams = useSearchParams();            // ← NEW
@@ -61,6 +62,7 @@ window.location.href = `/condensate/comparison/table?ids=${newIds}`;
   }
 
   return (
+    <Suspense fallback={<div>Loading…</div>}>   {/* ← NEW WRAPPER */}
     <main className="min-h-screen bg-gray-50 p-6">
       <div className="bg-white p-8 rounded shadow max-w-3xl mx-auto">
 
@@ -308,5 +310,6 @@ window.location.href = `/condensate/comparison/table?ids=${newIds}`;
         </div>
       </div>
     </main>
+     </Suspense>
   );
 }
