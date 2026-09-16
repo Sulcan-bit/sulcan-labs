@@ -3,6 +3,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -23,7 +24,7 @@ type CondensateScenario = {
   c4_pct: number | null;
 };
 
-export default function CondensateSelectPage() {
+function SelectPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -161,5 +162,13 @@ export default function CondensateSelectPage() {
         </button>
       </div>
     </main>
+  );
+}
+
+export default function CondensateSelectPage() {
+  return (
+    <Suspense>
+      <SelectPageInner />
+    </Suspense>
   );
 }
