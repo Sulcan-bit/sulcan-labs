@@ -6,6 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { useEffect } from "react"; // add at top if missing
 
 function CondensateInputPageInner() {
   const searchParams = useSearchParams();
@@ -33,9 +34,26 @@ function CondensateInputPageInner() {
   });
 
   const [saving, setSaving] = useState(false);
+  const [previousScenarioName, setPreviousScenarioName] = useState("");
 
   const update = (field: string, value: any) =>
     setForm((prev) => ({ ...prev, [field]: value }));
+
+useEffect(() => {
+  if (!existingIds) return;
+
+  const ids = existingIds.split(",");
+  const lastId = ids[ids.length - 1];
+
+  fetch(`/api/condensate/scenario/${lastId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data?.scenario_name) {
+        setPreviousScenarioName(data.scenario_name);
+      }
+    })
+    .catch(() => {});
+}, [existingIds]);
 
   async function handleSubmit() {
     setSaving(true);
@@ -77,14 +95,31 @@ function CondensateInputPageInner() {
         <div className="space-y-6">
 
           {/* Scenario Name */}
-          <div>
-            <label className="block font-medium mb-1">Scenario Name</label>
-            <input
-              className="border p-2 rounded w-full"
-              value={form.scenario_name}
-              onChange={(e) => update("scenario_name", e.target.value)}
-            />
-          </div>
+<div>
+  <label className="block font-medium mb-1">Scenario Name</label>
+
+  {/* Dropdown to reuse previous scenario name */}
+  <select
+    className="border p-2 rounded w-full mb-2"
+    onChange={(e) => update("scenario_name", e.target.value)}
+  >
+    <option value="">Type a new Scenario Name</option>
+    {previousScenarioName && (
+      <option value={previousScenarioName}>
+        Use previous: {previousScenarioName}
+      </option>
+    )}
+  </select>
+
+  {/* Text input for new scenario name */}
+  <input
+    className="border p-2 rounded w-full"
+    placeholder="Enter Scenario Name"
+    value={form.scenario_name}
+    onChange={(e) => update("scenario_name", e.target.value)}
+  />
+</div>
+
 
           {/* Month */}
           <div>
@@ -233,82 +268,83 @@ function CondensateInputPageInner() {
           </div>
 
           {/* Cost Inputs */}
-          <div className="bg-gray-100 p-4 rounded border">
-            <h2 className="font-semibold mb-3">Cost Inputs (CAD/M3)</h2>
+<div className="bg-gray-100 p-4 rounded border">
+  <h2 className="font-semibold mb-3">Cost Inputs (CAD/M3)</h2>
 
-            <div className="grid grid-cols-2 gap-4">
+  <div className="grid grid-cols-2 gap-4">
 
-              <div>
-                <label className="block font-medium mb-1">Pipeline Tariff</label>
-                <input
-                  className="border p-2 rounded w-full"
-                  value={form.tariff_cad_m3}
-                  onChange={(e) => update("tariff_cad_m3", e.target.value)}
-                />
-              </div>
+    <div>
+      <label className="block font-medium mb-1">Pipeline Tariff</label>
+      <input
+        className="border p-2 rounded w-full"
+        value={form.tariff_cad_m3}
+        onChange={(e) => update("tariff_cad_m3", e.target.value)}
+      />
+    </div>
 
-              <div>
-                <label className="block font-medium mb-1">Load / Unload Fee</label>
-                <input
-                  className="border p-2 rounded w-full"
-                  value={form.loading_fee_cad_m3}
-                  onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
-                />
-              </div>
+    <div>
+      <label className="block font-medium mb-1">Load / Unload Fee</label>
+      <input
+        className="border p-2 rounded w-full"
+        value={form.loading_fee_cad_m3}
+        onChange={(e) => update("loading_fee_cad_m3", e.target.value)}
+      />
+    </div>
 
-              <div>
-                <label className="block font-medium mb-1">Loss Allowance</label>
-                <input
-                  className="border p-2 rounded w-full"
-                  value={form.loss_allowance_cad_m3}
-                  onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
-                />
-              </div>
+    <div>
+      <label className="block font-medium mb-1">Loss Allowance</label>
+      <input
+        className="border p-2 rounded w-full"
+        value={form.loss_allowance_cad_m3}
+        onChange={(e) => update("loss_allowance_cad_m3", e.target.value)}
+      />
+    </div>
 
-              <div>
-                <label className="block font-medium mb-1">Premium / Discount</label>
-                <input
-                  className="border p-2 rounded w-full"
-                  value={form.premium_discount_cad_m3}
-                  onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
-                />
-              </div>
+    <div>
+      <label className="block font-medium mb-1">Premium / Discount</label>
+      <input
+        className="border p-2 rounded w-full"
+        value={form.premium_discount_cad_m3}
+        onChange={(e) => update("premium_discount_cad_m3", e.target.value)}
+      />
+    </div>
 
-              <div>
-  <label className="block font-medium mb-1">Trucking Cost</label>
-  <input
-    className="border p-2 rounded w-full"
-    value={form.trucking_cad_m3}
-    onChange={(e) => update("trucking_cad_m3", e.target.value)}
-  />
+    <div>
+      <label className="block font-medium mb-1">Trucking Cost</label>
+      <input
+        className="border p-2 rounded w-full"
+        value={form.trucking_cad_m3}
+        onChange={(e) => update("trucking_cad_m3", e.target.value)}
+      />
+    </div>
+
+    {/* Apply EDI/COLC Fees */}
+    <div className="col-span-2 flex items-center space-x-2">
+      <input
+        type="checkbox"
+        checked={form.apply_edi_colc}
+        onChange={(e) => update("apply_edi_colc", e.target.checked)}
+      />
+      <label className="font-medium">
+        Apply EDI & COLC Pipeline Fees
+      </label>
+    </div>
+
+  </div>
 </div>
 
-{/* Apply EDI/COLC Fees */}
-<div className="col-span-2 flex items-center space-x-2">
-  <input
-    type="checkbox"
-    checked={form.apply_edi_colc}
-    onChange={(e) => update("apply_edi_colc", e.target.checked)}
-  />
-  <label className="font-medium">
-    Apply EDI & COLC Pipeline Fees
-  </label>
+<button
+  onClick={handleSubmit}
+  disabled={saving}
+  className="px-5 py-2 bg-black text-white rounded w-full"
+>
+  {saving ? "Calculating…" : "Calculate Condensate Economics"}
+</button>
+
 </div>
-            </div>
-          </div>
-
-                    <button
-            onClick={handleSubmit}
-            disabled={saving}
-            className="px-5 py-2 bg-black text-white rounded w-full"
-          >
-            {saving ? "Calculating…" : "Calculate Condensate Economics"}
-          </button>
-
-        </div>
-      </div>
-    </main>
-  );
+</div>
+</main>
+);
 }
 
 export default function CondensateInputPage() {
@@ -318,4 +354,3 @@ export default function CondensateInputPage() {
     </Suspense>
   );
 }
-
