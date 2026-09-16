@@ -11,10 +11,13 @@ import {
 
 const fmt = (n: number | null | undefined, decimals = 2) => {
   if (typeof n !== "number") return "-";
-  return n.toLocaleString("en-CA", {
+
+  const formatted = n.toLocaleString("en-CA", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
+
+  return n < 0 ? `(${formatted.replace("-", "")})` : formatted;
 };
 
 function getCondensateIndexUsdBbl(monthly: any, choice?: string | null) {
@@ -272,181 +275,176 @@ await prisma.scenarioResults.upsert({
           </thead>
           <tbody>
 
-            {/* WTI */}
-            <tr>
-              <td className="p-2">WTI</td>
-              <td className="p-2">{wti.toFixed(2)}</td>
-              <td className="p-2">USD/bbl</td>
-            </tr>
+ {/* WTI */}
+<tr>
+  <td className="p-2">WTI</td>
+  <td className="p-2">{fmt(wti)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
 
-            {/* FX */}
-            <tr>
-              <td className="p-2">FX</td>
-              <td className="p-2">{fx.toFixed(5)}</td>
-              <td className="p-2">CAD/USD</td>
-            </tr>
+{/* FX */}
+<tr>
+  <td className="p-2">FX</td>
+  <td className="p-2">{fx.toFixed(5)}</td>
+  <td className="p-2">CAD/USD</td>
+</tr>
 
-            {/* Heavy Stream Index */}
+{/* Heavy Stream Index */}
 <tr>
   <td className="p-2">Heavy Stream Index ({heavyStreamLabel})</td>
-  <td className="p-2">{heavyStreamIndexUsdBbl.toFixed(2)}</td>
+  <td className="p-2">{fmt(heavyStreamIndexUsdBbl)}</td>
   <td className="p-2">USD/bbl</td>
 </tr>
 
-            <tr>
+<tr>
   <td className="p-2">Premium Crude Value</td>
-  <td className="p-2">{premiumHeavyPriceUsdBbl.toFixed(2)}</td>
+  <td className="p-2">{fmt(premiumHeavyPriceUsdBbl)}</td>
   <td className="p-2">USD/bbl</td>
 </tr>
 
-            {/* Condensate Index */}
-            <tr>
-              <td className="p-2">Condensate Index</td>
-              <td className="p-2">{condensateIndexUsdBbl.toFixed(2)}</td>
-              <td className="p-2">USD/bbl</td>
-            </tr>
+{/* Condensate Index */}
+<tr>
+  <td className="p-2">Condensate Index</td>
+  <td className="p-2">{fmt(condensateIndexUsdBbl)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
 
-            {/* C4 Price % */}
-            <tr>
-              <td className="p-2">C4 Price (% of WTI landed)</td>
-              <td className="p-2">
-                {(c4PricePctWti * 100).toFixed(2)}%
-              </td>
-              <td className="p-2">Fraction of WTI</td>
-            </tr>
+{/* C4 Price % */}
+<tr>
+  <td className="p-2">C4 Price (% of WTI landed)</td>
+  <td className="p-2">{fmt(c4PricePctWti * 100)}%</td>
+  <td className="p-2">Fraction of WTI</td>
+</tr>
 
-            {/* C4 Diff */}
-            <tr>
-              <td className="p-2">C4 Diff</td>
-              <td className="p-2">{(c4Diff * 100).toFixed(2)}%</td>
-              <td className="p-2">= 1 − C4 Price</td>
-            </tr>
+{/* C4 Diff */}
+<tr>
+  <td className="p-2">C4 Diff</td>
+  <td className="p-2">{fmt(c4Diff * 100)}%</td>
+  <td className="p-2">= 1 − C4 Price</td>
+</tr>
 
-            {/* C4 Purchase Price */}
-            <tr>
-              <td className="p-2">C4 Purchase Price</td>
-              <td className="p-2">{c4PurchasePriceUsdBbl.toFixed(2)}</td>
-              <td className="p-2">USD/bbl</td>
-            </tr>
+{/* C4 Purchase Price */}
+<tr>
+  <td className="p-2">C4 Purchase Price</td>
+  <td className="p-2">{fmt(c4PurchasePriceUsdBbl)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
 
-            {/* C4 Diff to WTI */}
-            <tr>
-              <td className="p-2">C4 Diff to WTI</td>
-              <td className="p-2">{c4DiffToWtiUsdBbl.toFixed(2)}</td>
-              <td className="p-2">USD/bbl</td>
-            </tr>
+{/* C4 Diff to WTI */}
+<tr>
+  <td className="p-2">C4 Diff to WTI</td>
+  <td className="p-2">{fmt(c4DiffToWtiUsdBbl)}</td>
+  <td className="p-2">USD/bbl</td>
+</tr>
 
-            {/* Heavy Stream Price */}
-            <tr>
-              <td className="p-2">Heavy Stream Price</td>
-              <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Heavy Stream Price */}
+<tr>
+  <td className="p-2">Heavy Stream Price</td>
+  <td className="p-2">{fmt(heavyStreamPriceCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate WADF */}
-            <tr>
-              <td className="p-2">Condensate WADF</td>
-              <td className="p-2">{condensateWadfCadM3.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Condensate WADF */}
+<tr>
+  <td className="p-2">Condensate WADF</td>
+  <td className="p-2">{fmt(condensateWadfCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate PAR Price */}
-            <tr>
-              <td className="p-2">Condensate PAR Price</td>
-              <td className="p-2">{condensateParPriceCadM3.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Condensate PAR Price */}
+<tr>
+  <td className="p-2">Condensate PAR Price</td>
+  <td className="p-2">{fmt(condensateParPriceCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate Stream Price */}
-            <tr>
-              <td className="p-2">Condensate Stream Price</td>
-              <td className="p-2">{condensateStreamPriceCadM3.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Condensate Stream Price */}
+<tr>
+  <td className="p-2">Condensate Stream Price</td>
+  <td className="p-2">{fmt(condensateStreamPriceCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* C4 Price */}
-            <tr>
-              <td className="p-2">C4 Price</td>
-              <td className="p-2">{c4PriceCadM3.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* C4 Price */}
+<tr>
+  <td className="p-2">C4 Price</td>
+  <td className="p-2">{fmt(c4PriceCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate Allowance Price */}
-            <tr>
-              <td className="p-2">Condensate Allowance Price</td>
-              <td className="p-2">{condensateAllowancePriceCadM3.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Condensate Allowance Price */}
+<tr>
+  <td className="p-2">Condensate Allowance Price</td>
+  <td className="p-2">{fmt(condensateAllowancePriceCadM3)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate Density */}
-            <tr>
-              <td className="p-2">Condensate Density</td>
-              <td className="p-2">{condensateDensity.toFixed(1)}</td>
-              <td className="p-2">kg/m³</td>
-            </tr>
+{/* Condensate Density */}
+<tr>
+  <td className="p-2">Condensate Density</td>
+  <td className="p-2">{fmt(condensateDensity, 1)}</td>
+  <td className="p-2">kg/m³</td>
+</tr>
 
-            {/* Condensate Sulphur */}
-            <tr>
-              <td className="p-2">Condensate Sulphur</td>
-              <td className="p-2">{Number(inputs?.cond1_sulphur_pct).toFixed(3)}%</td>
-              <td className="p-2">wt%</td>
-            </tr>
+{/* Condensate Sulphur */}
+<tr>
+  <td className="p-2">Condensate Sulphur</td>
+  <td className="p-2">{fmt(Number(inputs?.cond1_sulphur_pct), 3)}%</td>
+  <td className="p-2">wt%</td>
+</tr>
 
-            {/* Condensate Density Slope */}
-            <tr>
-              <td className="p-2">Condensate Density Slope</td>
-              <td className="p-2">{condensateDensitySlope.toFixed(2)}</td>
-              <td className="p-2">CAD/m³ per kg/m³</td>
-            </tr>
+{/* Condensate Density Slope */}
+<tr>
+  <td className="p-2">Condensate Density Slope</td>
+  <td className="p-2">{fmt(condensateDensitySlope)}</td>
+  <td className="p-2">CAD/m³ per kg/m³</td>
+</tr>
 
-            {/* Condensate Sulphur Slope */}
-            <tr>
-              <td className="p-2">Condensate Sulphur Slope</td>
-              <td className="p-2">{condensate_sulphur_slope.toFixed(2)}</td>
-              <td className="p-2">CAD/m³ per 0.1 wt%</td>
-            </tr>
+{/* Condensate Sulphur Slope */}
+<tr>
+  <td className="p-2">Condensate Sulphur Slope</td>
+  <td className="p-2">{fmt(condensate_sulphur_slope)}</td>
+  <td className="p-2">CAD/m³ per 0.1 wt%</td>
+</tr>
 
-            {/* Crude Density Slope */}
-            <tr>
-              <td className="p-2">Crude Density Slope</td>
-              <td className="p-2">{crude_density_slope.toFixed(2)}</td>
-              <td className="p-2">CAD/m³ per kg/m³</td>
-            </tr>
+{/* Crude Density Slope */}
+<tr>
+  <td className="p-2">Crude Density Slope</td>
+  <td className="p-2">{fmt(crude_density_slope)}</td>
+  <td className="p-2">CAD/m³ per kg/m³</td>
+</tr>
 
-            {/* Crude Sulphur Slope */}
-            <tr>
-              <td className="p-2">Crude Sulphur Slope</td>
-              <td className="p-2">{crude_sulphur_slope.toFixed(2)}</td>
-              <td className="p-2">CAD/m³ per 0.1 wt%</td>
-            </tr>
+{/* Crude Sulphur Slope */}
+<tr>
+  <td className="p-2">Crude Sulphur Slope</td>
+  <td className="p-2">{fmt(crude_sulphur_slope)}</td>
+  <td className="p-2">CAD/m³ per 0.1 wt%</td>
+</tr>
 
-            {/* Condensate EQ Credit */}
-            <tr>
-              <td className="p-2">Condensate EQ Credit</td>
-              <td className="p-2">{condensateEqCredit.toFixed(2)}</td>
-              <td className="p-2">CAD/m³</td>
-            </tr>
+{/* Condensate EQ Credit */}
+<tr>
+  <td className="p-2">Condensate EQ Credit</td>
+  <td className="p-2">{fmt(condensateEqCredit)}</td>
+  <td className="p-2">CAD/m³</td>
+</tr>
 
-            {/* Condensate Butane Penalty */}
+{/* Condensate Butane Penalty */}
 <tr>
   <td className="p-2">Condensate Butane Penalty</td>
   <td className="p-2">
     {condensateButanePenaltyCadM3 > 0
-      ? condensateButanePenaltyCadM3.toFixed(2)
+      ? fmt(condensateButanePenaltyCadM3)
       : "No"}
   </td>
   <td className="p-2">CAD/m³ (Deemed Butane &gt; 5%)</td>
 </tr>
 
-
-            {/* ⭐ NEW ROW — placed directly below Condensate Butane Penalty */}
-            <tr className="bg-gray-50">
-              <td className="p-2 font-semibold">Condensate Price After EQ</td>
-              <td className="p-2 font-semibold">
-                {condensatePriceAfterEqCadM3.toFixed(2)}
-              </td>
-              <td className="p-2 font-semibold">CAD/m³</td>
-            </tr>
+{/* ⭐ NEW ROW — Condensate Price After EQ */}
+<tr className="bg-gray-50">
+  <td className="p-2 font-semibold">Condensate Price After EQ</td>
+  <td className="p-2 font-semibold">{fmt(condensatePriceAfterEqCadM3)}</td>
+  <td className="p-2 font-semibold">CAD/m³</td>
+</tr>
 
           </tbody>
         </table>
