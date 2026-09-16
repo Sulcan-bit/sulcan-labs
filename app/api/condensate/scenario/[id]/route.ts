@@ -1,13 +1,14 @@
 // app/api/condensate/scenario/[id]/route.ts
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, context: { params: { id: string } }) {
   try {
+    const id = Number(context.params.id);
+
     const scenario = await prisma.condensateScenario.findUnique({
-      where: { id: Number(params.id) },
+      where: { id },
     });
 
     if (!scenario) {
@@ -20,3 +21,4 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
