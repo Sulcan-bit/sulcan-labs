@@ -2,11 +2,11 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-export default function CondensateInputPage() {
+function CondensateInputPageInner() {
   const searchParams = useSearchParams();
   const existingIds = searchParams.get("ids");
 
@@ -183,7 +183,7 @@ export default function CondensateInputPage() {
             <h2 className="font-semibold mb-3">Condensate Properties</h2>
 
             <div className="grid grid-cols-2 gap-4">
-              {/* Density */}
+
               <div>
                 <label className="block font-medium mb-1">Density (KG/M3)</label>
                 <input
@@ -193,7 +193,6 @@ export default function CondensateInputPage() {
                 />
               </div>
 
-              {/* Sulphur */}
               <div>
                 <label className="block font-medium mb-1">Sulphur (%Swt)</label>
                 <input
@@ -203,7 +202,6 @@ export default function CondensateInputPage() {
                 />
               </div>
 
-              {/* C2 */}
               <div>
                 <label className="block font-medium mb-1">C2 (%vol)</label>
                 <input
@@ -213,7 +211,6 @@ export default function CondensateInputPage() {
                 />
               </div>
 
-              {/* C3 */}
               <div>
                 <label className="block font-medium mb-1">C3 (%vol)</label>
                 <input
@@ -223,7 +220,6 @@ export default function CondensateInputPage() {
                 />
               </div>
 
-              {/* C4 */}
               <div>
                 <label className="block font-medium mb-1">C4 (%vol)</label>
                 <input
@@ -232,6 +228,7 @@ export default function CondensateInputPage() {
                   onChange={(e) => update("c4_pct", e.target.value)}
                 />
               </div>
+
             </div>
           </div>
 
@@ -344,6 +341,14 @@ export default function CondensateInputPage() {
 
       </div>
     </main>
+  );
+}
+
+export default function CondensateInputPage() {
+  return (
+    <Suspense fallback={<div>Loading…</div>}>
+      <CondensateInputPageInner />
+    </Suspense>
   );
 }
 
