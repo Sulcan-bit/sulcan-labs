@@ -2,10 +2,22 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/auth";   // ⭐ ADDED
 
 export async function GET() {
   try {
+    // ⭐ LOAD AUTHENTICATED USER
+    const user = await getUserFromSession();
+    if (!user) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    // ⭐ SECURE USER-ISOLATED LOOKUP
     const scenarios = await prisma.condensateScenario.findMany({
+      where: { userId: user.id },
       orderBy: { id: "asc" },
     });
 
@@ -18,3 +30,4 @@ export async function GET() {
     );
   }
 }
+
