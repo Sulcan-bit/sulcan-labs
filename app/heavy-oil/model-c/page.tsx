@@ -1,6 +1,7 @@
 // app/heavy-oil/model-c/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/auth";   // ⭐ ADDED
 import {
   heavy_oil_conversion_factor,
   light_oil_conversion_factor,
@@ -17,43 +18,6 @@ const fmt = (n: number | null | undefined, decimals = 2) => {
     maximumFractionDigits: decimals,
   });
 };
-
-function getCondensateIndexUsdBbl(monthly: any, choice?: string | null) {
-  switch (choice) {
-    case "CRW":
-      return 0;
-    case "FTSK":
-      return monthly.ftsk_c5_diff_usd_bbl ?? 0;
-    case "PEACE_C5":
-      return monthly.peace_c5_diff_usd_bbl ?? 0;
-    case "OTHER":
-      return 0;
-    default:
-      return 0;
-  }
-}
-
-function getHeavyStreamIndexUsdBbl(monthly: any, stream: string) {
-  switch (stream) {
-    case "CHV":
-      return monthly.chv_diff_usd_bbl ?? 0;
-    case "LLB":
-      return monthly.llb_diff_usd_bbl ?? 0;
-    case "CWH":
-      return monthly.cwh_diff_usd_bbl ?? 0;
-    case "WCB":
-      return monthly.wcb_diff_usd_bbl ?? 0;
-    case "LLK":
-      return monthly.llk_diff_usd_bbl ?? 0;
-    case "CLK":
-      return monthly.clk_diff_usd_bbl ?? 0;
-    case "WCS":
-      return 0;
-    default:
-      return 0;
-  }
-}
-
 
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;
@@ -79,13 +43,31 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     );
   }
 
-  const scenario = await prisma.scenario.findUnique({
-    where: { id: Number(scenarioId) },
-    include: {
-  month: true,
-  results: true,   // ⭐ REQUIRED
-},
+  // ⭐ LOAD AUTHENTICATED USER
+  const user = await getUserFromSession();
+  if (!user) {
+    return (
+      <main className="min-h-screen bg-gray-50 p-8">
+        <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold mb-4">
+            Heavy Oil Diluent Optimization – Part C: Condensate Only Net Sales
+          </h1>
+          <p className="text-red-600">Unauthorized.</p>
+          <a href="/models" className="mt-4 inline-block text-blue-600 underline">
+            ← Back to Models
+          </a>
+        </div>
+      </main>
+    );
+  }
 
+  // ⭐ SECURE SCENARIO LOOKUP
+  const scenario = await prisma.scenario.findFirst({
+    where: { id: Number(scenarioId), userId: user.id },
+    include: {
+      month: true,
+      results: true,   // ⭐ KEEP THIS
+    },
   });
 
   if (!scenario) {
@@ -125,6 +107,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
       </main>
     );
   }
+
 
   const monthly = scenario.month;
 
