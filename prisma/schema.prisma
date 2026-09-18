@@ -341,21 +341,25 @@ model HeavyOilInputs {
 }
 
 model CondensateScenario {
-  id                 Int      @id @default(autoincrement())
-  created_at         DateTime @default(now())
-  updated_at         DateTime @updatedAt
+  id                  Int      @id @default(autoincrement())
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
 
-  scenario_name      String
-  supplier           String
-  source_location    String?
+  scenario_name       String
+  supplier            String
+  source_location     String?
   trucking_time_hours Float?
-  destination        String?
-  heavy_stream       String?
-  month_name         String
-  year               Int
+  destination         String?
+  heavy_stream        String?
+  month_name          String
+  year                Int
 
-  inputs             Json
-  results            Json
+  inputs              Json
+  results             Json
+
+  // ⭐ NEW: User ownership (required for security)
+  userId              Int?
+  user                User?     @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -376,6 +380,11 @@ model User {
   last_name        String?
   postal_code      String?
   province         String?
+
   heavyOilInputs   HeavyOilInputs[]
   scenarios        Scenario[]
+
+  // ⭐ NEW — required for CondensateScenario user isolation
+  condensateScenarios CondensateScenario[]
 }
+
