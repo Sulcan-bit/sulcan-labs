@@ -19,6 +19,43 @@ const fmt = (n: number | null | undefined, decimals = 2) => {
   });
 };
 
+// ⭐ MOVE THESE TWO FUNCTIONS ABOVE THE PATCH
+function getCondensateIndexUsdBbl(monthly: any, choice?: string | null) {
+  switch (choice) {
+    case "CRW":
+      return 0;
+    case "FTSK":
+      return monthly.ftsk_c5_diff_usd_bbl ?? 0;
+    case "PEACE_C5":
+      return monthly.peace_c5_diff_usd_bbl ?? 0;
+    case "OTHER":
+      return 0;
+    default:
+      return 0;
+  }
+}
+
+function getHeavyStreamIndexUsdBbl(monthly: any, stream: string) {
+  switch (stream) {
+    case "CHV":
+      return monthly.chv_diff_usd_bbl ?? 0;
+    case "LLB":
+      return monthly.llb_diff_usd_bbl ?? 0;
+    case "CWH":
+      return monthly.cwh_diff_usd_bbl ?? 0;
+    case "WCB":
+      return monthly.wcb_diff_usd_bbl ?? 0;
+    case "LLK":
+      return monthly.llk_diff_usd_bbl ?? 0;
+    case "CLK":
+      return monthly.clk_diff_usd_bbl ?? 0;
+    case "WCS":
+      return 0;
+    default:
+      return 0;
+  }
+}
+
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;
 };
@@ -66,7 +103,7 @@ export default async function CondensateOnlyNetSalesPage(props: PageProps) {
     where: { id: Number(scenarioId), userId: user.id },
     include: {
       month: true,
-      results: true,   // ⭐ KEEP THIS
+      results: true,
     },
   });
 
