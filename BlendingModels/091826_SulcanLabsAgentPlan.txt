@@ -1,0 +1,374 @@
+With an agent:
+The agent does the work:
+
+Pulls monthly data
+
+Suggests optimal condensate sources
+
+Runs multiple scenarios
+
+Compares netbacks
+
+Flags anomalies
+
+Generates recommendations
+
+Writes emails to producers or terminals
+
+Prepares reports
+
+Automates workflows
+
+Monitors markets
+
+Alerts you when economics shift
+
+This is how you turn Sulcan Labs into a subscription product instead of a static calculator.
+
+⭐ What an agent does for Heavy Oil & Condensate modeling
+Here are the specific ways an agent improves your system — not generic AI fluff.
+
+1. Automated scenario generation (your biggest bottleneck today)
+Your users currently:
+
+Pick a month
+
+Pick condensate sources
+
+Enter density, sulphur, C2/C3/C4
+
+Enter trucking
+
+Enter tolls
+
+Run the model
+
+Compare outputs
+
+An agent can:
+
+Pull monthly data automatically
+
+Suggest optimal condensate sources based on economics
+
+Auto-fill trucking hours based on origin/destination
+
+Auto-fill tariffs based on pipeline
+
+Auto-fill load fees based on terminal
+
+Run 20–50 scenarios in parallel
+
+Produce a ranked list of netbacks
+
+This alone is a $500–$2,000/month enterprise feature.
+
+2. Automated blend optimization (your core value)
+Your system already calculates:
+
+shrinkage
+
+blend density
+
+diluent cost
+
+netback
+
+diff-to-WTI
+
+diff-to-WCS
+
+An agent can:
+
+Run multi‑scenario optimization
+
+Suggest the best condensate blend
+
+Suggest the best heavy stream pairing
+
+Suggest the best trucking route
+
+Suggest the best terminal
+
+Suggest the best month-over-month strategy
+
+This becomes a “Sulcan Labs Optimization Engine” — a sellable product.
+
+3. Automated reporting (huge time saver)
+Your customers need:
+
+monthly blend reports
+
+condensate sourcing reports
+
+trucking cost summaries
+
+terminal comparison reports
+
+netback change reports
+
+An agent can:
+
+Generate all of these automatically
+
+Email them to producers
+
+Export them to PDF
+
+Summarize changes month-over-month
+
+Highlight anomalies
+
+This is a $99–$299/month add‑on.
+
+4. Market monitoring & alerts
+Your agent can monitor:
+
+WTI
+
+WCS
+
+MSW
+
+C5
+
+C4
+
+FX CAD/USD
+
+trucking rates
+
+terminal tolls
+
+pipeline tolls
+
+monthly data updates
+
+And send alerts like:
+
+“C5 diff widened — condensate sourcing strategy should shift.”
+
+“MSW vs WCS diff changed — blend economics impacted.”
+
+“FX moved — condensate landed cost changed.”
+
+This is a sticky retention feature.
+
+5. Automated producer communication
+Your agent can:
+
+Draft emails to producers
+
+Draft emails to terminals
+
+Draft blend strategy memos
+
+Draft trucking instructions
+
+Draft monthly reports
+
+This is a workflow automation feature.
+
+⭐ Why YOU specifically should add an agent
+Because you already have:
+
+Azure
+
+Google Cloud
+
+Vercel
+
+GitHub
+
+Telnyx
+
+A full-stack system
+
+A working heavy oil model
+
+A working condensate model
+
+A database
+
+Authentication
+
+A UI
+
+A backend
+
+A product
+
+You are one step away from turning Sulcan Labs into:
+
+A fully automated heavy oil optimization platform.
+Your competitors (Enverus, RS Energy, Wood Mackenzie) do NOT have:
+
+condensate optimization
+
+trucking optimization
+
+shrinkage modeling
+
+blend density modeling
+
+multi-scenario chaining
+
+You do.
+
+An agent makes your system:
+
+faster
+
+smarter
+
+automated
+
+monetizable
+
+⭐ How this makes you money
+Here are the actual monetizable features:
+
+1. Automated scenario generation
+Sell as:
+
+“Sulcan Auto-Scenario Engine”
+
+$499/month
+
+2. Automated optimization
+Sell as:
+
+“Sulcan Optimization AI”
+
+$999–$2,999/month
+
+3. Automated reporting
+Sell as:
+
+“Sulcan Monthly Blend Report AI”
+
+$199/month
+
+4. Alerts & monitoring
+Sell as:
+
+“Sulcan Market Watch AI”
+
+$99/month
+
+5. Workflow automation
+Sell as:
+
+“Sulcan Operations AI”
+
+$299/month
+
+6. Enterprise API access
+Sell as:
+
+$5,000–$25,000/year
+
+⭐ What you should build first
+Here’s the order that gives you the fastest ROI:
+
+Step 1 — Add an agent that can run your existing models
+Let the agent:
+
+read monthly data
+
+run condensate calc
+
+run heavy oil calc
+
+chain scenarios
+
+compare outputs
+
+Step 2 — Add an agent that can generate reports
+Let it:
+
+summarize results
+
+produce recommendations
+
+write emails
+
+Step 3 — Add an agent that monitors markets
+Let it:
+
+watch WTI/WCS/MSW/C5/C4
+
+send alerts
+
+Step 4 — Add an agent that automates workflows
+Let it:
+
+generate trucking instructions
+
+generate terminal instructions
+
+generate producer memos
+
+⭐ If you want, I can design the entire agent architecture
+Including:
+
+Azure OpenAI or Google Vertex AI
+
+Vercel serverless agent runtime
+
+Background jobs
+
+Agent memory
+
+Agent tools
+
+Agent actions
+
+Agent safety
+
+Agent integration with your Prisma models
+
+Agent integration with your economics engine
+
+Agent integration with Telnyx SMS alerts
+
+Agent integration with email
+
+Agent integration with your UI
+
+@AGENTS.md
+
+# Sulcan Labs Agent – Domain Knowledge
+
+## 1. Core Concepts
+- Heavy oil blending
+- Condensate sourcing
+- Diluent optimization
+- Netback, diff-to-WTI, diff-to-WCS
+- Shrinkage, blend density, TAN
+- Pipeline tolls, loss allowance, diluent sharing
+- Trucking economics (TT1, TT2, COMP, hours, rates)
+
+## 2. Streams & Products
+- Definitions for MSW, WCS, C5, C4, CRW, PEACE, FTSK, etc.
+- How each stream is typically used in blends.
+- Typical pricing relationships and differentials.
+
+## 3. Economics Formulas
+- Condensate EQ (density, sulphur, butane penalty).
+- Landed cost CAD/m³ and USD/bbl.
+- Netback calculations.
+- Shrinkage and blend volume relationships.
+- Producer vs terminal share.
+
+## 4. Optimization Rules
+- How Sulcan Labs evaluates “better” vs “worse” scenarios.
+- Tradeoffs between netback, density, TAN, logistics.
+- When to prefer C5 vs C4 vs other diluent.
+- How trucking and tolling affect recommendations.
+
+## 5. Reporting & Communication
+- How to write monthly blend reports.
+- How to summarize scenario comparisons.
+- How to draft emails to producers/terminals.
+- Tone, level of detail, and preferred structure.
