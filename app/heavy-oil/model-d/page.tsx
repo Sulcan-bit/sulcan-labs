@@ -1,6 +1,7 @@
 // app/heavy-oil/model-d/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/auth";   // ⭐ ADDED
 import { butane_density_kg_m3 } from "@/app/heavy-oil/constants";
 
 const fmt = (n: number | null | undefined, decimals = 2) => {
@@ -35,8 +36,27 @@ export default async function HeavyOilModelDPage(props: PageProps) {
     );
   }
 
-  const scenario = await prisma.scenario.findUnique({
-    where: { id: Number(scenarioId) },
+  // ⭐ LOAD AUTHENTICATED USER
+  const user = await getUserFromSession();
+  if (!user) {
+    return (
+      <main className="min-h-screen bg-gray-50 p-8">
+        <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold mb-4">
+            Heavy Oil Diluent Optimization – Part D: Physical Blend
+          </h1>
+          <p className="text-red-600">Unauthorized.</p>
+          <a href="/models" className="mt-4 inline-block text-blue-600 underline">
+            ← Back to Models
+          </a>
+        </div>
+      </main>
+    );
+  }
+
+  // ⭐ SECURE SCENARIO LOOKUP
+  const scenario = await prisma.scenario.findFirst({
+    where: { id: Number(scenarioId), userId: user.id },
     include: { month: true },
   });
 
@@ -59,6 +79,7 @@ export default async function HeavyOilModelDPage(props: PageProps) {
   const inputs = await prisma.heavyOilInputs.findUnique({
     where: { id: scenario.inputsId },
   });
+
 
   const monthly = scenario.month;
 
