@@ -1,10 +1,8 @@
 // app/agents/sulcan-agent.ts
 
-import { createAgent } from "next/agents";
+import { createAgent } from "@vercel/agents";
 import fs from "fs";
 import path from "path";
-
-// ⭐ You MUST import your models
 import { myCondensateModel } from "@/app/lib/models/condensate";
 import { myHeavyBlendModel } from "@/app/lib/models/heavyBlend";
 
