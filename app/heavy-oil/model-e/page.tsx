@@ -1,6 +1,7 @@
 // app/heavy-oil/model-e/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/auth";   // ⭐ ADDED
 import {
   heavy_oil_conversion_factor,
   light_oil_conversion_factor,
@@ -42,13 +43,31 @@ export default async function HeavyOilModelEPage(props: PageProps) {
     );
   }
 
-  const scenario = await prisma.scenario.findUnique({
-    where: { id: Number(scenarioId) },
-    include: {
-  month: true,
-  results: true,   // ⭐ REQUIRED
-},
+  // ⭐ LOAD AUTHENTICATED USER
+  const user = await getUserFromSession();
+  if (!user) {
+    return (
+      <main className="min-h-screen bg-gray-50 p-8">
+        <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold mb-4">
+            Heavy Oil Diluent Optimization – Part E: Butane & Condensate Net Sales
+          </h1>
+          <p className="text-red-600">Unauthorized.</p>
+          <a href="/models" className="mt-4 inline-block text-blue-600 underline">
+            ← Back to Models
+          </a>
+        </div>
+      </main>
+    );
+  }
 
+  // ⭐ SECURE SCENARIO LOOKUP
+  const scenario = await prisma.scenario.findFirst({
+    where: { id: Number(scenarioId), userId: user.id },
+    include: {
+      month: true,
+      results: true,   // ⭐ KEEP THIS
+    },
   });
 
   if (!scenario) {
@@ -88,6 +107,7 @@ export default async function HeavyOilModelEPage(props: PageProps) {
       </main>
     );
   }
+
 
   const monthly = scenario.month;
 
