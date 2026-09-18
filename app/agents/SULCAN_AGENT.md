@@ -802,6 +802,138 @@ Diluent Fee per m³ Raw Crude
 Raw Crude Volume
 Net Blend Volume
 
+Southern Lights — Stream Overview
+Southern Lights is a pentanes‑plus (C5+) condensate stream originating in the U.S. Midwest and transported northbound into Alberta on the Enbridge Mainline (Line 13) from the Chicago / Flanagan, Illinois region.
+
+Key routing:
+
+Line 13 → Hardisty, Alberta → Edmonton Hub
+
+Delivered into CRW at the Edmonton Terminal on a continuous, rateable basis
+
+Southern Lights is widely used as a premium diluent for heavy‑oil blending due to its extremely light density, high pentane content, and stable supply profile.
+
+1. Physical Properties (Recent & Historical)
+Density & Gravity
+Density: ~660–663 kg/m³
+
+API Gravity: ~81.7–82.8° API
+
+This is one of the lightest condensate streams available in Western Canada, similar to Cochin but slightly lighter.
+
+Sulphur & MCR
+Sulphur: ND (non‑detectable)
+
+Micro Carbon Residue: ND
+
+Southern Lights is effectively sulphur‑free and contains negligible residue — ideal for diluent blending and equalization.
+
+Viscosity
+Viscosity @ 7.5°C: ~0.45–0.49 cSt
+Extremely low viscosity → strong flow improvement for heavy blends.
+
+Sediment
+Sediment: ~13–34 ppmw
+Low sediment content typical of high‑quality condensate.
+
+2. Component Breakdown (GC/FID Vol%)
+Southern Lights is dominated by C5 and C6 hydrocarbons, with moderate C7–C9 fractions and small amounts of C3/C4.
+
+Light Ends (C3–C4)
+C3‑: ~0.03–0.08%
+
+iso‑Butane (iC4): ~0.36–0.54%
+
+n‑Butane (nC4): ~3.16–3.50%
+
+Pentanes (C5)
+iso‑Pentane (iC5): ~25.9–27.1%
+
+n‑Pentane (nC5): ~27.7–28.8%
+
+Pentanes dominate the stream and are the primary diluent components.
+
+Hexanes (C6)
+Hexanes: ~20.1–20.4%
+
+Heptanes (C7)
+Heptanes: ~11.6–12.7%
+
+Octanes (C8)
+Octanes: ~4.5–5.3%
+
+Nonanes (C9)
+Nonanes: ~0.92–1.43%
+
+Decanes (C10)
+Decanes: ~0.80–1.31%
+
+3. Fraction Summaries
+These fractions help characterize volatility and diluent behavior.
+
+C5+: ~96.0–96.3%
+
+C6+: ~40.1–42.6%
+
+C7+: ~19.9–22.5%
+
+C7–C12: ~19.3–22.2%
+
+C12‑: ~98.9–99.7%
+
+C13+: ~0.35–1.11%
+
+Southern Lights is overwhelmingly composed of C5+ hydrocarbons, confirming its role as a premium diluent.
+
+4. Naphthenes & Aromatics
+These components influence solvency, blending behavior, and refinery value.
+
+Methylcyclopentane: ~2.7–3.1%
+
+Benzene: ~0.62–0.73%
+
+Cyclohexane: ~1.9–2.1%
+
+Methylcyclohexane: ~1.8–2.1%
+
+Toluene: ~0.60–0.64%
+
+Ethylbenzene: ~0.04–0.07%
+
+Xylenes (m&p, o): ~0.18–0.29%
+
+Trimethylbenzene: ~0.07–0.12%
+
+BTEX Total: ~1.59–1.64%
+Typical for high‑quality condensate.
+
+5. Trace Sulphur (ASTM D5623)
+Although bulk sulphur is ND, trace mercaptans are present:
+
+Volatile Mercaptans
+~19.7–28.6 mass ppm total
+Includes ethanethiol, propanethiols, butanethiols.
+
+C7+ Mercaptans
+~26.9–35.9 mass ppm
+
+These trace sulphur species are important for odor, handling, and pipeline specifications but do not materially affect equalization.
+
+6. Key Takeaways for Sulcan Labs Agent
+Southern Lights is a premium-quality condensate with extremely light density (~660 kg/m³).
+
+High C5+ content (~96%) makes it ideal for heavy oil diluent blending.
+
+Negligible sulphur and residue → minimal equalization penalties.
+
+Low viscosity → strong flow improvement for heavy blends.
+
+Moderate C4 content (~3.4–3.5%) → relevant for butane penalty calculations.
+
+Stable supply from U.S. Midwest → predictable monthly economics.
+
+BTEX and mercaptans present but within typical condensate ranges.
+
 Cochin Condensate — Stream Overview
 Cochin condensate is a pentanes‑plus (C5+) stream originating in the U.S. Midwest and transported into the Fort Saskatchewan, Alberta region via the Pembina Cochin pipeline system.
 It is delivered on a continuous, rateable basis to condensate handling facilities in the Fort Sask area.

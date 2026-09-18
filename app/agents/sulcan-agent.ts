@@ -4,6 +4,10 @@ import { createAgent } from "next/agents";
 import fs from "fs";
 import path from "path";
 
+// ⭐ You MUST import your models
+import { myCondensateModel } from "@/app/lib/models/condensate";
+import { myHeavyBlendModel } from "@/app/lib/models/heavyBlend";
+
 export const sulcanAgent = createAgent({
   id: "sulcan-agent",
   name: "Sulcan Labs Heavy Oil & Condensate Agent",
@@ -11,38 +15,38 @@ export const sulcanAgent = createAgent({
     path.join(process.cwd(), "app/agents/SULCAN_AGENT.md"),
     "utf8"
   ),
-  tools: {
-  condensateCalc: {
-    description: "Calculate condensate EQ, shrinkage, landed cost, etc.",
-    parameters: {
-      type: "object",
-      properties: {
-        density: { type: "number" },
-        sulphur: { type: "number" },
-        c5: { type: "number" },
-        // etc...
-      },
-      required: ["density"]
-    },
-    execute: async ({ density, sulphur }) => {
-      return await myCondensateModel(density, sulphur);
-    }
-  },
 
-  heavyOilBlend: {
-    description: "Blend heavy streams and compute density, sulphur, shrinkage.",
-    parameters: {
-      type: "object",
-      properties: {
-        streams: { type: "array", items: { type: "string" } },
-        volumes: { type: "array", items: { type: "number" } }
+  tools: {
+    condensateCalc: {
+      description: "Calculate condensate EQ, shrinkage, landed cost, etc.",
+      parameters: {
+        type: "object",
+        properties: {
+          density: { type: "number" },
+          sulphur: { type: "number" },
+          c5: { type: "number" }
+        },
+        required: ["density"]
       },
-      required: ["streams", "volumes"]
+      execute: async ({ density, sulphur, c5 }) => {
+        return await myCondensateModel(density, sulphur, c5);
+      }
     },
-    execute: async ({ streams, volumes }) => {
-      return await myHeavyBlendModel(streams, volumes);
+
+    heavyOilBlend: {
+      description: "Blend heavy streams and compute density, sulphur, shrinkage.",
+      parameters: {
+        type: "object",
+        properties: {
+          streams: { type: "array", items: { type: "string" } },
+          volumes: { type: "array", items: { type: "number" } }
+        },
+        required: ["streams", "volumes"]
+      },
+      execute: async ({ streams, volumes }) => {
+        return await myHeavyBlendModel(streams, volumes);
+      }
     }
   }
-}
-
 });
+
