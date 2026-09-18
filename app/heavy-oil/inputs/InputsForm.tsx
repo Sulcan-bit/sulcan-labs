@@ -271,8 +271,7 @@ function normalizeLsdNumber(value: string): string {
     const formatted: InputsFormType = {};
 
     for (const [key, value] of Object.entries(data as Record<string, string | number | null>)) {
-  formatted[key] =
-    typeof value === "number" ? value.toFixed(2) : value;
+  formatted[key] = value;
 }
 
 
