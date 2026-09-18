@@ -1,6 +1,7 @@
 // app/heavy-oil/model-b/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import { getUserFromSession } from "@/lib/auth";   // ⭐ ADDED
 const fmt = (n: number | null | undefined, decimals = 2) => {
   if (typeof n !== "number") return "-";
   return n.toLocaleString("en-CA", {
@@ -9,7 +10,6 @@ const fmt = (n: number | null | undefined, decimals = 2) => {
   });
 };
 
-
 type PageProps = {
   searchParams: Promise<{ scenarioId?: string }>;
 };
@@ -17,8 +17,6 @@ type PageProps = {
 export default async function ApiShrinkagePage(props: PageProps) {
   const searchParams = await props.searchParams;
   const scenarioId = searchParams?.scenarioId;
-
-
 
   if (!scenarioId) {
     return (
@@ -36,8 +34,27 @@ export default async function ApiShrinkagePage(props: PageProps) {
     );
   }
 
-  const scenario = await prisma.scenario.findUnique({
-    where: { id: Number(scenarioId) },
+  // ⭐ LOAD AUTHENTICATED USER
+  const user = await getUserFromSession();
+  if (!user) {
+    return (
+      <main className="min-h-screen bg-gray-50 p-8">
+        <div className="bg-white p-8 rounded shadow max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold mb-4">
+            Heavy Oil Diluent Optimization – Part B: API 12.3 Shrinkage
+          </h1>
+          <p className="text-red-600">Unauthorized.</p>
+          <a href="/models" className="mt-4 inline-block text-blue-600 underline">
+            ← Back to Models
+          </a>
+        </div>
+      </main>
+    );
+  }
+
+  // ⭐ SECURE SCENARIO LOOKUP
+  const scenario = await prisma.scenario.findFirst({
+    where: { id: Number(scenarioId), userId: user.id },
     include: {
       month: true,
     },
@@ -60,9 +77,8 @@ export default async function ApiShrinkagePage(props: PageProps) {
   }
 
   const inputs = await prisma.heavyOilInputs.findUnique({
-  where: { id: scenario.inputsId },
-});
-
+    where: { id: scenario.inputsId },
+  });
 
   if (!inputs) {
     return (
@@ -81,6 +97,7 @@ export default async function ApiShrinkagePage(props: PageProps) {
       </main>
     );
   }
+
 
   // Raw crude inputs
   const producerVolumeM3 = inputs.producer_volume_m3 ?? 0; // RAW CRUDE OIL volume
