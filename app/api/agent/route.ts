@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       instructions = "You are Sulcan AI.";
     }
 
-    // ⭐ UPDATED DEPLOYMENT NAME ⭐
-    const url = `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/sulcan-gpt41-mini/chat/completions?api-version=2024-02-01`;
+    // ⭐ FOUNDARY ENDPOINT ⭐
+    const url = "https://info-1412-resource.services.ai.azure.com/openai/v1/responses";
 
     const response = await fetch(url, {
       method: "POST",
@@ -30,7 +30,8 @@ export async function POST(req: Request) {
         "api-key": process.env.AZURE_OPENAI_KEY || ""
       },
       body: JSON.stringify({
-        messages: [
+        model: "sulcan-gpt41-mini",
+        input: [
           { role: "system", content: instructions },
           ...messages
         ]
@@ -39,31 +40,22 @@ export async function POST(req: Request) {
 
     const data = await response.json();
 
-    // If Azure returned an error
     if (!response.ok) {
-      console.error("Azure OpenAI Error:", data);
+      console.error("Foundry Error:", data);
       return Response.json({
         message: {
           role: "assistant",
-          content: `Azure error: ${data.error?.message || "Unknown error"}`
+          content: `Foundry error: ${data.error?.message || "Unknown error"}`
         }
       });
     }
 
-    // If choices[] is missing
-    if (!data.choices || !data.choices[0]) {
-      console.error("Azure returned no choices:", data);
-      return Response.json({
-        message: {
-          role: "assistant",
-          content: "Azure returned no choices. Check deployment name and endpoint."
-        }
-      });
-    }
-
-    // Normal success
+    // Foundry returns: { output: "..." }
     return Response.json({
-      message: data.choices[0].message
+      message: {
+        role: "assistant",
+        content: data.output
+      }
     });
 
   } catch (err) {
@@ -76,8 +68,3 @@ export async function POST(req: Request) {
     });
   }
 }
-
-
-
-
-
