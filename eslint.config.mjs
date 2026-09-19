@@ -6,7 +6,9 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
 
+  // ⭐ Overrides MUST include a "files" matcher in Flat Config
   {
+    files: ["**/*.{ts,tsx,js,jsx}"],
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "warn",
@@ -24,4 +26,5 @@ const eslintConfig = defineConfig([
 ]);
 
 export default eslintConfig;
+
 
