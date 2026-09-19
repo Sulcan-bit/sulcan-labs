@@ -27,6 +27,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Accept": "application/json",
         "api-key": process.env.AZURE_OPENAI_KEY || ""
       },
       body: JSON.stringify({
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
       });
     }
 
-    // Foundry returns: { output: "..." }
+    // ⭐ Foundry returns: { output: "..." }
     return Response.json({
       message: {
         role: "assistant",
@@ -68,3 +69,9 @@ export async function POST(req: Request) {
     });
   }
 }
+
+
+
+
+
+
