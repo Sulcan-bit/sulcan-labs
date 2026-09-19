@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": process.env.AZURE_OPENAI_KEY
+        "api-key": process.env.AZURE_OPENAI_KEY as string
       },
       body: JSON.stringify({
         messages: [
@@ -35,5 +35,6 @@ export async function POST(req: Request) {
     message: data.choices[0].message
   });
 }
+
 
 
