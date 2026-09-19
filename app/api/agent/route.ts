@@ -20,7 +20,8 @@ export async function POST(req: Request) {
       instructions = "You are Sulcan AI.";
     }
 
-    const url = `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/gpt-4o-mini/chat/completions?api-version=2024-02-01`;
+    // ⭐ UPDATED DEPLOYMENT NAME ⭐
+    const url = `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/sulcan-gpt41-mini/chat/completions?api-version=2024-02-01`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -75,6 +76,7 @@ export async function POST(req: Request) {
     });
   }
 }
+
 
 
 
