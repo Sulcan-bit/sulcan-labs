@@ -1,4 +1,4 @@
-const nextConfig: NextConfig = {
+const nextConfig = {
   experimental: {},
   eslint: {
     ignoreDuringBuilds: true,
@@ -6,5 +6,6 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
 
 
