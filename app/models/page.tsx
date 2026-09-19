@@ -1,6 +1,7 @@
 // app/models/page.tsx
 
 import Link from "next/link";
+export const revalidate = 0;
 
 export default function ModelsPage() {
   return (
