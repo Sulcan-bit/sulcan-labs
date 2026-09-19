@@ -23,29 +23,39 @@ export default function ModelsPage() {
 
         {/* Model Links */}
         <div className="flex flex-col gap-4 mb-10">
-          <Link
-            href="/heavy-oil"
-            prefetch={false}
-            className="block p-4 rounded bg-black text-white text-center"
-          >
-            Heavy Oil Diluent Optimization
-          </Link>
+  <Link
+    href="/heavy-oil"
+    prefetch={false}
+    className="block p-4 rounded bg-black text-white text-center"
+  >
+    Heavy Oil Diluent Optimization
+  </Link>
 
-          <Link
-            href="/condensate"
-            prefetch={false}
-            className="block p-4 rounded bg-gray-700 text-white text-center"
-          >
-            Condensate Comparison Model
-          </Link>
+  <Link
+    href="/condensate"
+    prefetch={false}
+    className="block p-4 rounded bg-gray-700 text-white text-center"
+  >
+    Condensate Comparison Model
+  </Link>
 
-          <Link
-            href="/wti-futures"
-            className="block p-4 rounded bg-gray-800 text-white text-center"
-          >
-            WTI Futures Curve (3-Year)
-          </Link>
-        </div>
+  <Link
+    href="/wti-futures"
+    className="block p-4 rounded bg-gray-800 text-white text-center"
+  >
+    WTI Futures Curve (3-Year)
+  </Link>
+
+  {/* ⭐ Add this */}
+  <Link
+    href="/sulcan-ai"
+    prefetch={false}
+    className="block p-4 rounded bg-indigo-600 text-white text-center"
+  >
+    Sulcan AI Agent
+  </Link>
+</div>
+
 
         {/* Support & Feedback */}
         <div className="pt-6 border-t border-gray-200">
