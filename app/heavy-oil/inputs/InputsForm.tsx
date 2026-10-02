@@ -264,8 +264,9 @@ function normalizeCondensateChoice(choice: string) {
   }
 
   // ⭐ Normalize condensate index choice before running model
-  const normalized = normalizeCondensateChoice(form.condensate_index_choice ?? "");
-  updateField("condensate_index_choice", normalized);
+  const normalized = normalizeCondensateChoice(String(form.condensate_index_choice ?? ""));
+updateField("condensate_index_choice", normalized);
+
 
   router.push(`/heavy-oil/model-a?scenarioId=${form.scenarioId}`);
 }
