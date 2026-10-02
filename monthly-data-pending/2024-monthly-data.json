@@ -27,11 +27,7 @@
   "peace_c5_stream_price_cad_m3": 623.97,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -2.47,
   "crw_c5_enb_wadf_cad_m3": -6.12,
-  "crw_c5_par_base_price_usd_bbl": 70.67,
-  "crw_c5_par_base_price_cad_m3": 596.99,
-  "crw_c5_stream_price_cad_m3": 603.11,
 
   "c5_density_slope_cad_m3_per_kg_m3": 0.38,
   "c5_allow_price_cad_m3": 602.94,
@@ -86,9 +82,9 @@
   "cwh_price_usd_bbl": null,
   "cwh_price_cad_m3": null,
 
-  "llb_diff_usd_bbl": -19.86,
-  "llb_price_usd_bbl": 54.00,
-  "llb_price_cad_m3": 455.97,
+  "llb_diff_usd_bbl": -19.83,
+  "llb_price_usd_bbl": 456.45,
+  "llb_price_cad_m3": 54.03,
 
   "wcb_diff_usd_bbl": -19.58,
   "wcb_price_usd_bbl": null,
@@ -123,11 +119,7 @@
   "peace_c5_stream_price_cad_m3": 650.92,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -4.49,
   "crw_c5_enb_wadf_cad_m3": -4.90,
-  "crw_c5_par_base_price_usd_bbl": 71.54,
-  "crw_c5_par_base_price_cad_m3": 607.87,
-  "crw_c5_stream_price_cad_m3": 612.77,
 
   "c5_density_slope_cad_m3_per_kg_m3": 0.31,
   "c5_allow_price_cad_m3": 614.06,
@@ -182,9 +174,9 @@
   "cwh_price_usd_bbl": null,
   "cwh_price_cad_m3": null,
 
-  "llb_diff_usd_bbl": -18.58,
-  "llb_price_usd_bbl": 58.03,
-  "llb_price_cad_m3": 492.82,
+  "llb_diff_usd_bbl": -18.46,
+  "llb_price_usd_bbl": 494.08,
+  "llb_price_cad_m3": 58.15,
 
   "wcb_diff_usd_bbl": -18.21,
   "wcb_price_usd_bbl": null,
@@ -219,13 +211,9 @@
   "peace_c5_stream_price_cad_m3": 685.01,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -5.15,
   "crw_c5_enb_wadf_cad_m3": -4.37,
-  "crw_c5_par_base_price_usd_bbl": 74.75,
-  "crw_c5_par_base_price_cad_m3": 636.77,
-  "crw_c5_stream_price_cad_m3": 641.14,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.30,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.31,
   "c5_allow_price_cad_m3": 642.78,
 
   "wcs_diff_usd_bbl": -19.13,
@@ -278,9 +266,9 @@
   "cwh_price_usd_bbl": null,
   "cwh_price_cad_m3": null,
 
-  "llb_diff_usd_bbl": -18.99,
-  "llb_price_usd_bbl": 61.42,
-  "llb_price_cad_m3": 522.98,
+  "llb_diff_usd_bbl": -18.86,
+  "llb_price_usd_bbl": 524.34,
+  "llb_price_cad_m3": 61.55,
 
   "wcb_diff_usd_bbl": -18.61,
   "wcb_price_usd_bbl": null,
@@ -315,13 +303,9 @@
   "peace_c5_stream_price_cad_m3": 726.24,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -2.42,
   "crw_c5_enb_wadf_cad_m3": -5.31,
-  "crw_c5_par_base_price_usd_bbl": 81.35,
-  "crw_c5_par_base_price_cad_m3": 700.10,
-  "crw_c5_stream_price_cad_m3": 705.41,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.27,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.29,
   "c5_allow_price_cad_m3": 701.26,
 
   "wcs_diff_usd_bbl": -15.76,
@@ -374,15 +358,14 @@
   "cwh_price_usd_bbl": null,
   "cwh_price_cad_m3": null,
 
-  "llb_diff_usd_bbl": -15.67,
-  "llb_price_usd_bbl": 68.72,
-  "llb_price_cad_m3": 591.10,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 593.02,
+  "llb_price_cad_m3": 68.91,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "May",
@@ -411,13 +394,9 @@
   "peace_c5_stream_price_cad_m3": 676.29,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -4.22,
   "crw_c5_enb_wadf_cad_m3": -4.27,
-  "crw_c5_par_base_price_usd_bbl": 73.90,
-  "crw_c5_par_base_price_cad_m3": 635.72,
-  "crw_c5_stream_price_cad_m3": 639.99,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.16,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.17,
   "c5_allow_price_cad_m3": 636.91,
 
   "wcs_diff_usd_bbl": -13.07,
@@ -470,15 +449,14 @@
   "cwh_price_usd_bbl": 567.03,
   "cwh_price_cad_m3": 65.95,
 
-  "llb_diff_usd_bbl": -12.97,
-  "llb_price_usd_bbl": 65.65,
-  "llb_price_cad_m3": 564.45,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 543.13,
+  "llb_price_cad_m3": 63.14,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Jun",
@@ -507,11 +485,7 @@
   "peace_c5_stream_price_cad_m3": 678.86,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -3.71,
   "crw_c5_enb_wadf_cad_m3": -3.77,
-  "crw_c5_par_base_price_usd_bbl": 74.55,
-  "crw_c5_par_base_price_cad_m3": 643.09,
-  "crw_c5_stream_price_cad_m3": 646.86,
 
   "c5_density_slope_cad_m3_per_kg_m3": 0.16,
   "c5_allow_price_cad_m3": 647.46,
@@ -566,15 +540,14 @@
   "cwh_price_usd_bbl": 573.08,
   "cwh_price_cad_m3": 66.47,
 
-  "llb_diff_usd_bbl": -11.94,
-  "llb_price_usd_bbl": 66.76,
-  "llb_price_cad_m3": 575.58,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 545.33,
+  "llb_price_cad_m3": 63.22,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Jul",
@@ -603,11 +576,7 @@
   "peace_c5_stream_price_cad_m3": 694.34,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -3.70,
   "crw_c5_enb_wadf_cad_m3": -3.74,
-  "crw_c5_par_base_price_usd_bbl": 76.35,
-  "crw_c5_par_base_price_cad_m3": 658.67,
-  "crw_c5_stream_price_cad_m3": 662.41,
 
   "c5_density_slope_cad_m3_per_kg_m3": 0.18,
   "c5_allow_price_cad_m3": 660.47,
@@ -662,15 +631,14 @@
   "cwh_price_usd_bbl": 579.83,
   "cwh_price_cad_m3": 67.24,
 
-  "llb_diff_usd_bbl": -13.15,
-  "llb_price_usd_bbl": 67.33,
-  "llb_price_cad_m3": 580.63,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 560.79,
+  "llb_price_cad_m3": 65.00,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Aug",
@@ -699,13 +667,9 @@
   "peace_c5_stream_price_cad_m3": 647.83,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -4.23,
   "crw_c5_enb_wadf_cad_m3": -3.68,
-  "crw_c5_par_base_price_usd_bbl": 70.77,
-  "crw_c5_par_base_price_cad_m3": 607.81,
-  "crw_c5_stream_price_cad_m3": 611.49,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.20,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.19,
   "c5_allow_price_cad_m3": 609.77,
 
   "wcs_diff_usd_bbl": -14.06,
@@ -758,15 +722,14 @@
   "cwh_price_usd_bbl": 525.28,
   "cwh_price_cad_m3": 61.19,
 
-  "llb_diff_usd_bbl": -14.30,
-  "llb_price_usd_bbl": 61.13,
-  "llb_price_cad_m3": 524.76,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 514.88,
+  "llb_price_cad_m3": 59.95,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Sep",
@@ -795,13 +758,9 @@
   "peace_c5_stream_price_cad_m3": 564.08,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": -2.42,
   "crw_c5_enb_wadf_cad_m3": -4.17,
-  "crw_c5_par_base_price_usd_bbl": 66.46,
-  "crw_c5_par_base_price_cad_m3": 566.64,
-  "crw_c5_stream_price_cad_m3": 570.81,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.21,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.22,
   "c5_allow_price_cad_m3": 567.55,
 
   "wcs_diff_usd_bbl": -13.51,
@@ -854,15 +813,14 @@
   "cwh_price_usd_bbl": 475.52,
   "cwh_price_cad_m3": 55.80,
 
-  "llb_diff_usd_bbl": -13.48,
-  "llb_price_usd_bbl": 55.89,
-  "llb_price_cad_m3": 476.26,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 459.47,
+  "llb_price_cad_m3": 53.89,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Oct",
@@ -891,11 +849,7 @@
   "peace_c5_stream_price_cad_m3": 619.53,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": 0.14,
   "crw_c5_enb_wadf_cad_m3": -3.41,
-  "crw_c5_par_base_price_usd_bbl": 71.30,
-  "crw_c5_par_base_price_cad_m3": 617.30,
-  "crw_c5_stream_price_cad_m3": 620.71,
 
   "c5_density_slope_cad_m3_per_kg_m3": 0.29,
   "c5_allow_price_cad_m3": null,
@@ -950,15 +904,14 @@
   "cwh_price_usd_bbl": 500.60,
   "cwh_price_cad_m3": 57.85,
 
-  "llb_diff_usd_bbl": -13.89,
-  "llb_price_usd_bbl": 57.67,
-  "llb_price_cad_m3": 499.02,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 485.51,
+  "llb_price_cad_m3": 56.08,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Nov",
@@ -987,13 +940,9 @@
   "peace_c5_stream_price_cad_m3": 611.60,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": 0.86,
   "crw_c5_enb_wadf_cad_m3": -3.73,
-  "crw_c5_par_base_price_usd_bbl": 69.98,
-  "crw_c5_par_base_price_cad_m3": 615.42,
-  "crw_c5_stream_price_cad_m3": 619.15,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.25,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.26,
   "c5_allow_price_cad_m3": null,
 
   "wcs_diff_usd_bbl": -12.01,
@@ -1046,15 +995,14 @@
   "cwh_price_usd_bbl": 506.25,
   "cwh_price_cad_m3": 57.59,
 
-  "llb_diff_usd_bbl": -12.13,
-  "llb_price_usd_bbl": 57.41,
-  "llb_price_cad_m3": 504.67,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 475.45,
+  "llb_price_cad_m3": 54.06,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,
   "wcb_price_cad_m3": null
 },
-
 {
   "year": 2024,
   "month": "Dec",
@@ -1083,13 +1031,9 @@
   "peace_c5_stream_price_cad_m3": 624.62,
   "peace_c5_to_wti_pct": null,
 
-  "crw_c5_diff_usd_bbl": 1.37,
   "crw_c5_enb_wadf_cad_m3": -4.29,
-  "crw_c5_par_base_price_usd_bbl": 70.59,
-  "crw_c5_par_base_price_cad_m3": 632.63,
-  "crw_c5_stream_price_cad_m3": 636.92,
 
-  "c5_density_slope_cad_m3_per_kg_m3": 0.28,
+  "c5_density_slope_cad_m3_per_kg_m3": 0.25,
   "c5_allow_price_cad_m3": null,
 
   "wcs_diff_usd_bbl": -11.95,
@@ -1142,9 +1086,9 @@
   "cwh_price_usd_bbl": 518.26,
   "cwh_price_cad_m3": 57.86,
 
-  "llb_diff_usd_bbl": -11.97,
-  "llb_price_usd_bbl": 57.73,
-  "llb_price_cad_m3": 517.08,
+  "llb_diff_usd_bbl": -15.48,
+  "llb_price_usd_bbl": 485.89,
+  "llb_price_cad_m3": 54.22,
 
   "wcb_diff_usd_bbl": -15.23,
   "wcb_price_usd_bbl": null,

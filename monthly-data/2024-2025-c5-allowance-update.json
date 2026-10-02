@@ -1,0 +1,18 @@
+[
+  { "year": 2024, "month": "Oct", "c5_allow_price_cad_m3": 616.20 },
+  { "year": 2024, "month": "Nov", "c5_allow_price_cad_m3": 611.65 },
+  { "year": 2024, "month": "Dec", "c5_allow_price_cad_m3": 628.18 },
+
+  { "year": 2025, "month": "Jan", "c5_allow_price_cad_m3": 674.85 },
+  { "year": 2025, "month": "Feb", "c5_allow_price_cad_m3": 631.11 },
+  { "year": 2025, "month": "Mar", "c5_allow_price_cad_m3": 586.83 },
+  { "year": 2025, "month": "Apr", "c5_allow_price_cad_m3": 532.55 },
+  { "year": 2025, "month": "May", "c5_allow_price_cad_m3": 523.58 },
+  { "year": 2025, "month": "Jun", "c5_allow_price_cad_m3": 599.99 },
+  { "year": 2025, "month": "Jul", "c5_allow_price_cad_m3": 573.53 },
+  { "year": 2025, "month": "Aug", "c5_allow_price_cad_m3": 533.03 },
+  { "year": 2025, "month": "Sep", "c5_allow_price_cad_m3": 537.03 },
+  { "year": 2025, "month": "Oct", "c5_allow_price_cad_m3": 508.40 },
+  { "year": 2025, "month": "Nov", "c5_allow_price_cad_m3": 503.29 },
+  { "year": 2025, "month": "Dec", "c5_allow_price_cad_m3": 483.49 }
+]

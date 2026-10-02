@@ -1,0 +1,98 @@
+[
+  {
+    "year": 2025,
+    "month": "Jan",
+    "crw_c5_diff_usd_bbl": -0.00,
+    "crw_c5_par_base_price_usd_bbl": 74.68,
+    "crw_c5_par_base_price_cad_m3": 676.14,
+    "crw_c5_stream_price_cad_m3": 679.88
+  },
+  {
+    "year": 2025,
+    "month": "Feb",
+    "crw_c5_diff_usd_bbl": -1.08,
+    "crw_c5_par_base_price_usd_bbl": 69.64,
+    "crw_c5_par_base_price_cad_m3": 626.65,
+    "crw_c5_stream_price_cad_m3": 631.07
+  },
+  {
+    "year": 2025,
+    "month": "Mar",
+    "crw_c5_diff_usd_bbl": -2.47,
+    "crw_c5_par_base_price_usd_bbl": 65.05,
+    "crw_c5_par_base_price_cad_m3": 587.71,
+    "crw_c5_stream_price_cad_m3": 591.54
+  },
+  {
+    "year": 2025,
+    "month": "Apr",
+    "crw_c5_diff_usd_bbl": -1.91,
+    "crw_c5_par_base_price_usd_bbl": 60.78,
+    "crw_c5_par_base_price_cad_m3": 535.05,
+    "crw_c5_stream_price_cad_m3": 537.45
+  },
+  {
+    "year": 2025,
+    "month": "May",
+    "crw_c5_diff_usd_bbl": -0.44,
+    "crw_c5_par_base_price_usd_bbl": 60.06,
+    "crw_c5_par_base_price_cad_m3": 523.82,
+    "crw_c5_stream_price_cad_m3": 527.65
+  },
+  {
+    "year": 2025,
+    "month": "Jun",
+    "crw_c5_diff_usd_bbl": 2.39,
+    "crw_c5_par_base_price_usd_bbl": 69.28,
+    "crw_c5_par_base_price_cad_m3": 596.07,
+    "crw_c5_stream_price_cad_m3": 599.90
+  },
+  {
+    "year": 2025,
+    "month": "Jul",
+    "crw_c5_diff_usd_bbl": -0.32,
+    "crw_c5_par_base_price_usd_bbl": 66.48,
+    "crw_c5_par_base_price_cad_m3": 572.69,
+    "crw_c5_stream_price_cad_m3": 576.52
+  },
+  {
+    "year": 2025,
+    "month": "Aug",
+    "crw_c5_diff_usd_bbl": -2.60,
+    "crw_c5_par_base_price_usd_bbl": 60.98,
+    "crw_c5_par_base_price_cad_m3": 529.58,
+    "crw_c5_stream_price_cad_m3": 533.41
+  },
+  {
+    "year": 2025,
+    "month": "Sep",
+    "crw_c5_diff_usd_bbl": -1.95,
+    "crw_c5_par_base_price_usd_bbl": 61.14,
+    "crw_c5_par_base_price_cad_m3": 532.14,
+    "crw_c5_stream_price_cad_m3": 535.97
+  },
+  {
+    "year": 2025,
+    "month": "Oct",
+    "crw_c5_diff_usd_bbl": -2.01,
+    "crw_c5_par_base_price_usd_bbl": 57.62,
+    "crw_c5_par_base_price_cad_m3": 507.27,
+    "crw_c5_stream_price_cad_m3": 511.10
+  },
+  {
+    "year": 2025,
+    "month": "Nov",
+    "crw_c5_diff_usd_bbl": -2.03,
+    "crw_c5_par_base_price_usd_bbl": 57.01,
+    "crw_c5_par_base_price_cad_m3": 504.30,
+    "crw_c5_stream_price_cad_m3": 508.13
+  },
+  {
+    "year": 2025,
+    "month": "Dec",
+    "crw_c5_diff_usd_bbl": -1.63,
+    "crw_c5_par_base_price_usd_bbl": 55.93,
+    "crw_c5_par_base_price_cad_m3": 485.83,
+    "crw_c5_stream_price_cad_m3": 488.50
+  }
+]

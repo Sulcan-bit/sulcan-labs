@@ -56,7 +56,12 @@ model MonthlyData {
   peace_c5_stream_price_cad_m3      Float?
   peace_c5_to_wti_pct               Float?
   kaps_c5_diff_usd_bbl              Float?
+  crw_c5_diff_usd_bbl               Float?
+  crw_c5_par_base_price_usd_bbl     Float?
+  crw_c5_par_base_price_cad_m3      Float?
+  crw_c5_stream_price_cad_m3        Float?
   crw_c5_enb_wadf_cad_m3            Float?
+
   c5_density_slope_cad_m3_per_kg_m3 Float?
   c5_allow_price_cad_m3             Float?
   wcs_diff_usd_bbl                  Float?

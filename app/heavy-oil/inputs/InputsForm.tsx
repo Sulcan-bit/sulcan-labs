@@ -174,6 +174,19 @@ function normalizeLsdNumber(value: string): string {
   return cleaned === "" ? "0" : cleaned;
 }
 
+function normalizeCondensateChoice(choice: string) {
+  if (!choice) return "";
+
+  const c = choice.trim().toUpperCase();
+
+  if (c.includes("CRW")) return "CRW";
+  if (c.includes("FTSK")) return "FTSK";
+  if (c.includes("PEACE")) return "PEACE_C5";
+
+  return "OTHER";
+}
+
+
  function updateField(field: string, value: string | number | null) {
   const lsdFields = ["lsd", "section", "township", "range"];
 
@@ -245,12 +258,18 @@ function normalizeLsdNumber(value: string): string {
   // Run Model
   // ------------------------------------------------------------
   function runModel() {
-    if (!form.scenarioId) {
-      setMessage("Please save inputs before running the model.");
-      return;
-    }
-    router.push(`/heavy-oil/model-a?scenarioId=${form.scenarioId}`);
+  if (!form.scenarioId) {
+    setMessage("Please save inputs before running the model.");
+    return;
   }
+
+  // ⭐ Normalize condensate index choice before running model
+  const normalized = normalizeCondensateChoice(form.condensate_index_choice ?? "");
+  updateField("condensate_index_choice", normalized);
+
+  router.push(`/heavy-oil/model-a?scenarioId=${form.scenarioId}`);
+}
+
 
   // ------------------------------------------------------------
   // Load previous dataset
